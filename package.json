@@ -1,10 +1,10 @@
 {
   "name": "old-mmo-friends",
   "version": "1.0.0",
-  "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js --exec babel-node -e js"
   },
   "repository": {
     "type": "git",
@@ -17,7 +17,17 @@
   },
   "homepage": "https://github.com/cnsaavedra/old-mmo-friends#readme",
   "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-preset-env": "^1.7.0",
+    "babel-preset-stage-0": "^6.24.1",
+    "body-parser": "*",
+    "consolidate": "*",
     "express": "^4.16.4",
-    "mysql": "^2.16.0"
-  }
+    "express-vue": "^5.8.2",
+    "mysql": "^2.16.0",
+    "nodemon": "^1.18.9",
+    "pg": "*",
+    "vue": "^2.6.9"
+  },
+  "description": ""
 }
