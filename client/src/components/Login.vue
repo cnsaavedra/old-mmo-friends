@@ -54,7 +54,10 @@ export default {
                     username: this.username,
                     password: this.password
                 })
-                console.log(response.data)
+                //call action using dispatch
+                //call stores setToken method, which calls mutation setToken which updates state to token
+                this.$store.dispatch('setToken', response.data.token)
+                this.$store.dispatch('setUser', response.data.user)
             } catch (error) {
                 this.error = error.response.data.error
             }
