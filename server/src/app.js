@@ -13,6 +13,7 @@ app.use(cors())
 //routes file returns a function for us, where we pass in app, and detach all end points into that express application variable
 require('./routes')(app)
 
+// add in {force: Ttrue} to clean databse inside sync
 sequelize.sync()
     .then(() => {
         app.listen(config.port)
