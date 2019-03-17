@@ -13,11 +13,13 @@ export default new Vuex.Store({
         // in order for token to change, must be invoking mutation
         // in order to invoke mutation, need to invoke action typically
         token: null,
-        user: null
+        user: null,
+        isUserLoggedIn: false
     },
     mutations: {
         setToken (state, token) {
             state.token = token
+            state.isUserLoggedIn = !!(token)
         },
         setUser (state, user) {
             state.user = user
