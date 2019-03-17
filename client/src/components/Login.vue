@@ -28,7 +28,7 @@
                     <br>
                     <v-btn color="info"
                         class = "blue"
-                        @click="register">
+                        @click="login">
                         LOGIN
                     </v-btn>
                 </div>
@@ -48,9 +48,9 @@ export default {
         }
     },
     methods: {
-        async register () {
+        async login () {
             try {
-                const response = await AuthenticationService.register({
+                const response = await AuthenticationService.login({
                     username: this.username,
                     password: this.password
                 })
