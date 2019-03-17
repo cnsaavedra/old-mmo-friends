@@ -1,29 +1,46 @@
 <template>
-    <div>
-        <h1>Register</h1>
-        <input
-            type="email"
-            name="email"
-            v-model="email"
-            placeholder="Email" />
-        <br>
-        <input
-            type="username"
-            name="username"
-            v-model="username"
-            placeholder="Username" />
-        <br>
-        <input
-            type="password"
-            name="password"
-            v-model="password"
-            placeholder="Password" />
-        <br>
-        <button
-            @click="register">
-            Find Your Friends!
-        </button>
-    </div>
+    <v-layout column>
+        <v-container align-center>
+            <div class ="white elevation-2">
+                <v-toolbar flat dense class ="black" dark>
+                    <v-toolbar-title>Register</v-toolbar-title>
+                </v-toolbar>
+                <div class = 'pl-4 pr-4 pt-2 pb-2'>
+                    <v-flex xs6 offset-xs3>
+                        <v-text-field
+                            type="email"
+                            name="email"
+                            v-model="email"
+                            placeholder="Email"
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 offset-xs3>
+                        <v-text-field
+                            type="username"
+                            name="username"
+                            v-model="username"
+                            placeholder="Username"
+                        ></v-text-field>
+                    </v-flex>
+                    <v-flex xs6 offset-xs3>
+                        <v-text-field
+                            type="password"
+                            name="password"
+                            v-model="password"
+                            placeholder="Password"
+                        ></v-text-field>
+                    </v-flex>
+                    <div class="error" v-html="error" />
+                    <br>
+                    <v-btn
+                        class = "grey"
+                        @click="register">
+                        Find Your Friends!
+                    </v-btn>
+                </div>
+            </div>
+        </v-container>
+    </v-layout>
 </template>
 
 <script>
@@ -33,17 +50,22 @@ export default {
         return {
             email: '',
             username: '',
-            password: ''
+            password: '',
+            error: null
         }
     },
     methods: {
         async register () {
-            const response = await AuthenticationService.register({
-                email: this.email,
-                username: this.username,
-                password: this.password
-            })
-            console.log(response.data)
+            try {
+                const response = await AuthenticationService.register({
+                    email: this.email,
+                    username: this.username,
+                    password: this.password
+                })
+                console.log(response.data)
+            } catch (error) {
+                this.error = error.response.data.error
+            }
         }
     }
 }
@@ -61,9 +83,13 @@ export default {
     //         this.email=''
     //     }, 2000)
 
+
+//style scoped only affects this template
 </script>
 
 <style scoped>
-
+.error{
+    color: red
+}
 </style>
 
