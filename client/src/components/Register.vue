@@ -6,30 +6,34 @@
                     <v-toolbar-title>Register</v-toolbar-title>
                 </v-toolbar>
                 <div class = 'pl-4 pr-4 pt-2 pb-2'>
-                    <v-flex xs6 offset-xs3>
-                        <v-text-field
-                            type="email"
-                            name="email"
-                            v-model="email"
-                            placeholder="Email"
-                        ></v-text-field>
+                    <form
+                        name="mmo-friend-finder-form"
+                        autocomplete="off">
+                        <v-flex xs6 offset-xs3>
+                            <v-text-field
+                                type="email"
+                                name="email"
+                                v-model="email"
+                                placeholder="Email"
+                            ></v-text-field>
+                        </v-flex>
+                        <v-flex xs6 offset-xs3>
+                            <v-text-field
+                                type="username"
+                                name="username"
+                                v-model="username"
+                                placeholder="Username"
+                            ></v-text-field>
+                        </v-flex>
+                        <v-flex xs6 offset-xs3>
+                            <v-text-field
+                                type="password"
+                                name="password"
+                                v-model="password"
+                                placeholder="Password"
+                            ></v-text-field>
                     </v-flex>
-                    <v-flex xs6 offset-xs3>
-                        <v-text-field
-                            type="username"
-                            name="username"
-                            v-model="username"
-                            placeholder="Username"
-                        ></v-text-field>
-                    </v-flex>
-                    <v-flex xs6 offset-xs3>
-                        <v-text-field
-                            type="password"
-                            name="password"
-                            v-model="password"
-                            placeholder="Password"
-                        ></v-text-field>
-                    </v-flex>
+                    </form>
                     <div class="error" v-html="error" >
                     </div>
                     <!-- <div class="error" v-html="error" /> -->
