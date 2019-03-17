@@ -1,4 +1,15 @@
 const {User} = require('../models')
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
+
+// FOR TOKENS
+function jwtSignUser (user) {
+    // 60 seconds 60 minutes 24 hours 7 days
+    const ONE_WEEK = 60 * 60 * 24 * 7
+    return jwt.sign(user, config.authentication.jwtSecret, {
+        expiresIn: ONE_WEEK
+    })
+}
 
 module.exports = {
     // only care about express endpoint/middleware, the callback function

@@ -10,5 +10,11 @@ module.exports = {
             host: process.env.HOST || 'localhost',
             port: '5433'
         }
+    },
+    authentication: {
+        // used for signing jwt token, need a secret string.
+        // secret is only known by server
+        // used to determine if jwt token is valid or not
+        jwtSecret: process.env.JWT_SECRET || 'secret'
     }
 }
