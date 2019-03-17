@@ -3,17 +3,9 @@
         <v-container align-center>
             <div class ="white elevation-2">
                 <v-toolbar flat dense class dark>
-                    <v-toolbar-title>Register</v-toolbar-title>
+                    <v-toolbar-title>Login</v-toolbar-title>
                 </v-toolbar>
                 <div class = 'pl-4 pr-4 pt-2 pb-2'>
-                    <v-flex xs6 offset-xs3>
-                        <v-text-field
-                            type="email"
-                            name="email"
-                            v-model="email"
-                            placeholder="Email"
-                        ></v-text-field>
-                    </v-flex>
                     <v-flex xs6 offset-xs3>
                         <v-text-field
                             type="username"
@@ -37,7 +29,7 @@
                     <v-btn color="info"
                         class = "blue"
                         @click="register">
-                        Find Your Friends!
+                        LOGIN
                     </v-btn>
                 </div>
             </div>
@@ -50,7 +42,6 @@ import AuthenticationService from '@/services/AuthenticationService'
 export default {
     data () {
         return {
-            email: '',
             username: '',
             password: '',
             error: null
@@ -60,7 +51,6 @@ export default {
         async register () {
             try {
                 const response = await AuthenticationService.register({
-                    email: this.email,
                     username: this.username,
                     password: this.password
                 })
@@ -71,22 +61,6 @@ export default {
         }
     }
 }
-
-    //demonstrates two-way data binding
-    // watch: {
-    //     email(value) {
-    //         console.log('email has changed value', value)
-    //     }
-    // },
-    // shows data model view changes with mount & did it with setTimeOut
-    // demonstrates input boxes two way binding
-    // mounted() {
-    //     setTimeout(() => {
-    //         this.email=''
-    //     }, 2000)
-
-
-//style scoped only affects this template
 </script>
 
 <style scoped>
