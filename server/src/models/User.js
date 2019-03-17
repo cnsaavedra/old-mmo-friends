@@ -34,6 +34,7 @@ module.exports = (sequelize, DataTypes) =>{
         password: DataTypes.STRING
     }, {
         //callback functions, before we store user we hash password
+        //removed 2 hooks, beforeCreate and beforeUpdate as it double hashes wrongly for login
         hooks: {
             beforeSave: hashPassword
         }
