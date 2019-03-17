@@ -40,7 +40,8 @@ module.exports = {
                 })
             }
 
-            const isPasswordValid = password === user.password
+            //await since returning a promise
+            const isPasswordValid = await user.comparePassword(password)
             if(!isPasswordValid){
                 return res.status(403).send({
                     error: 'The login information was correct'
@@ -48,7 +49,8 @@ module.exports = {
             }
             const userJSON = user.toJSON()
             res.send({
-                user: userJSON
+                user: userJSON,
+                token: jwtSignUser(userJSON)
             })
         } catch (err) {
             // Since we have unique as True in our User model 
