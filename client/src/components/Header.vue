@@ -34,6 +34,13 @@
                 @click="navigateTo({name: 'register'})">
                 Sign-Up
             </v-btn>
+            <v-btn
+                v-if="$store.state.isUserLoggedIn"
+                flat
+                dark
+                @click="logout">
+                Logout
+            </v-btn>
             <!-- SINCE WE DON'T WANT TO wrap the link with some dumb hyperlink-->
             <!-- <router-link to="home">Home</router-link> -->
         </v-toolbar-items>
@@ -45,7 +52,18 @@ export default {
     methods: {
         navigateTo (route) {
             this.$router.push(route)
+        },
+        logout () {
+            // store.dispatch inside action creators
+            // since we're setting it to null, member in store
+            this.$store.dispatch('setToken', null)
+            this.$store.dispatch('setUser', null)
+            // goes to main page after logout
+            this.$router.push({
+                name: 'root'
+            })
         }
+
     }
 }
 </script>
