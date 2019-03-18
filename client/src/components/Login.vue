@@ -58,6 +58,10 @@ export default {
                 //call stores setToken method, which calls mutation setToken which updates state to token
                 this.$store.dispatch('setToken', response.data.token)
                 this.$store.dispatch('setUser', response.data.user)
+                // go to my profile
+                this.$router.push({
+                    name: 'profile'
+                })
             } catch (error) {
                 this.error = error.response.data.error
             }
