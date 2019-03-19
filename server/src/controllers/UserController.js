@@ -62,5 +62,37 @@ module.exports = {
                 error: 'An error has occured trying to login.'
             })
         }
+    },
+    async getUserName (req, res) {
+        try{
+            const user = await User.create(req.body)
+            const userJSON = user.toJSON()
+            res.send({
+                user: userJSON,
+                token: jwtSignUser(userJSON)
+            })
+        } catch (err) {
+            // Since we have unique as True in our User model 
+            res.status(400).send({
+                error: 'This email account is already in use.'
+            })
+            // email already exist
+        }
+    },
+    async getGames (req, res) {
+        try{
+            const user = await User.create(req.body)
+            const userJSON = user.toJSON()
+            res.send({
+                user: userJSON,
+                token: jwtSignUser(userJSON)
+            })
+        } catch (err) {
+            // Since we have unique as True in our User model 
+            res.status(400).send({
+                error: 'This email account is already in use.'
+            })
+            // email already exist
+        }
     }
 }

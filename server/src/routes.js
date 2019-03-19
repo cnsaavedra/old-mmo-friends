@@ -1,5 +1,5 @@
-const AutenthicationController = require('./controllers/AuthenticationController')
-
+const AuthenticationController = require('./controllers/AuthenticationController')
+const UserController = require('./controllers/UserController')
 // acts as the middleware function before we hit controller (whichever middleware we defined)
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
 
@@ -10,8 +10,15 @@ const AuthenticationControllerPolicy = require('./policies/AuthenticationControl
 module.exports = (app) => {
     app.post('/register', 
         AuthenticationControllerPolicy.register,
-        AutenthicationController.register)
+        AuthenticationController.register)
 
     app.post('/login', 
-        AutenthicationController.login)    
+        AuthenticationController.login)
+
+    app.get('/username', 
+        UserController.getUserName)    
+
+    app.get('/games', 
+        UserController.getGames)    
 }
+
