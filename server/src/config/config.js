@@ -8,7 +8,9 @@ module.exports = {
         options:{
             dialect: process.env.DIALECT || 'postgres',
             host: process.env.HOST || 'localhost',
-            port: '5433'
+            // change back to 5433 if on desktop
+            // 5432 if on laptop
+            port: '5432'
         }
     },
     authentication: {
