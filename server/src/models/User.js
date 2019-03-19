@@ -31,7 +31,6 @@ module.exports = (sequelize, DataTypes) =>{
             type: DataTypes.STRING,
             unique: true
         },
-        game: DataTypes.STRING,
         password: DataTypes.STRING
     }, {
         //callback functions, before we store user we hash password

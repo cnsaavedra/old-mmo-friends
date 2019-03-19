@@ -1,4 +1,5 @@
 const {User} = require('../models')
+const {Game} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -65,34 +66,63 @@ module.exports = {
     },
     async getUserName (req, res) {
         try{
-            const user = await User.create(req.body)
-            const userJSON = user.toJSON()
-            res.send({
-                user: userJSON,
-                token: jwtSignUser(userJSON)
-            })
+            const user = await User.findById(req.params.username)
+            res.send(user)
         } catch (err) {
             // Since we have unique as True in our User model 
             res.status(400).send({
-                error: 'This email account is already in use.'
+                error: 'User cannot be found/show'
             })
             // email already exist
         }
     },
+    //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------
     async getGames (req, res) {
-        try{
-            const user = await User.create(req.body)
-            const userJSON = user.toJSON()
-            res.send({
-                user: userJSON,
-                token: jwtSignUser(userJSON)
+        try {
+            let games = null
+            const search = req.query.search
+            if (search) {
+                games = await Game.findAll({
+                where: {
+                    $or: [
+                    'ign', 'game'
+                    ].map(key => ({
+                    [key]: {
+                        $like: `%${search}%`
+                    }
+                    }))
+                }
+                })
+            } else {
+                games = await Game.findAll({
+                limit: 10
+                })
+            }
+            res.send(games)
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to fetch the games'
             })
-        } catch (err) {
-            // Since we have unique as True in our User model 
-            res.status(400).send({
-                error: 'This email account is already in use.'
-            })
-            // email already exist
         }
-    }
+    },
+    async show (req, res) {
+        try {
+          const game = await Game.findById(req.params.gameId)
+          res.send(game)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to show the game'
+          })
+        }
+      },
+    async post (req, res) {
+        try {
+          const game = await Game.create(req.body)
+          res.send(game)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to create the game'
+          })
+        }
+      }
 }
