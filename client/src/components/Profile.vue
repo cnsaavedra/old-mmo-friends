@@ -18,6 +18,8 @@
 
 <script>
 import Panel from '@/components/Panel'
+import UserService from '@/services/UserService'
+
 export default {
     components: {
         Panel
@@ -28,8 +30,10 @@ export default {
             gamenames: null
         }
     },
-    mounted () {
+    async mounted () {
         // do request for backend for username and gamenames from user
+        this.username = await UserService.getUserName()
+        this.gamenames = await UserService.getGames()
     }
 }
 </script>
