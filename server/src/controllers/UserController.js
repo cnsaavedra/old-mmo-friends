@@ -66,8 +66,17 @@ module.exports = {
     },
     async getUserName (req, res) {
         try{
-            const user = await User.findById(req.params.username)
-            res.send(user)
+            const {username} = req.body
+            const user = await User.findOne({
+                where:{
+                    username: username
+                }
+            })
+            const userJSON = user.toJSON()
+            res.send({
+                user: userJSON,
+                token: jwtSignUser(userJSON)
+            })
         } catch (err) {
             // Since we have unique as True in our User model 
             res.status(400).send({

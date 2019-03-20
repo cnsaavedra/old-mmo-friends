@@ -32,8 +32,8 @@ export default {
     },
     async mounted () {
         // do request for backend for username and gamenames from user
-        this.username = await UserService.getUserName()
-        this.gamenames = await UserService.getGames()
+        this.username = (await UserService.getUserName()).data
+        this.gamenames = (await UserService.getGames()).data
     }
 }
 </script>
