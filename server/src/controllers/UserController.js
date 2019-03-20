@@ -66,7 +66,8 @@ module.exports = {
     },
     async getUserName (req, res) {
         try{
-            const {username} = req.body
+            // thank you for sequelize makes SQL much easier
+            const username = req.body.username
             const user = await User.findOne({
                 where:{
                     username: username
@@ -79,10 +80,9 @@ module.exports = {
             })
         } catch (err) {
             // Since we have unique as True in our User model 
-            res.status(400).send({
-                error: 'User cannot be found/show'
+            res.status(500).send({
+                error: 'An error has occured trying to login.'
             })
-            // email already exist
         }
     },
     //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------

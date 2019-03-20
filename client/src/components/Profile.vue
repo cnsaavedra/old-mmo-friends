@@ -26,13 +26,13 @@ export default {
     },
     data () {
         return {
-            username: null,
-            gamenames: null
+            username: '',
+            gamenames: ''
         }
     },
     async mounted () {
         // do request for backend for username and gamenames from user
-        this.username = (await UserService.getUserName()).data
+        this.username = (await UserService.getUserName()).response.data.user
         this.gamenames = (await UserService.getGames()).data
     }
 }
