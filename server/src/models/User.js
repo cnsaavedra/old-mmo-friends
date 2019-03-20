@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) =>{
             type: DataTypes.STRING,
             unique: true
         },
-        password: DataTypes.STRING
+        password: DataTypes.STRING,
     }, {
         //callback functions, before we store user we hash password
         //removed 2 hooks, beforeCreate and beforeUpdate as it double hashes wrongly for login
@@ -46,6 +46,5 @@ module.exports = (sequelize, DataTypes) =>{
     User.prototype.comparePassword = function (password) {
         return bcrypt.compareAsync(password, this.password)
     }
-
     return User
 }

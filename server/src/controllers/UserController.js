@@ -85,7 +85,7 @@ module.exports = {
                 games = await Game.findAll({
                 where: {
                     $or: [
-                    'ign', 'game'
+                    'ign', 'game', 'user'
                     ].map(key => ({
                     [key]: {
                         $like: `%${search}%`

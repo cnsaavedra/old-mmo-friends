@@ -14,7 +14,7 @@ app.use(cors())
 require('./routes')(app)
 
 // add in {force: true} to clean databse inside sync
-sequelize.sync({force: true})
+sequelize.sync({force: false})
     .then(() => {
         app.listen(config.port)
         console.log(`Server started on Port ${config.port}`)
