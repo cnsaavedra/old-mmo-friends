@@ -4,14 +4,11 @@
         delimiter-icon="stop"
         prev-icon="mdi-arrow-left"
         next-icon="mdi-arrow-right"
-    >
+        :style="{'height': this.carouselHeight}">
         <v-carousel-item
-            v-for="(item,i) in items"
-            :key="i"
-            :src="item.src"
-        >
-        </v-carousel-item>
-
+        v-for="(item, i) in items"
+        :key="i" style="height: auto"
+        :src="item.src"></v-carousel-item>
     </v-carousel>
 
     <v-timeline>
@@ -154,25 +151,35 @@
 
 <script>
 export default {
-  name: 'HelloWorld',
-  data () {
+    name: 'HelloWorld',
+    data () {
     return {
-      msg: 'Enjoy your time!',
-      items: [
-          {
-              src: 'https://s3.amazonaws.com/ext-asset/fb-image.jpg'
-          },
-          {
-              src: 'https://www.idcgames.com/media_xml/mediaFiles/wallpaper-16071418042016-1920x1080.jpg'
-          },
-          {
-            src: 'https://1.bp.blogspot.com/-sp9QgSc5UyY/WvRTpdXNGUI/AAAAAAAAC6g/xcFvfrzT11AzGUKDgabCC7zRhWKy5IuRACLcBGAs/s1600/lineage-2-revolution-mobile-mmorpg-lancamento-1440x500.png'
-          },
-          {
-            src: 'http://www.oddonegames.com/home/wp-content/uploads/2017/02/S-1.jpg'
-          }
-        ]
+        carouselHeight: 0,
+        msg: 'Enjoy your time!',
+        items: [
+            {
+                src: 'https://s3.amazonaws.com/ext-asset/fb-image.jpg'
+            },
+            {
+                src: 'https://www.idcgames.com/media_xml/mediaFiles/wallpaper-16071418042016-1920x1080.jpg'
+            },
+            {
+                src: 'https://1.bp.blogspot.com/-sp9QgSc5UyY/WvRTpdXNGUI/AAAAAAAAC6g/xcFvfrzT11AzGUKDgabCC7zRhWKy5IuRACLcBGAs/s1600/lineage-2-revolution-mobile-mmorpg-lancamento-1440x500.png'
+            },
+            {
+                src: 'http://www.oddonegames.com/home/wp-content/uploads/2017/02/S-1.jpg'
+            }
+            ]
+        }
+    },
+    methods: {
+        getCarouselHeight () {
+            var item = document.getElementsByClassName('v-image__image--cover')
+            this.carouselHeight = item[0].clientHeight + 'px'
+        }
+    },
+    mounted () {
+        this.getCarouselHeight()
     }
-  }
 }
 </script>
