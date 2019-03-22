@@ -65,26 +65,15 @@ module.exports = {
         }
     },
     async getUserName (req, res) {
-        try{
-            // thank you for sequelize makes SQL much easier
-            const username = req.body.username
-            const user = await User.findOne({
-                where:{
-                    username: username
-                }
-            })
-            const userJSON = user.toJSON()
-            res.send({
-                user: userJSON,
-                token: jwtSignUser(userJSON)
-            })
+        try {
+          const username = await User.findById(req.params.username)
+          res.send(username)
         } catch (err) {
-            // Since we have unique as True in our User model 
-            res.status(500).send({
-                error: 'An error has occured trying to login.'
-            })
+          res.status(500).send({
+            error: 'an error has occured trying to show the username'
+          })
         }
-    },
+      },
     //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------
     async getGames (req, res) {
         try {

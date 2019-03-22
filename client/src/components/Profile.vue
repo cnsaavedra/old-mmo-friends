@@ -30,10 +30,16 @@ export default {
             gamenames: ''
         }
     },
+    computed: {
+    ...mapState([
+      'user',
+      'route'
+    ])
+  },
     async mounted () {
         // do request for backend for username and gamenames from user
-        this.username = (await UserService.getUserName()).response.data.user
-        this.gamenames = (await UserService.getGames()).data
+        const userID = this.route.params.id
+        this.song = (await SongsService.show(songId)).data
     }
 }
 </script>
