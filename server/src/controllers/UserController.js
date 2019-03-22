@@ -66,14 +66,19 @@ module.exports = {
     },
     async getUserName (req, res) {
         try {
-          const username = await User.findById(req.params.username)
-          res.send(username)
-        } catch (err) {
-          res.status(500).send({
-            error: 'an error has occured trying to show the username'
-          })
-        }
-      },
+            const userID = req.body.id
+            const user = await User.findOne({
+                where:{
+                    id : userID
+                }
+            })
+            res.send(user.username)
+            } catch (err) {
+                res.status(500).send({
+                error: 'an error has occured trying to show the name'
+            })
+            }
+    },
     //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------
     async getGames (req, res) {
         try {

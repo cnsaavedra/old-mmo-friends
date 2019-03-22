@@ -26,20 +26,19 @@ export default {
     },
     data () {
         return {
-            username: '',
+            username: {},
             gamenames: ''
         }
     },
-    computed: {
-    ...mapState([
-      'user',
-      'route'
-    ])
-  },
     async mounted () {
         // do request for backend for username and gamenames from user
-        const userID = this.route.params.id
-        this.song = (await SongsService.show(songId)).data
+        try {
+        const userID = this.$store.state.user.id
+        console.log(userID)
+        this.username = (await UserService.getUserName(userID)).data
+        } catch (err) {
+        console.log(err)
+        }
     }
 }
 </script>

@@ -10,7 +10,7 @@ module.exports = {
             host: process.env.HOST || 'localhost',
             // change back to 5433 if on desktop
             // 5432 if on laptop
-            port: '5433'
+            port: '5432'
         }
     },
     authentication: {
