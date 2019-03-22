@@ -37,7 +37,7 @@ export default {
         // do request for backend for username and gamenames from user
         try {
         const userID = this.$store.state.user.id
-        console.log(userID)
+        //console.log(userID)
         this.username = (await UserService.getUserName(userID)).data
         } catch (err) {
         console.log(err)
