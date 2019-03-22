@@ -16,7 +16,7 @@ module.exports = (app) => {
     app.post('/login', 
         AuthenticationController.login)
 
-    app.get('/username', 
+    app.get('/username/:id', 
         UserController.getUserName)    
 
     app.get('/games', 

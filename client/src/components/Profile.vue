@@ -1,9 +1,10 @@
 <template>
     <v-layout column>
         <v-flex xs6>
-            <panel username="User">
-                {{username}}
+            <panel user="User">
+                {{user.username}}
             </panel>
+
             <panel gamenames="Games">
                 <!-- unique identifier for gamename is ign -->
                 <div v-for="gamename in gamenames"
@@ -26,7 +27,9 @@ export default {
     },
     data () {
         return {
-            username: {},
+            user: {
+                username: null
+            },
             gamenames: ''
         }
     },
