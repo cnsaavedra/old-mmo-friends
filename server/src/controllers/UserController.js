@@ -64,21 +64,31 @@ module.exports = {
             })
         }
     },
-    async getUserName (req, res) {
-        try {
-            const userID = req.body.id
-            const user = await User.findOne({
-                where:{
-                    id : userID
-                }
-            })
-            res.send(user.username)
-            } catch (err) {
-                res.status(500).send({
-                error: 'an error has occured trying to show the name'
-            })
-            }
-    },
+     async getUserName (req, res) {
+         try {
+             const userID = req.params.id
+             const user = await User.findOne({
+                 where:{
+                     id : userID
+                 }
+             })
+             res.send(user.username)
+             } catch (err) {
+                 res.status(500).send({
+                 error: 'an error has occured trying to show the name'
+             })
+             }
+     },
+    // async getUserName (req, res) {
+    //     try {
+    //         const user = await User.findById(req.params.id)
+    //         res.send(user)
+    //     } catch (err) {
+    //         res.status(500).send({
+    //         error: 'an error has occured trying to show the songs'
+    //         })
+    //     }
+    // },
     //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------
     async getGames (req, res) {
         try {
