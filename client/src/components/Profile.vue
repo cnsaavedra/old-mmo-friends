@@ -2,7 +2,7 @@
     <v-layout column>
         <v-flex xs6>
             <panel user="User">
-                {{user.username}}
+                {{username}}
             </panel>
             <panel gamenames="Games">
                 <!-- unique identifier for gamename is ign -->
@@ -23,9 +23,7 @@ import UserService from '@/services/UserService'
 export default {
     data () {
         return {
-            user: {
-                username: ''
-            },
+            username: {},
             gamenames: ''
         }
     },
@@ -33,7 +31,7 @@ export default {
         // do request for backend for username and gamenames from user
         try {
         const userID = this.$store.state.user.id
-        console.log(userID)
+        //console.log(userID)
         this.username = (await UserService.getUserName(userID)).data
         //console.log(this.username)
         } catch (err) {
