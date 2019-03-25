@@ -8,8 +8,8 @@
                 <!-- unique identifier for gamename is ign -->
                 <div v-for="gamename in gamenames"
                     :key="gamename.ign">
-                    {{gamename.game}}:
-                    {{gamename.ign}}
+                    {{gamenames}}:
+                    {{gamename}}
                 </div>
             </panel>
         </v-flex>
@@ -23,7 +23,7 @@ import UserService from '@/services/UserService'
 export default {
     data () {
         return {
-            username: {},
+            username: '',
             gamenames: ''
         }
     },
