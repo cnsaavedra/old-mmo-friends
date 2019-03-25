@@ -4,7 +4,6 @@
             <panel user="User">
                 {{user.username}}
             </panel>
-
             <panel gamenames="Games">
                 <!-- unique identifier for gamename is ign -->
                 <div v-for="gamename in gamenames"
@@ -22,13 +21,10 @@ import Panel from '@/components/Panel'
 import UserService from '@/services/UserService'
 
 export default {
-    components: {
-        Panel
-    },
     data () {
         return {
             user: {
-                username: null
+                username: ''
             },
             gamenames: ''
         }
@@ -37,11 +33,15 @@ export default {
         // do request for backend for username and gamenames from user
         try {
         const userID = this.$store.state.user.id
-        //console.log(userID)
+        console.log(userID)
         this.username = (await UserService.getUserName(userID)).data
+        //console.log(this.username)
         } catch (err) {
         console.log(err)
         }
+    },
+    components: {
+        Panel
     }
 }
 </script>
