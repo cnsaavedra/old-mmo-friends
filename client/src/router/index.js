@@ -28,6 +28,11 @@ export default new Router({
       path: '/profile',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/profile:id',
+      name: 'profile',
+      component: Profile
     }
   ]
 })
