@@ -12,8 +12,11 @@
             <v-btn flat dark>
                 Games
             </v-btn>
-            <v-btn flat dark>
-                Friends
+            <v-btn
+                flat
+                dark
+                @click="navigateTo({name: 'users'})">
+                UserList
             </v-btn>
         </v-toolbar-items>
 

@@ -64,6 +64,35 @@ module.exports = {
             })
         }
     },
+    async index (req, res) {
+            try {
+            let usernames = null
+            const search = req.query.search
+            if (search) {
+                usernames = await User.findAll({
+                where: {
+                    $or: [
+                    'username'
+                    ].map(key => ({
+                    [key]: {
+                        $like: `%${search}%`
+                    }
+                    }))
+                }
+                })
+            } else {
+                usernames = await User.findAll({
+                    limit: 10,
+                    attributes: ['username']
+                })
+            }
+            res.send(usernames)
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to fetch the users'
+            })
+        }
+    },
      async getUserName (req, res) {
          try {
              const name = req.params.username

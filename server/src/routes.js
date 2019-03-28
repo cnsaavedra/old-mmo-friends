@@ -24,5 +24,8 @@ module.exports = (app) => {
         
     app.post('/games', 
         UserController.post)    
+    
+    app.get('/users',
+        UserController.index)
 }
 

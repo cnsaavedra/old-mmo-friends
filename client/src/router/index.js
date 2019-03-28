@@ -4,6 +4,7 @@ import MainPage from '@/components/MainPage'
 import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Profile from '@/components/Profile'
+import UserList from '@/components/UserList'
 
 Vue.use(Router)
 
@@ -33,6 +34,11 @@ export default new Router({
       path: '/profile/:username',
       name: 'profile',
       component: Profile
+    },
+    {
+      path: '/users',
+      name: 'users',
+      component: UserList
     }
   ]
 })
