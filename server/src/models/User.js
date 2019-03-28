@@ -32,6 +32,7 @@ module.exports = (sequelize, DataTypes) =>{
             unique: true
         },
         password: DataTypes.STRING,
+        gameid: DataTypes.INTEGER
     }, {
         //callback functions, before we store user we hash password
         //removed 2 hooks, beforeCreate and beforeUpdate as it double hashes wrongly for login

@@ -31,5 +31,10 @@ Games.belongsTo(User,{
     targetKey:'userid'
 })
 
+User.hasMany(Games,{
+    foreignKey:'userid',
+    targetKey: 'gameid'
+})
+
 
 module.exports = db
