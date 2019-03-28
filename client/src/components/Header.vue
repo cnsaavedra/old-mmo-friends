@@ -38,7 +38,7 @@
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
-                @click="navigateTo({name: 'profile'})">
+                @click="myprofile">
                 My Profile
             </v-btn>
             <v-btn
@@ -56,6 +56,12 @@
 
 <script>
 export default {
+    data () {
+        return {
+            username: '',
+            error: null
+        }
+    },
     methods: {
         navigateTo (route) {
             this.$router.push(route)
@@ -69,8 +75,18 @@ export default {
             this.$router.push({
                 name: 'root'
             })
+        },
+        async myprofile () {
+            try {
+                // go to my profile
+                this.$router.push({
+                    name: `profile`,
+                    params: {username: this.$store.state.user.username}
+                })
+            } catch (error) {
+                this.error = error.response.data.error
+            }
         }
-
     }
 }
 </script>
