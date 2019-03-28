@@ -30,7 +30,7 @@ export default new Router({
     //   component: Profile
     // },
     {
-      path: '/profile/:id',
+      path: '/profile/:username',
       name: 'profile',
       component: Profile
     }

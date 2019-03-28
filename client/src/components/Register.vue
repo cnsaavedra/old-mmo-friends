@@ -72,7 +72,7 @@ export default {
                 this.$store.dispatch('setUser', response.data.user)
                 this.$router.push({
                     name: `profile`,
-                    params: {id: response.data.user.id}
+                    params: {username: response.data.user.username}
                 })
             } catch (error) {
                 this.error = error.response.data.error

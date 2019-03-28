@@ -1,8 +1,8 @@
 import Api from '@/services/Api'
 
 export default {
-    getUserName (id) {
-        return Api().get(`profile/${id}`)
+    getUserName (username) {
+        return Api().get(`profile/${username}`)
     },
     getGames () {
         return Api().get('games')

@@ -85,9 +85,9 @@ export default {
     async mounted () {
         // do request for backend for username and gamenames from user
         try {
-        const userID = this.$store.state.user.id
+        const name = this.$store.state.route.params.username
         //console.log(userID)
-        this.username = (await UserService.getUserName(userID)).data
+        this.username = (await UserService.getUserName(name)).data
         //console.log(this.username)
         } catch (err) {
         console.log(err)

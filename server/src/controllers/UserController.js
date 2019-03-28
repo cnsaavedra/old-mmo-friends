@@ -66,10 +66,10 @@ module.exports = {
     },
      async getUserName (req, res) {
          try {
-             const userID = req.params.id
+             const name = req.params.username
              const user = await User.findOne({
                  where:{
-                     id : userID
+                     username : name
                  }
              })
              res.send(user.username)
