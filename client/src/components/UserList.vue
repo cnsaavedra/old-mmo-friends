@@ -34,5 +34,9 @@ export default {
 </script>
 
 <style scoped>
-
+.users {
+  padding: 20px;
+  height: 330px;
+  overflow: hidden;
+}
 </style>
