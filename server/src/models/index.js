@@ -11,8 +11,7 @@ const sequelize = new Sequelize(
     config.db.password,
     config.db.options
 )
-const Games = sequelize.import(__dirname + '/User.js')
-const User = sequelize.import(__dirname + '/Games.js')
+
 fs
     .readdirSync(__dirname)
     .filter((file) => 
@@ -23,8 +22,11 @@ fs
         db[model.name] = model
     })
 
-Games.belongsTo(User)
-User.hasMany(Games)
+Object.keys(db).forEach(function (modelName) {
+    if ('associate' in db[modelName]) {
+        db[modelName].associate(db)
+    }
+})
 
 db.sequelize = sequelize
 db.Sequelize = Sequelize

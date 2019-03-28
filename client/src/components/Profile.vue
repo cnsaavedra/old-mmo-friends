@@ -5,12 +5,7 @@
                 {{username}}
             </panel>
             <panel gamenames="Games">
-                <!-- unique identifier for gamename is ign -->
-                <div v-for="gamename in gamenames"
-                    :key="gamename.ign">
-                    {{gamenames.ign}}:
-                    {{gamenames.gamename}}
-                </div>
+                {{gamenames}}
             </panel>
             <v-spacer></v-spacer>
             <v-layout row justify-center>
@@ -37,7 +32,7 @@
                             <v-flex xs6 offset-xs3>
                                 <v-text-field
                                     name="gamename"
-                                    v-model="gamenames.gamename"
+                                    v-model="gamenames.game"
                                     placeholder="Game"
                                 ></v-text-field>
                             </v-flex>
@@ -56,14 +51,17 @@
 <script>
 import Panel from '@/components/Panel'
 import UserService from '@/services/UserService'
+import GameService from '@/services/GameService'
 
 export default {
     data () {
         return {
             username: '',
+            userID: '',
             gamenames: {
                 ign: '',
-                gamename: ''
+                game: '',
+                UserId: this.userID
             },
             adder: false,
             adding: false
@@ -72,6 +70,11 @@ export default {
     methods: {
         async add () {
             this.adder = false
+            await GameService.post({
+                ign: this.gamenames.ign,
+                game: this.gamenames.game,
+                UserId: this.userID
+            })
             console.log('Added game.')
             try {
                 if (this.adding === true) {
@@ -86,8 +89,9 @@ export default {
         // do request for backend for username and gamenames from user
         try {
         const name = this.$store.state.route.params.username
-        //console.log(userID)
         this.username = (await UserService.getUserName(name)).data
+        this.userID = this.$store.getters.getUserById
+        console.log(this.userID)
         //console.log(this.username)
         } catch (err) {
         console.log(err)

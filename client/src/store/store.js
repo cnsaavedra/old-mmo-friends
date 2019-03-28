@@ -36,5 +36,10 @@ export default new Vuex.Store({
             // do in here any async logic
             commit('setUser', user)
         }
+    },
+    getters: {
+        getUserById (state) {
+            return state.user.id
+        }
     }
 })
