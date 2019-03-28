@@ -23,18 +23,12 @@ fs
         db[model.name] = model
     })
 
+Games.belongsTo(User)
+User.hasMany(Games)
+
 db.sequelize = sequelize
 db.Sequelize = Sequelize
 
-Games.belongsTo(User,{
-    foreignKey:'id',
-    targetKey:'userid'
-})
-
-User.hasMany(Games,{
-    foreignKey:'userid',
-    targetKey: 'gameid'
-})
 
 
 module.exports = db
