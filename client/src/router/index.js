@@ -24,13 +24,13 @@ export default new Router({
       name: 'login',
       component: Login
     },
+    // {
+    //   path: '/profile',
+    //   name: 'profile',
+    //   component: Profile
+    // },
     {
-      path: '/profile',
-      name: 'profile',
-      component: Profile
-    },
-    {
-      path: '/profile:id',
+      path: '/profile/:id',
       name: 'profile',
       component: Profile
     }

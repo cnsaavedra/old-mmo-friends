@@ -60,7 +60,8 @@ export default {
                 this.$store.dispatch('setUser', response.data.user)
                 // go to my profile
                 this.$router.push({
-                    name: 'profile'
+                    name: `profile`,
+                    params: {id: response.data.user.id}
                 })
             } catch (error) {
                 this.error = error.response.data.error
