@@ -3,6 +3,8 @@
         <v-flex xs6>
             <div user="User">
                 User: {{username}}
+                <v-spacer></v-spacer>
+                Games: {{test}}
             </div>
             <!-- <game-panel game="Games">
             </game-panel> -->
@@ -62,6 +64,7 @@ export default {
                 game: '',
                 UserId: this.userID
             },
+            test: '',
             // for if the user has pressed accept on adding a game
             adder: false,
             adding: false
@@ -94,6 +97,8 @@ export default {
         this.username = (await UserService.getUserName(name)).data
         // used for assigning userid to a game
         this.userID = this.$store.getters.getUserById
+        this.test = (await GameService.getGames(2)).data
+        console.log(this.test)
         } catch (err) {
         console.log(err)
         }

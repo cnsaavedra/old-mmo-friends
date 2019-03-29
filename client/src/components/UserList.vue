@@ -1,9 +1,9 @@
 <template>
     <v-layout column>
         <v-flex xs6>
-            <panel user="UserList">
+            <div user="UserList">
                 {{usernames}}
-            </panel>
+            </div>
         </v-flex>
     </v-layout>
 </template>

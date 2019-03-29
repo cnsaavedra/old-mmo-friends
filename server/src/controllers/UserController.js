@@ -122,17 +122,20 @@ module.exports = {
     async getGames (req, res) {
         try {
             let games = null
-            const userId = req.body.UserId
+            // games = await Game.findAll({
+            //     where: {
+            //         UserId: userId
+            //     }
+            // })
             games = await Game.findAll({
                 where: {
-                    UserId: userId
+                    UserId: req.body.UserId
                 }
             })
-            
             res.send(games)
             } catch (err) {
-            res.status(500).send({
-                error: 'an error has occured trying to fetch the games'
+            res.status(123).send({
+                error: 'an error has occured trying to fetch the games by id'
             })
         }
     },
