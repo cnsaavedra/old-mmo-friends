@@ -129,7 +129,7 @@ module.exports = {
             // })
             games = await Game.findAll({
                 where: {
-                    UserId: req.body.UserId
+                    UserId: req.body
                 }
             })
             res.send(games)

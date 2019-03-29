@@ -90,15 +90,23 @@ export default {
             }
         }
     },
+    watch: {
+        '$route.params.username': {
+            immediate: true,
+            handler (value) {
+                this.username = value
+            }
+        }
+    },
     async mounted () {
         // do request for backend for username and gamenames from user
         try {
-        const name = this.$store.state.route.params.username
-        this.username = (await UserService.getUserName(name)).data
-        // used for assigning userid to a game
-        this.userID = this.$store.getters.getUserById
-        this.test = (await GameService.getGames(2)).data
-        console.log(this.test)
+            const name = this.$store.state.route.params.username
+            this.username = (await UserService.getUserName(name)).data
+            // used for assigning userid to a game
+            this.userID = this.$store.getters.getUserById
+            //this.test = (await GameService.getGames(2)).data
+            //console.log(this.test)
         } catch (err) {
         console.log(err)
         }
