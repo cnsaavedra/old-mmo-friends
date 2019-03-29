@@ -13,6 +13,7 @@
                 <v-dialog v-model="adder" persistent max-width="290">
                     <template v-slot:activator="{ on }">
                         <v-btn
+                            v-if= "isUserProfile()"
                             outline
                             large
                             fab
@@ -88,6 +89,12 @@ export default {
             } catch (err) {
                 console.log(err)
             }
+        },
+        isUserProfile () {
+            if (this.$store.state.route.params.username === null || this.$store.state.user.username === null) {
+                return false
+            }
+            return (this.$store.state.route.params.username === this.$store.state.user.username)
         }
     },
     watch: {
@@ -95,6 +102,7 @@ export default {
             immediate: true,
             handler (value) {
                 this.username = value
+                console.log(this.$store.state.route.params.username === this.$store.state.user.username)
             }
         }
     },
