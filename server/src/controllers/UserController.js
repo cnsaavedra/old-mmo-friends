@@ -122,24 +122,13 @@ module.exports = {
     async getGames (req, res) {
         try {
             let games = null
-            const search = req.query.search
-            if (search) {
-                games = await Game.findAll({
+            const userId = req.body.UserId
+            games = await Game.findAll({
                 where: {
-                    $or: [
-                    'ign', 'game', 'user'
-                    ].map(key => ({
-                    [key]: {
-                        $like: `%${search}%`
-                    }
-                    }))
+                    UserId: userId
                 }
-                })
-            } else {
-                games = await Game.findAll({
-                limit: 10
-                })
-            }
+            })
+            
             res.send(games)
             } catch (err) {
             res.status(500).send({

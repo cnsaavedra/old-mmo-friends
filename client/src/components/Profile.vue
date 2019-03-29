@@ -1,12 +1,11 @@
 <template>
     <v-layout column>
         <v-flex xs6>
-            <panel user="User">
-                {{username}}
-            </panel>
-            <panel gamenames="Games">
-                {{gamenames}}
-            </panel>
+            <div user="User">
+                User: {{username}}
+            </div>
+            <!-- <game-panel game="Games">
+            </game-panel> -->
             <v-spacer></v-spacer>
             <v-layout row justify-center>
                 <v-dialog v-model="adder" persistent max-width="290">
@@ -49,7 +48,7 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import GamePanel from '@/components/GamePanel'
 import UserService from '@/services/UserService'
 import GameService from '@/services/GameService'
 
@@ -63,13 +62,16 @@ export default {
                 game: '',
                 UserId: this.userID
             },
+            // for if the user has pressed accept on adding a game
             adder: false,
             adding: false
         }
     },
     methods: {
+        // adding games for a user
         async add () {
             this.adder = false
+            //adds a game given the params
             await GameService.post({
                 ign: this.gamenames.ign,
                 game: this.gamenames.game,
@@ -90,15 +92,14 @@ export default {
         try {
         const name = this.$store.state.route.params.username
         this.username = (await UserService.getUserName(name)).data
+        // used for assigning userid to a game
         this.userID = this.$store.getters.getUserById
-        console.log(this.userID)
-        //console.log(this.username)
         } catch (err) {
         console.log(err)
         }
     },
     components: {
-        Panel
+        GamePanel
     }
 }
 </script>

@@ -9,13 +9,13 @@
 </template>
 
 <script>
-import Panel from '@/components/Panel'
+import GamePanel from '@/components/GamePanel'
 import UserService from '@/services/UserService'
 import {mapState} from 'vuex'
 
 export default {
     components: {
-        Panel
+        GamePanel
     },
     computed: {
         ...mapState([

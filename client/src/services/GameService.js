@@ -1,15 +1,12 @@
 import Api from '@/services/Api'
 
 export default {
-    index (search) {
+    getGames (userid) {
         return Api().get('games', {
-            params: {
-                search: search
+            body: {
+                UserID: userid
             }
         })
-    },
-    getGames () {
-        return Api().get('games')
     },
     post (game) {
         return Api().post('games', game)

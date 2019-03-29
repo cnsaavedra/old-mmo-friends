@@ -1,5 +1,6 @@
 const AuthenticationController = require('./controllers/AuthenticationController')
 const UserController = require('./controllers/UserController')
+
 //const GamesController = require('./controllers/GamesController')
 // acts as the middleware function before we hit controller (whichever middleware we defined)
 const AuthenticationControllerPolicy = require('./policies/AuthenticationControllerPolicy')
