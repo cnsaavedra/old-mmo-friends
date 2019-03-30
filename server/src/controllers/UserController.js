@@ -127,15 +127,12 @@ module.exports = {
             //     }
             // })
             const UserId = req.body.UserId
-            const games = await Game.findOne({
+            const games = await Game.findAll({
                 where: {
                     UserId: UserId
                 }
             })
-            const gamesJSON = games.toJSON()
-            res.send({
-                game: gamesJSON
-            })
+            res.send(games)
             } catch (err) {
             res.status(123).send({
                 error: 'an error has occured trying to fetch the games by id'

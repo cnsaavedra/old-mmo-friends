@@ -113,7 +113,7 @@ export default {
             this.username = (await UserService.getUserName(name)).data
             // used for assigning userid to a game
             this.userID = this.$store.getters.getUserById
-            this.test = (await GameService.getGames(3)).data
+            // this.test = (await GameService.getGames(3)).data
             console.log(this.test)
         } catch (err) {
         console.log(err)
