@@ -121,18 +121,21 @@ module.exports = {
     //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------
     async getGames (req, res) {
         try {
-            let games = null
             // games = await Game.findAll({
             //     where: {
             //         UserId: userId
             //     }
             // })
-            games = await Game.findAll({
+            const UserId = req.body.UserId
+            const games = await Game.findOne({
                 where: {
-                    UserId: req.body
+                    UserId: UserId
                 }
             })
-            res.send(games)
+            const gamesJSON = games.toJSON()
+            res.send({
+                game: gamesJSON
+            })
             } catch (err) {
             res.status(123).send({
                 error: 'an error has occured trying to fetch the games by id'
@@ -152,7 +155,10 @@ module.exports = {
     async post (req, res) {
         try {
           const game = await Game.create(req.body)
-          res.send(game)
+          const gameJSON = game.toJSON()
+          res.send({
+              game: gameJSON
+          })
         } catch (err) {
           res.status(500).send({
             error: 'an error has occured trying to create the game'

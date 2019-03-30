@@ -102,7 +102,7 @@ export default {
             immediate: true,
             handler (value) {
                 this.username = value
-                console.log(this.$store.state.route.params.username === this.$store.state.user.username)
+                //console.log(this.$store.state.route.params.username === this.$store.state.user.username)
             }
         }
     },
@@ -113,8 +113,8 @@ export default {
             this.username = (await UserService.getUserName(name)).data
             // used for assigning userid to a game
             this.userID = this.$store.getters.getUserById
-            //this.test = (await GameService.getGames(2)).data
-            //console.log(this.test)
+            this.test = (await GameService.getGames(3)).data
+            console.log(this.test)
         } catch (err) {
         console.log(err)
         }
