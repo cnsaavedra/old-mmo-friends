@@ -41,7 +41,9 @@ export default {
         for (var username in this.usernames) {
             if (this.usernames.hasOwnProperty(username)) {
                 console.log(username + '->' + JSON.stringify(this.usernames[username].username))
-                this.names.push(JSON.stringify(this.usernames[username].username))
+                var pushedname = JSON.stringify(this.usernames[username].username)
+                pushedname = pushedname.replace(/"/g, '')
+                this.names.push(pushedname)
             }
         }
     },

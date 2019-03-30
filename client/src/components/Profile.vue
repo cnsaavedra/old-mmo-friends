@@ -91,9 +91,6 @@ export default {
             }
         },
         isUserProfile () {
-            if (this.$store.state.route.params.username === null || this.$store.state.user.username === null) {
-                return false
-            }
             return (this.$store.state.route.params.username === this.$store.state.user.username)
         }
     },
