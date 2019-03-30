@@ -5,7 +5,12 @@
                 dark
                 v-for="(name,index) in names" :key="index"
             >
-            {{name}}
+            <v-btn
+                flat
+                dark
+                @click="userprofile(name)">
+                {{name}}
+            </v-btn>
             </v-list>
         </v-flex>
     </v-layout>
@@ -37,6 +42,22 @@ export default {
             if (this.usernames.hasOwnProperty(username)) {
                 console.log(username + '->' + JSON.stringify(this.usernames[username].username))
                 this.names.push(JSON.stringify(this.usernames[username].username))
+            }
+        }
+    },
+    methods: {
+        navigateTo (route) {
+                this.$router.push(route)
+        },
+         async userprofile (user) {
+            try {
+                // go to my profile
+                this.$router.push({
+                    name: `profile`,
+                    params: {username: user}
+                })
+            } catch (error) {
+                this.error = error.response.data.error
             }
         }
     }
