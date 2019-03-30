@@ -1,9 +1,12 @@
 <template>
     <v-layout column>
         <v-flex xs6>
-            <div user="UserList">
-                {{usernames}}
-            </div>
+            <v-list
+                dark
+                v-for="(name,index) in names" :key="index"
+            >
+            {{name}}
+            </v-list>
         </v-flex>
     </v-layout>
 </template>
@@ -24,13 +27,20 @@ export default {
     },
     data () {
         return {
-        usernames: null
+        usernames: null,
+        names: []
         }
     },
     async mounted () {
         this.usernames = (await UserService.index()).data
+        for (var username in this.usernames) {
+            if (this.usernames.hasOwnProperty(username)) {
+                console.log(username + '->' + JSON.stringify(this.usernames[username].username))
+                this.names.push(JSON.stringify(this.usernames[username].username))
+            }
+        }
     }
-    }
+}
 </script>
 
 <style scoped>

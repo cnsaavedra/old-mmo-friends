@@ -82,7 +82,6 @@ module.exports = {
                 })
             } else {
                 usernames = await User.findAll({
-                    raw: true,
                     attributes: ['username']
                 })
             }
