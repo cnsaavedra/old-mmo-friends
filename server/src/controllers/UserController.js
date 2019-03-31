@@ -147,6 +147,21 @@ module.exports = {
             })
         }
     },
+    // returns UserId
+    async getUserFromIgn (req, res) {
+        try {
+            const ign = await Game.findAll({
+                where: {
+                    ign: req.body.ign
+                }
+            })
+            res.send(ign)
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to fetch the users'
+            })
+        }
+    },
 
     async getGames (req, res) {
         const { Op } = require('sequelize');
