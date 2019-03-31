@@ -9,7 +9,7 @@
                 <v-btn
                     class = "blue"
                     v-if="$store.state.isUserLoggedIn"
-                    @click="notify(ign.ign)">
+                    @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
             </v-list>
@@ -55,6 +55,7 @@ export default {
             igns: null,
             currentUser: '',
             notifiedIgn: '',
+            notifiedUserId: '',
             notifiedUser: '',
             alert: true
         }
@@ -93,13 +94,15 @@ export default {
                 this.error = error.response.data.error
             }
         },
-        async notify (ign) {
+        async notify (ign, UserId) {
             try {
                 this.currentUser = this.$store.state.user.username
                 this.notifiedIgn = ign
-                this.notifiedUser = (await UserService.getUserFromIgn(this.notifiedIgn)).data
-                console.log(this.currentUser + ' is the current user')
-                console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUser)
+                this.notifiedUserId = UserId
+                this.notifiedUser = (await UserService.getUserFromUserId(UserId)).data
+                console.log(this.notifedUser)
+                //console.log(this.currentUser + ' is the current user')
+                //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)
             } catch (error) {
                 console.log(error)
             }

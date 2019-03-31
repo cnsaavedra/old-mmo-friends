@@ -137,7 +137,7 @@ module.exports = {
                 })
             } else {
                 ign = await Game.findAll({
-                    attributes: ['ign', 'game']
+                    attributes: ['ign', 'game', 'UserId']
                 })
             }
             res.send(ign)
@@ -147,18 +147,15 @@ module.exports = {
             })
         }
     },
-    // returns UserId
-    async getUserFromIgn (req, res) {
+    // returns User
+    async getUserFromUserId (req, res) {
         try {
-            const ign = await Game.findAll({
-                where: {
-                    ign: req.body.ign
-                }
-            })
-            res.send(ign)
+            const user = await User.findByPk(req.body.id)
+            const userJSON = user.toJSON()
+            res.send(JSON.stringify(userJSON.username))
             } catch (err) {
-            res.status(500).send({
-                error: 'an error has occured trying to fetch the users'
+            res.status(204).send({
+                error: 'an error has occured trying to fetch the users id'
             })
         }
     },

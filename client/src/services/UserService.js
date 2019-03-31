@@ -15,8 +15,8 @@ export default {
             }
         })
     },
-    getUserFromIgn (ign) {
-        return Api().get('ignUser', ign)
+    getUserFromUserId (id) {
+        return Api().get('userFromId', id)
     },
     getUserName (username) {
         return Api().get(`profile/${username}`)
