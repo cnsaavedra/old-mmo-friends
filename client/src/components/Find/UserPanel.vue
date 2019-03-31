@@ -3,14 +3,9 @@
         <v-flex xs6>
             <v-list
                 dark
-                v-for="(name,index) in names" :key="index"
+                v-for="(ign,index) in igns" :key="index"
             >
-            <v-btn
-                flat
-                dark
-                @click="userprofile(name)">
-                {{name}}
-            </v-btn>
+            {{ign.ign}}
             </v-list>
         </v-flex>
     </v-layout>
@@ -32,8 +27,7 @@ export default {
     },
     data () {
         return {
-        igns: null,
-        names: []
+        igns: null
         }
     },
     watch: {

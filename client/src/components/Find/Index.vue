@@ -36,7 +36,7 @@ export default {
     }
   },
   async mounted () {
-    this.songs = (await UserService.index()).data
+    this.songs = (await UserService.getIgn()).data
   }
 }
 </script>
