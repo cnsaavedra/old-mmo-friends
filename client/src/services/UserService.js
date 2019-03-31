@@ -8,8 +8,8 @@ export default {
             }
         })
     },
-    getIgn (search) {
-        return Api().get('ign', {
+    getIgnAndGame (search) {
+        return Api().get('ignGame', {
             params: {
                 search: search
             }

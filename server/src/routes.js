@@ -32,8 +32,8 @@ module.exports = (app) => {
     app.get('/users',
         UserController.index)
 
-    app.get('/ign',
-        UserController.getIgn)
+    app.get('/ignGame',
+        UserController.getIgnAndGame)
 
     app.get('/ignUser',
         UserController.getUserFromIgn)

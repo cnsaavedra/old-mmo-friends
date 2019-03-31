@@ -3,9 +3,9 @@
         <v-flex xs6>
             <v-list
                 dark
-                v-for="(ign,index) in igns" :key="index"
+                v-for="(ign,game) in igns" :key="game"
             >
-            {{ign.ign}}
+            {{ign}}
                 <v-btn
                     class = "blue"
                     v-if="$store.state.isUserLoggedIn"
@@ -63,12 +63,12 @@ export default {
         '$route.query.search': {
             immediate: true,
             async handler (value) {
-                this.igns = (await UserService.getIgn(value)).data
+                this.igns = (await UserService.getIgnAndGame(value)).data
             }
         }
     },
     async mounted () {
-        this.igns = (await UserService.getIgn()).data
+        this.igns = (await UserService.getIgnAndGame()).data
         // for (var ign in this.igns) {
         //     if (this.igns.hasOwnProperty(ign)) {
         //         console.log(ign + '->' + JSON.stringify(this.igns[ign].ign))

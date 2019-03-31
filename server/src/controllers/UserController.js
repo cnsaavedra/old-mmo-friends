@@ -118,7 +118,7 @@ module.exports = {
     //     }
     // },
     //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------
-    async getIgn (req, res) {
+    async getIgnAndGame (req, res) {
         const { Op } = require('sequelize');
         try {
             let ign = null
@@ -127,7 +127,7 @@ module.exports = {
                 ign = await Game.findAll({
                 where: {
                     [Op.or]: [
-                    'ign'
+                    'ign', 'game'
                     ].map(key => ({
                     [key]: {
                         [Op.like]: `%${search}%`
@@ -137,7 +137,7 @@ module.exports = {
                 })
             } else {
                 ign = await Game.findAll({
-                    attributes: ['ign']
+                    attributes: ['ign', 'game']
                 })
             }
             res.send(ign)
