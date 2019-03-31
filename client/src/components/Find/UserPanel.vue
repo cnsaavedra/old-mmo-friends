@@ -34,7 +34,7 @@ export default {
         '$route.query.search': {
             immediate: true,
             async handler (value) {
-                this.songs = (await UserService.getIgn(value)).data
+                this.igns = (await UserService.getIgn(value)).data
             }
         }
     },
