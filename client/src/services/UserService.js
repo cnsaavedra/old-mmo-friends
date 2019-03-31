@@ -8,6 +8,13 @@ export default {
             }
         })
     },
+    getIgn (search) {
+        return Api().get('ign', {
+            params: {
+                search: search
+            }
+        })
+    },
     getUserName (username) {
         return Api().get(`profile/${username}`)
     }

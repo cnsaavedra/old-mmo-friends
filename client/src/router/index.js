@@ -5,6 +5,7 @@ import Register from '@/components/Register'
 import Login from '@/components/Login'
 import Profile from '@/components/Profile'
 import UserList from '@/components/UserList'
+import FindFriends from '@/components/Find/Index'
 
 Vue.use(Router)
 
@@ -39,6 +40,11 @@ export default new Router({
       path: '/users',
       name: 'users',
       component: UserList
+    },
+    {
+      path: '/find',
+      name: 'find',
+      component: FindFriends
     }
   ]
 })

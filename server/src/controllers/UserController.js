@@ -118,6 +118,36 @@ module.exports = {
     //     }
     // },
     //------------- THIS IS ALL FOR GAME INFO CONNECTED TO THE SPECIFIC USER ------------------
+    async getIgn (req, res) {
+        const { Op } = require('sequelize');
+        try {
+            let ign = null
+            const search = req.query.search
+            if (search) {
+                ign = await Game.findAll({
+                where: {
+                    [Op.or]: [
+                    'ign'
+                    ].map(key => ({
+                    [key]: {
+                        [Op.like]: `%${search}%`
+                    }
+                    }))
+                }
+                })
+            } else {
+                ign = await Game.findAll({
+                    attributes: ['ign']
+                })
+            }
+            res.send(ign)
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to fetch the users'
+            })
+        }
+    },
+
     async getGames (req, res) {
         try {
             // games = await Game.findAll({
