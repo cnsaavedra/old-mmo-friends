@@ -6,7 +6,32 @@
                 v-for="(ign,index) in igns" :key="index"
             >
             {{ign.ign}}
+                <v-btn
+                    class = "blue"
+                    v-if="$store.state.isUserLoggedIn"
+                    @click="notify">
+                    Notify!
+                </v-btn>
             </v-list>
+              <div
+                v-if="!$store.state.isUserLoggedIn">
+                <div class="text-xs-center">
+                <v-btn
+                    color="primary"
+                    v-bind:disabled="!alert"
+                    @click="alert = !alert"
+                >
+                    Okay
+                </v-btn>
+                </div>
+                <v-alert
+                :value="alert"
+                type="warning"
+                transition="scale-transition"
+                >
+                You have to be logged in to find friends!
+                </v-alert>
+            </div>
         </v-flex>
     </v-layout>
 </template>
@@ -27,7 +52,9 @@ export default {
     },
     data () {
         return {
-        igns: null
+            igns: null,
+            currentUser: '',
+            alert: true
         }
     },
     watch: {
@@ -51,7 +78,7 @@ export default {
     },
     methods: {
         navigateTo (route) {
-                this.$router.push(route)
+            this.$router.push(route)
         },
         async userprofile (user) {
             try {
@@ -62,6 +89,13 @@ export default {
                 })
             } catch (error) {
                 this.error = error.response.data.error
+            }
+        },
+        async notify () {
+            try {
+                this.currentUser = this.$store.state.user.username
+            } catch (error) {
+                console.log(error)
             }
         }
     }
