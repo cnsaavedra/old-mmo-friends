@@ -149,6 +149,7 @@ module.exports = {
     },
 
     async getGames (req, res) {
+        const { Op } = require('sequelize');
         try {
             // games = await Game.findAll({
             //     where: {
@@ -158,7 +159,9 @@ module.exports = {
             const UserId = req.body.UserId
             const games = await Game.findAll({
                 where: {
-                    UserId: UserId
+                    UserId: {
+                        [Op.like]: UserId
+                    }
                 }
             })
             res.send(games)
