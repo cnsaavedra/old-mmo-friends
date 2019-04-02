@@ -99,8 +99,11 @@ export default {
                 this.currentUser = this.$store.state.user.username
                 this.notifiedIgn = ign
                 this.notifiedUserId = UserId
-                this.notifiedUser = (await UserService.getUserFromUserId(UserId)).data
-                console.log(this.notifedUser)
+                const response = await UserService.getUserFromUserId({
+                    id: UserId
+                })
+                this.notifiedUser = response.data.user.username
+                console.log(this.notifiedUser)
                 //console.log(this.currentUser + ' is the current user')
                 //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)
             } catch (error) {

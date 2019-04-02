@@ -150,9 +150,16 @@ module.exports = {
     // returns User
     async getUserFromUserId (req, res) {
         try {
-            const user = await User.findByPk(req.body.id)
+            const {id} = req.body
+            const user = await User.findOne({
+                where:{
+                    id: id
+                }
+            })
             const userJSON = user.toJSON()
-            res.send(JSON.stringify(userJSON.username))
+            res.send({
+                user: userJSON
+            })
             } catch (err) {
             res.status(204).send({
                 error: 'an error has occured trying to fetch the users id'

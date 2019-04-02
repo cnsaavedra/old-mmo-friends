@@ -35,7 +35,7 @@ module.exports = (app) => {
     app.get('/ignGame',
         UserController.getIgnAndGame)
 
-    app.get('/userFromId',
+    app.post('/userFromId',
         UserController.getUserFromUserId)
 }
 

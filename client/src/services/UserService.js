@@ -16,7 +16,7 @@ export default {
         })
     },
     getUserFromUserId (id) {
-        return Api().get('userFromId', id)
+        return Api().post('userFromId', id)
     },
     getUserName (username) {
         return Api().get(`profile/${username}`)
