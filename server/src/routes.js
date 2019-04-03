@@ -34,5 +34,8 @@ module.exports = (app) => {
 
     app.post('/userFromId',
         UserController.getUserFromUserId)
+
+    app.post('/idFromUser',
+        UserController.getUserIdFromUser)   
 }
 

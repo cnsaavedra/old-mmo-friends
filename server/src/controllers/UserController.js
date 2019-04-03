@@ -166,19 +166,35 @@ module.exports = {
             })
         }
     },
-
-    async getGames (req, res) {
+    async getUserIdFromUser (req, res) {
         try {
-            const {id} = req.body
-            const user = await Game.findOne({
+            const {username} = req.body
+            const user = await User.findOne({
                 where:{
-                    id: id
+                    username: username
                 }
             })
             const userJSON = user.toJSON()
             res.send({
                 user: userJSON
             })
+            } catch (err) {
+            res.status(204).send({
+                error: 'an error has occured trying to fetch the users id'
+            })
+        }
+    },
+
+    async getGames (req, res) {
+        try {
+            const {id} = req.body
+            const user = await Game.findAll({
+                where:{
+                    UserId: id
+                }
+            })
+            //const userJSON = user.toJSON()
+            res.send(user)
             } catch (err) {
             res.status(204).send({
                 error: 'an error has occured trying to fetch the games by id'

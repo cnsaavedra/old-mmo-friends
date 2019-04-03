@@ -68,6 +68,7 @@ export default {
             ignShow: '',
             gameShow: '',
             test: '',
+            viewId: '',
             // for if the user has pressed accept on adding a game
             adder: false,
             adding: false
@@ -112,12 +113,26 @@ export default {
             this.username = (await UserService.getUserName(name)).data
             // used for assigning userid to a game
             this.userID = this.$store.getters.getUserById
+
+
+            if (Number.isInteger(this.username)) {
+                this.username = JSON.stringify(this.username)
+            } else {
+                this.username = this.username.replace(/['"]+/g, '')
+            }
+
+            // get id from the given user to get their games
+            const getId = await UserService.getUserIdFromUser({
+                    username: this.username
+            })
+            this.viewId = getId.data.user.id
+
             // give profile the games for the user
             const response = await GameService.getGames({
-                id: this.userID
+                id: this.viewId
             })
-            this.ignShow = response.data.user.ign
-            this.gameShow = response.data.user.game
+            this.ignShow = response.data
+            this.gameShow = response.data
             console.log(this.ignShow)
             console.log(this.gameShow)
         } catch (err) {
