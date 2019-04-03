@@ -8,8 +8,8 @@ export default {
     //         }
     //     })
     // },
-    getGames (username) {
-        return Api().get('getgames', username)
+    getGames (id) {
+        return Api().post('getgames', id)
     },
     post (game) {
         return Api().post('games', game)

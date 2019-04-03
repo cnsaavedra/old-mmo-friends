@@ -20,10 +20,7 @@ module.exports = (app) => {
     app.get('/profile/:username', 
         UserController.getUserName)    
 
-    // app.get('/getgames', 
-    //     UserController.getGames)  
-    
-    app.get('/getgames',
+    app.post('/getgames',
         UserController.getGames)
     
     app.post('/games', 

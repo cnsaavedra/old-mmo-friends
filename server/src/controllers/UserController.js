@@ -168,24 +168,19 @@ module.exports = {
     },
 
     async getGames (req, res) {
-        const { Op } = require('sequelize');
         try {
-            // games = await Game.findAll({
-            //     where: {
-            //         UserId: userId
-            //     }
-            // })
-            const UserId = req.body.UserId
-            const games = await Game.findAll({
-                where: {
-                    UserId: {
-                        [Op.like]: UserId
-                    }
+            const {id} = req.body
+            const user = await Game.findOne({
+                where:{
+                    id: id
                 }
             })
-            res.send(games)
+            const userJSON = user.toJSON()
+            res.send({
+                user: userJSON
+            })
             } catch (err) {
-            res.status(123).send({
+            res.status(204).send({
                 error: 'an error has occured trying to fetch the games by id'
             })
         }
