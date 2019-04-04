@@ -4,8 +4,15 @@
             <div user="User">
                 User: {{username}}
                 <v-spacer></v-spacer>
-                Games: #####UNDER CONSTRUCTION DUE TO XMLHttpRequest Protocols#####
+
             </div>
+            Games:
+            <v-list
+                dark
+                v-for="(ign) in ignShow" :key="ign"
+            >
+            {{ign.ign}}: {{ign.game}}
+            </v-list>
             <!-- <game-panel game="Games">
             </game-panel> -->
             <v-spacer></v-spacer>
