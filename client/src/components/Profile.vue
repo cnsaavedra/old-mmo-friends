@@ -9,7 +9,7 @@
             Games:
             <v-list
                 dark
-                v-for="(ign) in ignShow" :key="ign"
+                v-for="(ign, index) in ignShow" :key="index"
             >
             {{ign.ign}}: {{ign.game}}
             </v-list>
@@ -140,8 +140,8 @@ export default {
             })
             this.ignShow = response.data
             this.gameShow = response.data
-            console.log(this.ignShow)
-            console.log(this.gameShow)
+            // console.log(this.ignShow)
+            // console.log(this.gameShow)
         } catch (err) {
         console.log(err)
         }
