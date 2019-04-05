@@ -121,7 +121,7 @@ export default {
             handler (value) {
                 this.username = value
                 this.getId()
-                //console.log(this.$store.state.route.params.username === this.$store.state.user.username)
+                this.isUserProfile()
             }
         }
     },
