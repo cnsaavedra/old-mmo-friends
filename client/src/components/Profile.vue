@@ -73,8 +73,6 @@ export default {
                 UserId: this.userID
             },
             ignShow: '',
-            gameShow: '',
-            test: '',
             viewId: '',
             // for if the user has pressed accept on adding a game
             adder: false,
@@ -102,6 +100,19 @@ export default {
         },
         isUserProfile () {
             return (this.$store.state.route.params.username === this.$store.state.user.username)
+        },
+        async getId () {
+            // get id from the given user to get their games
+            let getId = await UserService.getUserIdFromUser({
+                    username: this.username
+            })
+            this.viewId = getId.data.user.id
+
+            // give profile the games for the user
+            let response = await GameService.getGames({
+                id: this.viewId
+            })
+            this.ignShow = response.data
         }
     },
     watch: {
@@ -109,6 +120,7 @@ export default {
             immediate: true,
             handler (value) {
                 this.username = value
+                this.getId()
                 //console.log(this.$store.state.route.params.username === this.$store.state.user.username)
             }
         }
@@ -116,32 +128,18 @@ export default {
     async mounted () {
         // do request for backend for username and gamenames from user
         try {
-            const name = this.$store.state.route.params.username
+            let name = this.$store.state.route.params.username
             this.username = (await UserService.getUserName(name)).data
+
             // used for assigning userid to a game
             this.userID = this.$store.getters.getUserById
 
-
+            // problems with having usernames as an integer
             if (Number.isInteger(this.username)) {
                 this.username = JSON.stringify(this.username)
             } else {
                 this.username = this.username.replace(/['"]+/g, '')
             }
-
-            // get id from the given user to get their games
-            const getId = await UserService.getUserIdFromUser({
-                    username: this.username
-            })
-            this.viewId = getId.data.user.id
-
-            // give profile the games for the user
-            const response = await GameService.getGames({
-                id: this.viewId
-            })
-            this.ignShow = response.data
-            this.gameShow = response.data
-            // console.log(this.ignShow)
-            // console.log(this.gameShow)
         } catch (err) {
         console.log(err)
         }
