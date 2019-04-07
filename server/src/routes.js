@@ -37,5 +37,8 @@ module.exports = (app) => {
 
     app.post('/idFromUser',
         UserController.getUserIdFromUser)   
+
+    app.post('/friendreq',
+        UserController.sendFriendReq)   
 }
 

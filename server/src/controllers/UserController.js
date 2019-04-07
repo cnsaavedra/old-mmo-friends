@@ -1,5 +1,6 @@
 const {User} = require('../models')
 const {Game} = require('../models')
+const {Friend} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -223,5 +224,39 @@ module.exports = {
             error: 'an error has occured trying to create the game'
           })
         }
-      }
+    },
+    //------------- THIS IS ALL FOR FRIEND INFO CONNECTED TO THE SPECIFIC USER ------------------
+    async sendFriendReq (req, res) {
+        try {
+            const id1 = req.body.id1
+            const id2 = req.body.id2
+            const user1 = await User.findOne({
+                where:{
+                    id: id1
+                }
+            })
+            const user2 = await User.findOne({
+                where:{
+                    id: id2
+                }
+            })
+            const userJSON1 = user1.toJSON()
+            const userJSON2 = user2.toJSON()
+            const friends = await Friend.create(
+                {
+                    from_user: id1, 
+                    to_user: id2
+                })
+            res.send({
+                user1: userJSON1,
+                user2: userJSON2,
+                friends
+            })
+            } catch (err) {
+            res.status(204).send({
+                error: 'an error has occured trying to fetch the users id'
+            })
+        }
+    },
+    
 }

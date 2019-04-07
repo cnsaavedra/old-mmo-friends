@@ -39,6 +39,7 @@
 <script>
 import GamePanel from '@/components/GamePanel'
 import UserService from '@/services/UserService'
+//import FriendService from '@/services/FriendService'
 import {mapState} from 'vuex'
 
 export default {
