@@ -103,7 +103,7 @@ export default {
                 const response = await UserService.getUserFromUserId({
                     id: UserId
                 })
-                this.notifiedUser = response.data.user.username
+                this.notifiedUser = response.data.user.id
                 console.log(this.notifiedUser)
                 //console.log(this.currentUser + ' is the current user')
                 //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)
