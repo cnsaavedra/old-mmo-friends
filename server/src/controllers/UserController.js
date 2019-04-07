@@ -253,8 +253,8 @@ module.exports = {
                 friends
             })
             } catch (err) {
-            res.status(204).send({
-                error: 'an error has occured trying to fetch the users id'
+            res.status(500).send({
+                error: 'an error has occured trying to send friend request'
             })
         }
     },

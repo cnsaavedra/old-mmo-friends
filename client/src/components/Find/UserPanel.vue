@@ -39,7 +39,7 @@
 <script>
 import GamePanel from '@/components/GamePanel'
 import UserService from '@/services/UserService'
-//import FriendService from '@/services/FriendService'
+import FriendService from '@/services/FriendService'
 import {mapState} from 'vuex'
 
 export default {
@@ -98,6 +98,7 @@ export default {
         async notify (ign, UserId) {
             try {
                 this.currentUser = this.$store.state.user.username
+                const currentUserId = this.$store.state.user.id
                 this.notifiedIgn = ign
                 this.notifiedUserId = UserId
                 const response = await UserService.getUserFromUserId({
@@ -105,6 +106,11 @@ export default {
                 })
                 this.notifiedUser = response.data.user.id
                 console.log(this.notifiedUser)
+                const friendReq = await FriendService.sendFriendReq({
+                    id1: currentUserId,
+                    id2: UserId
+                })
+                console.log(friendReq)
                 //console.log(this.currentUser + ' is the current user')
                 //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)
             } catch (error) {
