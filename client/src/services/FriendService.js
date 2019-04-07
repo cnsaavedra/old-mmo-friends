@@ -9,5 +9,8 @@ export default {
     },
     sendFriendReq (id1, id2) {
         return Api().post('friendreq', id1, id2)
+    },
+    getFriends (id1, id2) {
+        return Api().post('getfriends', id1, id2)
     }
 }

@@ -40,5 +40,8 @@ module.exports = (app) => {
 
     app.post('/friendreq',
         UserController.sendFriendReq)   
+
+     app.post('/getfriends',
+        UserController.getFriends)      
 }
 

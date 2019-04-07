@@ -258,5 +258,23 @@ module.exports = {
             })
         }
     },
-    
+    async getFriends(req, res) {
+        try {
+            const id1 = req.body.id1
+            const id2 = req.body.id2
+            const friends = await Friend.findOne({
+                where: {
+                    from_user: id1,
+                    to_user: id2
+                }
+            })
+            res.send({
+                friends
+            })
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to send friend request'
+            })
+        }
+    }
 }

@@ -106,11 +106,21 @@ export default {
                 })
                 this.notifiedUser = response.data.user.id
                 console.log(this.notifiedUser)
-                const friendReq = await FriendService.sendFriendReq({
+
+                // disable spam friend requests
+                const findFriends = await FriendService.getFriends({
                     id1: currentUserId,
                     id2: UserId
                 })
-                console.log(friendReq)
+                if (findFriends.data.friends === null) {
+                    const friendReq = await FriendService.sendFriendReq({
+                    id1: currentUserId,
+                    id2: UserId
+                    })
+                    console.log(friendReq)
+                } else if (findFriends.data.friends !== null) {
+                    console.log('This user has already notified or is friends with the other person')
+                }
                 //console.log(this.currentUser + ' is the current user')
                 //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)
             } catch (error) {
