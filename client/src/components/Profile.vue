@@ -20,7 +20,7 @@
                 <v-dialog v-model="adder" persistent max-width="290">
                     <template v-slot:activator="{ on }">
                         <v-btn
-                            v-if= "isUserProfile()"
+                            v-show= "isUserProfile"
                             outline
                             large
                             fab
@@ -98,9 +98,6 @@ export default {
                 console.log(err)
             }
         },
-        isUserProfile () {
-            return (this.$store.state.route.params.username === this.$store.state.user.username)
-        },
         async getId () {
             // get id from the given user to get their games
             let getId = await UserService.getUserIdFromUser({
@@ -121,8 +118,12 @@ export default {
             handler (value) {
                 this.username = value
                 this.getId()
-                this.isUserProfile()
             }
+        }
+    },
+    computed: {
+        isUserProfile: function () {
+            return this.$store.state.route.params.username === this.$store.state.user.username
         }
     },
     async mounted () {
