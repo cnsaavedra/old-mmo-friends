@@ -112,7 +112,7 @@ export default {
                     id1: currentUserId,
                     id2: UserId
                 })
-                if (findFriends.data.friends === null) {
+                if (findFriends.data.friends === null && currentUserId !== this.notifiedUserId) {
                     const friendReq = await FriendService.sendFriendReq({
                     id1: currentUserId,
                     id2: UserId
@@ -120,6 +120,9 @@ export default {
                     console.log(friendReq)
                 } else if (findFriends.data.friends !== null) {
                     console.log('This user has already notified or is friends with the other person')
+                  //temporary else if
+                } else if (currentUserId === this.notifiedUserId) {
+                    console.log('You cant notify yourself')
                 }
                 //console.log(this.currentUser + ' is the current user')
                 //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)
