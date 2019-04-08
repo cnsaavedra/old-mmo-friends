@@ -277,7 +277,7 @@ module.exports = {
             })
         }
     },
-    async acceptFriendReq(req, res) {
+    async resFriendReq(req, res) {
         try {
             const id1 = req.body.id1
             const id2 = req.body.id2
