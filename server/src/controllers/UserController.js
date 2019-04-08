@@ -277,6 +277,24 @@ module.exports = {
             })
         }
     },
+    async getAllFriendReqs(req, res) {
+        try {
+            const id2 = req.body.id2
+            const response = await Friend.findAll({
+                where:{
+                    to_user: id2,
+                    status: null
+                }
+            })
+            res.send({
+                friends: response
+            })
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to get all friend request'
+            })
+        }
+    },
     async resFriendReq(req, res) {
         try {
             const id1 = req.body.id1
