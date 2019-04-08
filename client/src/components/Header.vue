@@ -51,6 +51,13 @@
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
+                @click="navigateTo({name: 'notifs'})">
+                Notifications
+            </v-btn>
+            <v-btn
+                v-if="$store.state.isUserLoggedIn"
+                flat
+                dark
                 @click="logout">
                 Logout
             </v-btn>

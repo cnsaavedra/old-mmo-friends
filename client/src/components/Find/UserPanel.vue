@@ -81,20 +81,6 @@ export default {
         // }
     },
     methods: {
-        navigateTo (route) {
-            this.$router.push(route)
-        },
-        async userprofile (user) {
-            try {
-                // go to my profile
-                this.$router.push({
-                    name: `profile`,
-                    params: {username: user}
-                })
-            } catch (error) {
-                this.error = error.response.data.error
-            }
-        },
         async notify (ign, UserId) {
             try {
                 this.currentUser = this.$store.state.user.username

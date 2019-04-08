@@ -276,5 +276,25 @@ module.exports = {
                 error: 'an error has occured trying to send friend request'
             })
         }
+    },
+    async acceptFriendReq(req, res) {
+        try {
+            const id1 = req.body.id1
+            const id2 = req.body.id2
+            const status = req.body.status
+            const friends = await Friend.update({status: status}, {
+                where: {
+                    from_user: id1,
+                    to_user: id2
+                }
+            })
+            res.send({
+                friends
+            })
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to send friend request'
+            })
+        }
     }
 }
