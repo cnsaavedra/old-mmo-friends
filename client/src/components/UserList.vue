@@ -51,7 +51,7 @@ export default {
         navigateTo (route) {
                 this.$router.push(route)
         },
-         async userprofile (user) {
+        async userprofile (user) {
             try {
                 // go to my profile
                 this.$router.push({

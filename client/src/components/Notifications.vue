@@ -9,18 +9,78 @@
             >
             {{name.from_user}}
                 <v-btn
+                    @click.stop="accepted = true"
                     flat
                     dark
                     @click="accept(name.from_user)">
                 Accept
                 </v-btn>
                 <v-btn
+                    @click.stop="declined = true"
                     flat
                     dark
                     @click="decline(name.from_user)">
                 Decline
                 </v-btn>
             </v-list>
+
+            <v-dialog
+                v-model="accepted"
+                max-width="290"
+            >
+                <v-card>
+                    <v-card-title class="headline">You have decided to reconcile with {{acceptedName}}!</v-card-title>
+
+                    <v-card-text>
+                    Do you want to check out their profile?
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+                    <v-btn
+                        color="green darken-1"
+                        flat="flat"
+                        @click="accepted = false; userprofile(acceptedName)"
+                    >
+                        Sure!
+                    </v-btn>
+                    <v-btn
+                        color="green darken-1"
+                        flat="flat"
+                        @click="accepted = false"
+
+                    >
+                        No thanks!
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+             <v-dialog
+                v-model="declined"
+                max-width="290"
+            >
+                <v-card>
+                    <v-card-title class="headline">You have decided not to reconcile with {{declinedName}} :(</v-card-title>
+
+                    <v-card-text>
+                    :)
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                        color="green darken-1"
+                        flat="flat"
+                        @click="declined = false"
+                    >
+                        Oh...
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
         </v-flex>
     </v-layout>
 </template>
@@ -51,7 +111,11 @@ export default {
             currentUser: this.$store.state.user.username,
             fromUser: '',
             updated: false,
-            reqIds: []
+            reqIds: [],
+            accepted: false,
+            acceptedName: '',
+            declined: false,
+            declinedName: ''
         }
     },
     async mounted () {
@@ -74,6 +138,7 @@ export default {
                     id1: fromUser,
                     id2: this.currentUser
                 })
+                this.acceptedName = fromUser
             } catch (error) {
                 console.log(error)
             }
@@ -88,10 +153,22 @@ export default {
                     id1: fromUser,
                     id2: this.currentUser
                 })
+                this.declinedName = fromUser
             } catch (error) {
                 console.log(error)
             }
             this.updated = false
+        },
+        async userprofile (user) {
+            try {
+                // go to my profile
+                this.$router.push({
+                    name: `profile`,
+                    params: {username: user}
+                })
+            } catch (error) {
+                this.error = error.response.data.error
+            }
         }
     }
 }
