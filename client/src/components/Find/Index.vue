@@ -1,5 +1,5 @@
 <template>
-  <v-layout>
+  <v-layout column>
     <v-flex xs6 v-if="isUserLoggedIn">
     </v-flex>
 
