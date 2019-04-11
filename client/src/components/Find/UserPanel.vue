@@ -1,11 +1,13 @@
 <template>
     <v-layout column>
         <v-flex xs6>
+            <h1>IGN: Game</h1>
             <v-list
+                ripple
                 dark
                 v-for="(ign,game) in igns" :key="game"
             >
-            {{ign}}
+            {{ign.ign}}: {{ign.game}}
                 <v-btn
                     class = "blue"
                     v-if="$store.state.isUserLoggedIn"

@@ -7,19 +7,19 @@
         >
             <v-list
                 dark
-                v-for="(id,index) in reqIds" :key="index"
+                v-for="(id,index) in reqIdsNow" :key="index"
             >
-            {{id}}
+            {{id[Object.keys(id)[0]]}}
                 <v-btn
                     flat
                     dark
-                    @click="accept(id)">
+                    @click="accept(Object.keys(id)[0])">
                 Accept
                 </v-btn>
                 <v-btn
                     flat
                     dark
-                    @click="decline(id)">
+                    @click="decline(Object.keys(id)[0])">
                 Decline
                 </v-btn>
             </v-list>
@@ -36,7 +36,15 @@ export default {
     computed: {
         ...mapState([
         'isUserLoggedIn'
-        ])
+        ]),
+
+        reqIdsNow: function () {
+            // watches if something is added
+            if (this.updated === true) {
+                this.getUpdates()
+            }
+            return this.reqIds
+        }
     },
     data () {
         return {
@@ -44,50 +52,65 @@ export default {
             reqIds: [],
             returnUser: '',
             currentUserId: this.$store.state.user.id,
-            fromUserId: ''
+            fromUserId: '',
+            updated: false
         }
     },
     async mounted () {
         // do request for backend for friend requests
-        try {
-            this.reqs = await FriendService.getAllFriendReqs({
+        this.getFriendRequests()
+    },
+    methods: {
+        async getUpdates () {
+            let response = await FriendService.getAllFriendReqs({
                 id2: this.currentUserId
             })
+            console.log(response.data.friends[0])
+            return response
+        },
+        async getFriendRequests () {
+            try {
+            this.reqs = await this.getUpdates()
             for (var id in this.reqs.data.friends) {
                 var pushedid = JSON.stringify(this.reqs.data.friends[id].from_user)
                 pushedid = pushedid.replace(/"/g, '')
-                this.reqIds.push(await this.getUser(pushedid))
+                // to get id + name to parse into pushing id into data, and representing id as username
+                var pushObj = {}
+                pushObj[pushedid] = await this.getUser(pushedid)
+                this.reqIds.push(pushObj)
             }
-        } catch (err) {
-        console.log(err)
-        }
-    },
-    methods: {
+            } catch (err) {
+            console.log(err)
+            }
+            this.updated = false
+        },
         async accept (fromUserId) {
+            this.updated = true
             try {
                 this.fromUserId = fromUserId
-                const response = await FriendService.resFriendReq({
+                await FriendService.resFriendReq({
                     status: 1,
                     id1: fromUserId,
                     id2: this.currentUserId
                 })
-                console.log(response)
             } catch (error) {
                 console.log(error)
             }
+            this.updated = false
         },
         async decline (fromUserId) {
+            this.updated = true
             try {
                 this.fromUserId = fromUserId
-                const response = await FriendService.resFriendReq({
+                await FriendService.resFriendReq({
                     status: 0,
                     id1: fromUserId,
                     id2: this.currentUserId
                 })
-                console.log(response)
             } catch (error) {
                 console.log(error)
             }
+            this.updated = false
         },
         async getUser (id) {
             // get id from the given user to get their games
