@@ -252,12 +252,12 @@ module.exports = {
             const id2 = req.body.id2
             const user1 = await User.findOne({
                 where:{
-                    id: id1
+                    username: id1
                 }
             })
             const user2 = await User.findOne({
                 where:{
-                    id: id2
+                    username: id2
                 }
             })
             const userJSON1 = user1.toJSON()
@@ -306,9 +306,7 @@ module.exports = {
                     status: null
                 }
             })
-            res.send({
-                friends: response
-            })
+            res.send(response)
             } catch (err) {
             res.status(500).send({
                 error: 'an error has occured trying to get all friend request'

@@ -86,30 +86,29 @@ export default {
         async notify (ign, UserId) {
             try {
                 this.currentUser = this.$store.state.user.username
-                const currentUserId = this.$store.state.user.id
                 this.notifiedIgn = ign
                 this.notifiedUserId = UserId
                 const response = await UserService.getUserFromUserId({
                     id: UserId
                 })
-                this.notifiedUser = response.data.user.id
+                this.notifiedUser = response.data.user.username
                 console.log(this.notifiedUser)
 
                 // disable spam friend requests
                 const findFriends = await FriendService.getFriends({
-                    id1: currentUserId,
-                    id2: UserId
+                    id1: this.currentUser,
+                    id2: this.notifiedUser
                 })
-                if (findFriends.data.friends === null && currentUserId !== this.notifiedUserId) {
+                if (findFriends.data.friends === null && this.currentUser !== this.notifiedUser) {
                     const friendReq = await FriendService.sendFriendReq({
-                    id1: currentUserId,
-                    id2: UserId
+                        id1: this.currentUser,
+                        id2: this.notifiedUser
                     })
-                    console.log(friendReq)
+                console.log(friendReq)
                 } else if (findFriends.data.friends !== null) {
                     console.log('This user has already notified or is friends with the other person')
                   //temporary else if
-                } else if (currentUserId === this.notifiedUserId) {
+                } else if (this.currentUser === this.notifiedUser) {
                     console.log('You cant notify yourself')
                 }
                 //console.log(this.currentUser + ' is the current user')

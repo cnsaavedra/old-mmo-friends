@@ -1,25 +1,23 @@
 <template>
     <v-layout column>
         <v-flex
-            xs12
-            md4
-            d-flex
+            xs6
         >
             <v-list
                 dark
-                v-for="(id,index) in reqIdsNow" :key="index"
+                v-for="(name,index) in reqIdsNow" :key="index"
             >
-            {{id[Object.keys(id)[0]]}}
+            {{name.from_user}}
                 <v-btn
                     flat
                     dark
-                    @click="accept(Object.keys(id)[0])">
+                    @click="accept(name.from_user)">
                 Accept
                 </v-btn>
                 <v-btn
                     flat
                     dark
-                    @click="decline(Object.keys(id)[0])">
+                    @click="decline(name.from_user)">
                 Decline
                 </v-btn>
             </v-list>
@@ -29,7 +27,6 @@
 
 <script>
 import FriendService from '@/services/FriendService'
-import UserService from '@/services/UserService'
 import {mapState} from 'vuex'
 
 export default {
@@ -41,19 +38,20 @@ export default {
         reqIdsNow: function () {
             // watches if something is added
             if (this.updated === true) {
-                this.getUpdates()
+                this.getFriendRequests()
             }
-            return this.reqIds
+            return this.reqShow
         }
     },
     data () {
         return {
             reqs: null,
-            reqIds: [],
+            reqShow: '',
             returnUser: '',
-            currentUserId: this.$store.state.user.id,
-            fromUserId: '',
-            updated: false
+            currentUser: this.$store.state.user.username,
+            fromUser: '',
+            updated: false,
+            reqIds: []
         }
     },
     async mounted () {
@@ -61,64 +59,39 @@ export default {
         this.getFriendRequests()
     },
     methods: {
-        async getUpdates () {
-            let response = await FriendService.getAllFriendReqs({
-                id2: this.currentUserId
-            })
-            console.log(response.data.friends[0])
-            return response
-        },
         async getFriendRequests () {
-            try {
-            this.reqs = await this.getUpdates()
-            for (var id in this.reqs.data.friends) {
-                var pushedid = JSON.stringify(this.reqs.data.friends[id].from_user)
-                pushedid = pushedid.replace(/"/g, '')
-                // to get id + name to parse into pushing id into data, and representing id as username
-                var pushObj = {}
-                pushObj[pushedid] = await this.getUser(pushedid)
-                this.reqIds.push(pushObj)
-            }
-            } catch (err) {
-            console.log(err)
-            }
-            this.updated = false
+            let response = await FriendService.getAllFriendReqs({
+                id2: this.currentUser
+            })
+            this.reqShow = response.data
         },
-        async accept (fromUserId) {
+        async accept (fromUser) {
             this.updated = true
             try {
-                this.fromUserId = fromUserId
+                this.fromUser = fromUser
                 await FriendService.resFriendReq({
                     status: 1,
-                    id1: fromUserId,
-                    id2: this.currentUserId
+                    id1: fromUser,
+                    id2: this.currentUser
                 })
             } catch (error) {
                 console.log(error)
             }
             this.updated = false
         },
-        async decline (fromUserId) {
+        async decline (fromUser) {
             this.updated = true
             try {
-                this.fromUserId = fromUserId
+                this.fromUser = fromUser
                 await FriendService.resFriendReq({
                     status: 0,
-                    id1: fromUserId,
-                    id2: this.currentUserId
+                    id1: fromUser,
+                    id2: this.currentUser
                 })
             } catch (error) {
                 console.log(error)
             }
             this.updated = false
-        },
-        async getUser (id) {
-            // get id from the given user to get their games
-            let response = await UserService.getUserFromUserId({
-                    id: id
-            })
-            let userVal = await response.data.user.username
-            return userVal
         }
     }
 }
