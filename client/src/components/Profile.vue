@@ -22,6 +22,12 @@
                         v-for="(ign, index) in ignShowNow" :key="index"
                     >
                         {{ign.ign}}: {{ign.game}}
+                        <v-btn
+                            class = "blue"
+                            v-show= "isUserProfile"
+                            @click="deleteGame(ign.id)">
+                            delete
+                        </v-btn>
                     </v-list>
                 </div>
                 </div>
@@ -93,6 +99,7 @@ export default {
     methods: {
         // adding games for a user
         async add () {
+            this.adder = false
             // updates the game list
             this.updated = true
             //adds a game given the params
@@ -111,6 +118,13 @@ export default {
             } catch (err) {
                 console.log(err)
             }
+        },
+        async deleteGame (id) {
+            this.updated = true
+            console.log('Removing ' + id)
+            await GameService.remove(id)
+            this.updated = false
+            console.log('Deleted game.')
         },
         async getId () {
             // get id from the given user to get their games

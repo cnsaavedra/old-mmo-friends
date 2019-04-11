@@ -225,6 +225,26 @@ module.exports = {
           })
         }
     },
+    async remove (req, res) {
+        try {
+            const game = await Game.destroy({
+                where: {
+                    id: req.body.id
+                }
+            })
+            if (!game) {
+                return res.status(403).send({
+                  error: 'you do not have access to this game'
+                })
+            }
+            await game.destroy()
+            res.send(game)
+            } catch (err) {
+            res.status(204).send({
+                error: 'an error has occured trying to delete the game'
+            })
+        }
+    },
     //------------- THIS IS ALL FOR FRIEND INFO CONNECTED TO THE SPECIFIC USER ------------------
     async sendFriendReq (req, res) {
         try {

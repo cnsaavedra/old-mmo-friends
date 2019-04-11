@@ -13,5 +13,8 @@ export default {
     },
     post (game) {
         return Api().post('games', game)
+    },
+    remove (id) {
+        return Api().delete('games', { data: { id: id } })
     }
 }
