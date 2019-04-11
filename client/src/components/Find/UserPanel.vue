@@ -9,13 +9,92 @@
             >
             {{ign.ign}}: {{ign.game}}
                 <v-btn
+                    @click.stop="reqExist; selfBool; sentBool"
                     class = "blue"
                     v-if="$store.state.isUserLoggedIn"
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
             </v-list>
-              <div
+
+
+            <v-dialog
+                v-model="selfBool"
+                max-width="290"
+            >
+                <v-card>
+                    <v-card-title class="headline">You can't notify yourself dummy!</v-card-title>
+
+                    <v-card-text>
+                    :)
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                        color="green darken-1"
+                        flat="flat"
+                        @click="selfBool = false"
+                    >
+                        YOU GOT ME!
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+            <v-dialog
+                v-model="sentBool"
+                max-width="290"
+            >
+                <v-card>
+                    <v-card-title class="headline">Success!</v-card-title>
+
+                    <v-card-text>
+                    You just need to now wait for a respond back :)
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                        color="green darken-1"
+                        flat="flat"
+                        @click="sentBool = false"
+                    >
+                        YOU GOT ME!
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+
+            <v-dialog
+                v-model="reqExist"
+                max-width="290"
+            >
+                <v-card>
+                    <v-card-title class="headline">You have already request a friend request to this person</v-card-title>
+
+                    <v-card-text>
+                    Nice try spamming.
+                    </v-card-text>
+
+                    <v-card-actions>
+                    <v-spacer></v-spacer>
+
+                    <v-btn
+                        color="green darken-1"
+                        flat="flat"
+                        @click="reqExist = false"
+                    >
+                        YOU GOT ME!
+                    </v-btn>
+                    </v-card-actions>
+                </v-card>
+            </v-dialog>
+
+            <div
                 v-if="!$store.state.isUserLoggedIn">
                 <div class="text-xs-center">
                 <v-btn
@@ -37,6 +116,7 @@
         </v-flex>
     </v-layout>
 </template>
+
 
 <script>
 import GamePanel from '@/components/GamePanel'
@@ -60,7 +140,10 @@ export default {
             notifiedIgn: '',
             notifiedUserId: '',
             notifiedUser: '',
-            alert: true
+            alert: true,
+            selfBool: false,
+            reqExist: false,
+            sentBool: false
         }
     },
     watch: {
@@ -100,16 +183,16 @@ export default {
                     id2: this.notifiedUser
                 })
                 if (findFriends.data.friends === null && this.currentUser !== this.notifiedUser) {
-                    const friendReq = await FriendService.sendFriendReq({
+                    this.sentBool = true
+                    await FriendService.sendFriendReq({
                         id1: this.currentUser,
                         id2: this.notifiedUser
                     })
-                console.log(friendReq)
                 } else if (findFriends.data.friends !== null) {
-                    console.log('This user has already notified or is friends with the other person')
+                    this.reqExist = true
                   //temporary else if
                 } else if (this.currentUser === this.notifiedUser) {
-                    console.log('You cant notify yourself')
+                    this.selfBool = true
                 }
                 //console.log(this.currentUser + ' is the current user')
                 //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)

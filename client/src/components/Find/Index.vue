@@ -30,11 +30,11 @@ export default {
   },
   data () {
     return {
-      songs: null
+      games: null
     }
   },
   async mounted () {
-    this.songs = (await UserService.getIgnAndGame()).data
+    this.games = (await UserService.getIgnAndGame()).data
   }
 }
 </script>
