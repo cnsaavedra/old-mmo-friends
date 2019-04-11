@@ -1,21 +1,31 @@
 <template>
     <v-layout column>
-        <v-flex xs6>
-            <div user="User">
-                User: {{username}}
-                <v-spacer></v-spacer>
-
-            </div>
-            Games:
-            <v-list
+        <v-flex
+            xs12
+            md4
+            d-flex
+        >
+            <v-sheet
+                class="d-flex"
                 dark
-                v-for="(ign, index) in ignShow" :key="index"
-            >
-            {{ign.ign}}: {{ign.game}}
-            </v-list>
-            <!-- <game-panel game="Games">
-            </game-panel> -->
-            <v-spacer></v-spacer>
+                height="800"
+                max-width="450"
+                elevation="15"
+                >
+                <div class="User">
+                <h1>User: {{username}}</h1>
+                <v-spacer></v-spacer>
+                <div class="Games">
+                     <h2>Games: </h2>
+                    <v-list
+                        dark
+                        v-for="(ign, index) in ignShowNow" :key="index"
+                    >
+                        {{ign.ign}}: {{ign.game}}
+                    </v-list>
+                </div>
+                </div>
+            </v-sheet>
             <v-layout row justify-center>
                 <v-dialog v-model="adder" persistent max-width="290">
                     <template v-slot:activator="{ on }">
@@ -76,13 +86,15 @@ export default {
             viewId: '',
             // for if the user has pressed accept on adding a game
             adder: false,
-            adding: false
+            adding: false,
+            updated: false
         }
     },
     methods: {
         // adding games for a user
         async add () {
             this.adder = false
+            this.updated = true
             //adds a game given the params
             await GameService.post({
                 ign: this.gamenames.ign,
@@ -90,6 +102,7 @@ export default {
                 UserId: this.userID
             })
             console.log('Added game.')
+            this.updated = false
             try {
                 if (this.adding === true) {
                     console.log(this.adding)
@@ -124,6 +137,12 @@ export default {
     computed: {
         isUserProfile: function () {
             return this.$store.state.route.params.username === this.$store.state.user.username
+        },
+        ignShowNow: function () {
+            if (this.updated === true) {
+                this.getId()
+            }
+            return this.ignShow
         }
     },
     async mounted () {
@@ -146,7 +165,20 @@ export default {
         }
     },
     components: {
-        GamePanel
+        GamePanel,
+        SheetFooter: {
+            functional: true,
+             render (h, { children }) {
+                return h('v-sheet', {
+                    staticClass: 'mt-auto align-center justify-center d-flex',
+                    props: {
+                    color: 'rgba(0, 0, 0, .36)',
+                    dark: true,
+                    height: 50
+            }
+          }, children)
+        }
+      }
     }
 }
 </script>

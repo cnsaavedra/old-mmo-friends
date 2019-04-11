@@ -1,6 +1,10 @@
 <template>
     <v-layout column>
-        <v-flex xs6>
+        <v-flex
+            xs12
+            md4
+            d-flex
+        >
             <v-list
                 dark
                 v-for="(id,index) in reqIds" :key="index"
