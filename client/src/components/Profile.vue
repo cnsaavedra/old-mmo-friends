@@ -93,7 +93,7 @@ export default {
     methods: {
         // adding games for a user
         async add () {
-            this.adder = false
+            // updates the game list
             this.updated = true
             //adds a game given the params
             await GameService.post({
@@ -102,6 +102,7 @@ export default {
                 UserId: this.userID
             })
             console.log('Added game.')
+            //stops updating
             this.updated = false
             try {
                 if (this.adding === true) {
@@ -139,6 +140,7 @@ export default {
             return this.$store.state.route.params.username === this.$store.state.user.username
         },
         ignShowNow: function () {
+            // watches if something is added
             if (this.updated === true) {
                 this.getId()
             }
