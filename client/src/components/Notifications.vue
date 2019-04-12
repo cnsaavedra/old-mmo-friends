@@ -3,6 +3,13 @@
         <v-flex
             xs6
         >
+            <v-img
+                v-show="emptyBool"
+                aspect-ratio="2.5"
+                contain
+                src="https://i.imgur.com/ABGA8F4.png"
+            >
+            </v-img>
             <v-list
                 dark
                 v-for="(name,index) in reqIdsNow" :key="index"
@@ -115,7 +122,8 @@ export default {
             accepted: false,
             acceptedName: '',
             declined: false,
-            declinedName: ''
+            declinedName: '',
+            emptyBool: false
         }
     },
     async mounted () {
@@ -128,6 +136,9 @@ export default {
                 id2: this.currentUser
             })
             this.reqShow = response.data
+            if (this.reqShow.length === 0) {
+                this.emptyBool = true
+            }
         },
         async accept (fromUser) {
             this.updated = true
@@ -176,8 +187,16 @@ export default {
 
 <style scoped>
 .users {
-  padding: 20px;
-  height: 330px;
-  overflow: hidden;
+    padding: 20px;
+    height: 330px;
+    overflow: hidden;
 }
+
+.v-image__image, .v-image__placeholder, .v-image__image--contain {
+    background-attachment: fixed !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    background-size: cover !important;
+}
+
 </style>
