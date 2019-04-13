@@ -1,6 +1,6 @@
 <template>
-    <v-layout column>
-        <v-flex xs6>
+    <v-layout align-center justify-center>
+        <v-flex xs12 sm8 md4>
             <h1>IGN: Game</h1>
             <v-list
                 ripple

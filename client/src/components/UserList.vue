@@ -1,19 +1,21 @@
-<template>
-    <v-layout column>
-        <v-flex xs6>
-            <v-list
-                dark
-                v-for="(name,index) in names" :key="index"
-            >
-            <v-btn
-                flat
-                dark
-                @click="userprofile(name)">
-                {{name}}
-            </v-btn>
-            </v-list>
-        </v-flex>
-    </v-layout>
+<template fluid>
+    <v-container>
+        <v-layout column>
+            <v-flex xs6>
+                <v-list
+                    dark
+                    v-for="(name,index) in names" :key="index"
+                >
+                <v-btn
+                    flat
+                    dark
+                    @click="userprofile(name)">
+                    {{name}}
+                </v-btn>
+                </v-list>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>

@@ -1,10 +1,12 @@
 <template>
-  <div title="Search">
-    <v-text-field
-      label="Search the IGN you remember from your friend list!"
-      v-model="search"
-    ></v-text-field>
-  </div>
+  <v-container fluid>
+    <div title="Search">
+      <v-text-field
+        label="Search the IGN you remember from your friend list!"
+        v-model="search"
+      ></v-text-field>
+    </div>
+  </v-container>
 </template>
 
 <script>

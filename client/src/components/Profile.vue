@@ -8,7 +8,7 @@
             <v-sheet
                 class="d-flex"
                 dark
-                height="800"
+                height="100vh"
                 max-width="450"
                 elevation="15"
                 >
