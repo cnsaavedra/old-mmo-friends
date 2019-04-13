@@ -15,7 +15,7 @@
     <v-parallax
         transition="fade-transition"
         v-scroll="onScroll" id="parallax2" v-bind:style="{ opacity: 40-offsetTop}"
-        height="650"
+        height="672.50"
         src="http://genchi.info/images/pixel-wallpaper-17.png"
     >
     <h1 class="font-weight-black display-4" v-bind:style="{ opacity: 10-offsetTop}">OldMMOFriendFinder</h1>
@@ -52,7 +52,7 @@
         left
         small
         >
-        <v-card v-scroll="onScroll" id="firstcard2" v-bind:style="{ opacity: 10-offsetTop}">
+        <v-card v-scroll="onScroll" id="firstcard2" v-bind:style="{ opacity: 15-offsetTop}">
             <v-card-title class="light-blue lighten-2 justify-end">
             <h2 class="display-1 mr-3 white--text font-weight-light">Step 2</h2>
             <v-icon
@@ -75,7 +75,7 @@
         fill-dot
         right
         >
-        <v-card v-scroll="onScroll" id="firstcard3" v-bind:style="{ opacity: 10-offsetTop}">
+        <v-card v-scroll="onScroll" id="firstcard3" v-bind:style="{ opacity: 20-offsetTop}">
             <v-card-title class="light-blue darken-1">
             <v-icon
                 class="mr-3"
@@ -103,7 +103,7 @@
     <v-parallax
         transition="fade-transition"
         v-scroll="onScroll" id="parallax2" v-bind:style="{ opacity: offsetTop-39 }"
-        height="500"
+        height="600"
         src="http://genchi.info/images/pixel-wallpaper-17.png"
     >
         <v-timeline-item
@@ -137,7 +137,7 @@
             fill-dot
             right
             >
-            <v-card v-scroll="onScroll" id="lastcard" v-bind:style="{ opacity: offsetTop-150 }">
+            <v-card v-scroll="onScroll" id="lastcard" v-bind:style="{ opacity: offsetTop-200 }">
                 <v-card-title class="light-blue darken-4">
                 <v-icon
                     class="mr-3"
