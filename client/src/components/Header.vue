@@ -10,12 +10,14 @@
 
         <v-toolbar-items>
             <v-btn
+                class="text-lowercase"
                 flat
                 dark
                 @click="navigateTo({name: 'find'})">
                 Find Friends
             </v-btn>
             <v-btn
+                class="text-lowercase"
                 flat
                 dark
                 @click="navigateTo({name: 'users'})">
@@ -27,6 +29,7 @@
 
         <v-toolbar-items>
             <v-btn
+                class="text-lowercase"
                 v-if="!$store.state.isUserLoggedIn"
                 flat
                 dark
@@ -34,6 +37,7 @@
                 Login
             </v-btn>
             <v-btn
+                class="text-lowercase"
                 v-if="!$store.state.isUserLoggedIn"
                 flat
                 dark
@@ -41,6 +45,7 @@
                 Sign-Up
             </v-btn>
             <v-btn
+                class="text-lowercase"
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
@@ -48,6 +53,7 @@
                 My Profile
             </v-btn>
             <v-btn
+                class="text-lowercase"
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
@@ -55,6 +61,7 @@
                 Notifications
             </v-btn>
             <v-btn
+                class="text-lowercase"
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
@@ -107,10 +114,16 @@ export default {
 <style scoped>
 .home{
     cursor:pointer;
+    font-size: 30px;
 }
 
 .home:hover{
     color:grey
+}
+
+.text-lowercase{
+    font-size: 20px;
+    font-weight: bold;
 }
 </style>
 
