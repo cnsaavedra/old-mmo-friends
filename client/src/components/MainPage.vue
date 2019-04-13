@@ -1,6 +1,6 @@
 <template>
 
-<div class="hello">
+<div class="mainpage">
     <!-- <v-carousel
         delimiter-icon="stop"
         prev-icon="mdi-arrow-left"
@@ -202,7 +202,13 @@ export default {
     font-size: 50px !important;
 }
 
-.v-parallax__content{
+.mainpage {
     object-fit: fill  !important;
+    margin: 0;
+    height: 100vh;
+}
+
+.container.fluid {
+    background-image: url('http://genchi.info/images/pixel-wallpaper-17.png') !important;
 }
 </style>
