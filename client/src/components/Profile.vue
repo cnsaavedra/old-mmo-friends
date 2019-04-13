@@ -32,7 +32,7 @@
                 </div>
                 </div>
             </v-sheet>
-            <v-layout row justify-center>
+            <v-layout>
                 <v-dialog v-model="adder" persistent max-width="290">
                     <template v-slot:activator="{ on }">
                         <v-btn
