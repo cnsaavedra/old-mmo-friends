@@ -1,13 +1,25 @@
 <template>
     <v-layout align-center justify-center>
         <v-flex xs12 sm8 md4>
-            <h1>IGN: Game</h1>
-            <v-list
+            <v-list-tile-content
                 ripple
                 dark
                 v-for="(ign,game) in igns" :key="game"
             >
-            {{ign.ign}}: {{ign.game}}
+                <v-card
+                    tile
+                    dark
+                    min-height="100"
+                    min-width="500"
+                >
+                <v-btn
+                    dark
+                    block
+                    @click="getUserName(ign.UserId)"
+                >
+                    <v-list-tile-title class="font-weight-black title">{{ign.ign}}</v-list-tile-title>
+                    <v-list-tile-sub-title class="subheading">Game: {{ign.game}}</v-list-tile-sub-title>
+                </v-btn>
                 <v-btn
                     @click.stop="reqExist; selfBool; sentBool"
                     class = "blue"
@@ -15,7 +27,8 @@
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
-            </v-list>
+                </v-card>
+            </v-list-tile-content>
 
 
             <v-dialog
@@ -143,7 +156,8 @@ export default {
             alert: true,
             selfBool: false,
             reqExist: false,
-            sentBool: false
+            sentBool: false,
+            givenUser: ''
         }
     },
     watch: {
@@ -199,6 +213,17 @@ export default {
             } catch (error) {
                 console.log(error)
             }
+        },
+        async getUserName (id) {
+            // get id from the given user to get their games
+            let getUser = await UserService.getUserFromUserId({
+                    id: id
+            })
+            let returnUserVal = await getUser.data.user.username
+            this.$router.push({
+                    name: `profile`,
+                    params: {username: returnUserVal}
+            })
         }
     }
 }

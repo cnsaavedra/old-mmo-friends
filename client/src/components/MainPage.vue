@@ -235,4 +235,16 @@ export default {
 .carousel2 {
     background-color: #6992f2;
 }
+
+.parallax1 {
+    width: 800px !important;
+    margin: 0 auto !important;
+}
+
+.parallax2 {
+    width: 800px !important;
+    margin: 0 auto !important;
+}
+
+
 </style>

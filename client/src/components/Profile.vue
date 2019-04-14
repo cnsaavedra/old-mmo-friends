@@ -13,6 +13,7 @@
                 elevation="15"
                 >
                 <div class="User">
+                <h4>---</h4>
                 <h1>User: {{username}}</h1>
                 <v-spacer></v-spacer>
                 <div class="Games">
@@ -38,11 +39,10 @@
                         <v-btn
                             v-show= "isUserProfile"
                             outline
-                            large
                             fab
                             v-on="on"
                             color="indigo">
-                        <v-icon>edit</v-icon>
+                        <v-icon>settings</v-icon>
                         </v-btn>
                     </template>
                     <v-card>
