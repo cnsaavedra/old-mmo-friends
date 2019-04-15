@@ -21,6 +21,7 @@
 <script>
 import GamePanel from '@/components/GamePanel'
 import UserService from '@/services/UserService'
+import GameService from '@/services/GameService'
 import {mapState} from 'vuex'
 
 export default {
@@ -48,6 +49,7 @@ export default {
                 this.names.push(pushedname)
             }
         }
+        this.getGames()
     },
     methods: {
         navigateTo (route) {
@@ -62,6 +64,18 @@ export default {
                 })
             } catch (error) {
                 this.error = error.response.data.error
+            }
+        },
+        async getGames () {
+            for (var i in this.names) {
+                let getId = await UserService.getUserIdFromUser({
+                    username: this.names[i]
+                })
+                let currentId = getId.data.user.id
+                let response = await GameService.getGames({
+                    id: currentId
+                })
+                this.names[i] = response.data
             }
         }
     }
