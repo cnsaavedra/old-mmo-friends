@@ -7,6 +7,7 @@ import Profile from '@/components/Profile'
 import UserList from '@/components/UserList'
 import FindFriends from '@/components/Find/Index'
 import Notifications from '@/components/Notifications'
+import Friends from '@/components/Friends'
 
 Vue.use(Router)
 
@@ -51,6 +52,11 @@ export default new Router({
       path: '/notifs',
       name: 'notifs',
       component: Notifications
+    },
+    {
+      path: '/myfriends',
+      name: 'myfriends',
+      component: Friends
     }
   ]
 })

@@ -18,5 +18,8 @@ export default {
     },
     resFriendReq (id1, id2, status) {
         return Api().put('acceptfriend', id1, id2, status)
+    },
+    getAllFriendships (user) {
+        return Api().post('getallfriendships', user)
     }
 }

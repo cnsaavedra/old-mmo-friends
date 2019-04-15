@@ -278,6 +278,7 @@ module.exports = {
             })
         }
     },
+    //status of friendship
     async getFriends(req, res) {
         try {
             const id1 = req.body.id1
@@ -332,5 +333,22 @@ module.exports = {
                 error: 'an error has occured trying to send friend request'
             })
         }
-    }
+    },
+    async getAllFriendships(req, res) {
+        const { Op } = require('sequelize');
+        try {
+            const user = req.body.user
+            const response = await Friend.findAll({
+                where:{
+                    status: 1,
+                    [Op.or]: [{from_user: user}, {to_user: user}]
+                }
+            })
+            res.send(response)
+            } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to get all friend request'
+            })
+        }
+    },
 }
