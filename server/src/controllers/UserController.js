@@ -1,6 +1,7 @@
 const {User} = require('../models')
 const {Game} = require('../models')
 const {Friend} = require('../models')
+const {Message} = require('../models')
 const jwt = require('jsonwebtoken')
 const config = require('../config/config')
 
@@ -349,6 +350,24 @@ module.exports = {
             res.status(500).send({
                 error: 'an error has occured trying to get all friend request'
             })
+        }
+    },
+    //------------- THIS IS ALL FOR FRIEND INFO CONNECTED TO THE SPECIFIC CHAT ------------------
+    async getChat (req, res) {
+        try {
+            const user1 = req.body.user1
+            const user2 = req.body.user2
+            let result = await Message.findAll({
+                where:{
+                    from_user: user1,
+                    to_user: user2
+                }
+            })
+            res.send(result)
+        } catch (err) {
+          res.status(500).send({
+            error: 'an error has occured trying to show the game'
+          })
         }
     },
 }

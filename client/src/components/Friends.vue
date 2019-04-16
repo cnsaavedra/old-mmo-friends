@@ -14,8 +14,8 @@
                 dark
                 v-for="(name,index) in reqIdsNow" :key="index"
             >
-               <h1 v-if="currentUser === name.from_user">{{name.to_user}}</h1>
-               <h1 v-else-if="currentUser === name.to_user">{{name.from_user}}</h1>
+               <v-list-tile hover @click="userprofile(name.to_user)" v-if="currentUser === name.from_user">{{name.to_user}}</v-list-tile>
+               <v-list-tile hover @click="userprofile(name.from_user)" v-else-if="currentUser === name.to_user">{{name.from_user}}</v-list-tile>
             </v-list>
         </v-flex>
     </v-layout>

@@ -56,5 +56,7 @@ module.exports = (app) => {
     app.put('/acceptfriend',
         UserController.resFriendReq)      
      
+    app.get('/chat',
+        UserController.getChat)
 }
 
