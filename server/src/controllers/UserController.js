@@ -385,4 +385,21 @@ module.exports = {
             })
         }
     },
+    async sendMsg (req, res) {
+        try {
+            const user1 = req.body.user1
+            const user2 = req.params.user2
+            const message = req.body.message
+            const send = await Message.create({
+                from_user: user1,
+                to_user : user2,
+                message : message
+            })
+            res.send(send)
+        } catch (err) {
+            res.status(500).send({
+                error: 'an error has occured trying to create message'
+            })
+        }
+    },
 }

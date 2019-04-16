@@ -6,5 +6,8 @@ export default {
     },
     getMsgUserWith (username) {
         return Api().get(`message/${username}`)
-    }
+    },
+    sendMsg (user1, user2, message) {
+        return Api().post(`message/${user2}`, user1, message)
+    },
 }

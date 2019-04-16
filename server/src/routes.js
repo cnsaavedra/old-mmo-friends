@@ -59,6 +59,9 @@ module.exports = (app) => {
     app.get('/message',
         UserController.getMsg)
 
+    app.post('/message/:user2',
+        UserController.sendMsg)
+
     app.get('/message/:username', 
         UserController.getMsgUserWith)        
 }
