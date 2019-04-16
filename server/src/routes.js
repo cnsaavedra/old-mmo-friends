@@ -56,7 +56,7 @@ module.exports = (app) => {
     app.put('/acceptfriend',
         UserController.resFriendReq)      
      
-    app.get('/message',
+    app.get('/message/:user2',
         UserController.getMsg)
 
     app.post('/message/:user2',

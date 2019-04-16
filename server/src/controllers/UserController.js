@@ -356,7 +356,7 @@ module.exports = {
     async getMsg (req, res) {
         try {
             const user1 = req.body.user1
-            const user2 = req.body.user2
+            const user2 = req.params.user2
             let result = await Message.findAll({
                 where:{
                     from_user: user1,
@@ -366,7 +366,7 @@ module.exports = {
             res.send(result)
         } catch (err) {
           res.status(500).send({
-            error: 'an error has occured trying to show the game'
+            error: 'an error has occured trying to show all the msgs'
           })
         }
     },

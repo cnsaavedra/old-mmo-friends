@@ -1,6 +1,7 @@
 <template>
     <v-content fluid>
         <h1>{{otherusername}}</h1>
+
         <v-text-field
                 class="messagebox"
                 outline
@@ -12,18 +13,32 @@
 
 <script>
 import UserService from '@/services/UserService'
+import MessagingService from '@/services/MessagingService'
 
 export default {
     data () {
         return {
             myusername: '',
             otherusername: '',
-            userID: '',
-            ignShow: '',
-            viewId: ''
+            currentmessage: '',
+            messages: []
         }
     },
     methods: {
+        async getAllMsg () {
+            let response = (await MessagingService.getMsg({
+                from_user: this.myusername,
+                to_user: this.otherusername
+            }))
+            console.log(response.data)
+        },
+        async sendMsg () {
+            await MessagingService.sendMsg({
+                from_user: this.myusername,
+                to_user: this.otherusername,
+                message: this.currentmessage
+            })
+        }
     },
     async mounted () {
         // do request for backend for username and gamenames from user
@@ -32,23 +47,7 @@ export default {
             let othername = this.$store.state.route.params.username
             this.myusername = (await UserService.getUserName(myname)).data
             this.otherusername = (await UserService.getUserName(othername)).data
-
-
-
-
-
-
-            // problems with having usernames as an integer
-            if (Number.isInteger(this.myusername)) {
-                this.myusername = JSON.stringify(this.myusername)
-            } else {
-                this.myusername = this.myusername.replace(/['"]+/g, '')
-            }
-            if (Number.isInteger(this.otherusername)) {
-                this.otherusername = JSON.stringify(this.otherusername)
-            } else {
-                this.otherusername = this.otherusername.replace(/['"]+/g, '')
-            }
+            this.getAllMsg()
         } catch (err) {
         console.log(err)
         }
