@@ -56,10 +56,10 @@ module.exports = (app) => {
     app.put('/acceptfriend',
         UserController.resFriendReq)      
      
-    app.get('/message/:user2',
+    app.post('/message',
         UserController.getMsg)
 
-    app.post('/message/:user2',
+    app.post('/sendmessage/',
         UserController.sendMsg)
 
     app.get('/message/:username', 

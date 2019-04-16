@@ -354,13 +354,13 @@ module.exports = {
     },
     //------------- THIS IS ALL FOR FRIEND INFO CONNECTED TO THE SPECIFIC CHAT ------------------
     async getMsg (req, res) {
+        const { Op } = require('sequelize');
         try {
             const user1 = req.body.user1
-            const user2 = req.params.user2
+            const user2 = req.body.user2
             let result = await Message.findAll({
                 where:{
-                    from_user: user1,
-                    to_user: user2
+                    [Op.and]: [{from_user: user1}, {to_user: user2}]
                 }
             })
             res.send(result)
@@ -388,7 +388,7 @@ module.exports = {
     async sendMsg (req, res) {
         try {
             const user1 = req.body.user1
-            const user2 = req.params.user2
+            const user2 = req.body.user2
             const message = req.body.message
             const send = await Message.create({
                 from_user: user1,

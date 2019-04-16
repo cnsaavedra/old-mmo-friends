@@ -1,7 +1,12 @@
 <template>
     <v-content fluid>
         <h1>{{otherusername}}</h1>
-
+        <v-list
+            dark
+            v-for="(msg,index) in messages" :key="index"
+        >
+        {{msg}}
+        </v-list>
         <v-text-field
                 class="messagebox"
                 outline
@@ -25,13 +30,6 @@ export default {
         }
     },
     methods: {
-        async getAllMsg () {
-            let response = (await MessagingService.getMsg({
-                from_user: this.myusername,
-                to_user: this.otherusername
-            }))
-            console.log(response.data)
-        },
         async sendMsg () {
             await MessagingService.sendMsg({
                 from_user: this.myusername,
@@ -41,13 +39,19 @@ export default {
         }
     },
     async mounted () {
-        // do request for backend for username and gamenames from user
+        // do request for backend for usernames
         try {
             let myname = this.$store.state.user.username
             let othername = this.$store.state.route.params.username
             this.myusername = (await UserService.getUserName(myname)).data
             this.otherusername = (await UserService.getUserName(othername)).data
-            this.getAllMsg()
+            let response = await MessagingService.getMsg({
+                    user1: myname,
+                    user2: othername
+            })
+            for (var msg in response.data) {
+                this.messages.push(response.data[msg].message)
+            }
         } catch (err) {
         console.log(err)
         }
