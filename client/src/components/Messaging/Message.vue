@@ -2,10 +2,9 @@
     <v-content fluid>
         <h1>{{otherusername}}</h1>
         <v-list
-            dark
-            v-for="(msg,index) in messages" :key="index"
+            v-for="(msg,index) in totalMsg" :key="index"
         >
-        {{msg}}
+        {{msg.from_user}}: {{msg.message}}
         </v-list>
         <v-text-field
                 class="messagebox"
@@ -26,7 +25,16 @@ export default {
             myusername: '',
             otherusername: '',
             currentmessage: '',
-            messages: []
+            sentmessages: [],
+            receivedmessages: [],
+            totalmessages: []
+        }
+    },
+    computed: {
+        totalMsg: function () {
+            return this.totalmessages.sort(function (a, b) {
+                return a.createdAt - b.createdAt
+            })
         }
     },
     methods: {
@@ -49,8 +57,21 @@ export default {
                     user1: myname,
                     user2: othername
             })
-            for (var msg in response.data) {
-                this.messages.push(response.data[msg].message)
+            let received = await MessagingService.getMsg({
+                    user2: myname,
+                    user1: othername
+            })
+            for (var msg1 in response.data) {
+                this.sentmessages.push(response.data[msg1])
+            }
+            for (var msg2 in received.data) {
+                this.receivedmessages.push(received.data[msg2])
+            }
+            for (var msgs1 in this.sentmessages) {
+                this.totalmessages.push(this.sentmessages[msgs1])
+            }
+            for (var msgs2 in this.receivedmessages) {
+                this.totalmessages.push(this.receivedmessages[msgs2])
             }
         } catch (err) {
         console.log(err)
