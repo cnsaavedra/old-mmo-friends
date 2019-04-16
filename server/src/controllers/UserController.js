@@ -353,7 +353,7 @@ module.exports = {
         }
     },
     //------------- THIS IS ALL FOR FRIEND INFO CONNECTED TO THE SPECIFIC CHAT ------------------
-    async getChat (req, res) {
+    async getMsg (req, res) {
         try {
             const user1 = req.body.user1
             const user2 = req.body.user2
@@ -368,6 +368,21 @@ module.exports = {
           res.status(500).send({
             error: 'an error has occured trying to show the game'
           })
+        }
+    },
+    async getMsgUserWith (req, res) {
+        try {
+            const name = req.params.username
+            const user = await Message.findOne({
+                where:{
+                    to_user : name
+                }
+            })
+            res.send(user.username)
+            } catch (err) {
+                res.status(500).send({
+                error: 'an error has occured trying to show the name'
+            })
         }
     },
 }

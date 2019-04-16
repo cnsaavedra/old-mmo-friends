@@ -8,6 +8,8 @@ import UserList from '@/components/UserList'
 import FindFriends from '@/components/Find/Index'
 import Notifications from '@/components/Notifications'
 import Friends from '@/components/Friends'
+import MessageList from '@/components/Messaging/MessageList'
+import Message from '@/components/Messaging/Message'
 
 Vue.use(Router)
 
@@ -57,6 +59,16 @@ export default new Router({
       path: '/myfriends',
       name: 'myfriends',
       component: Friends
+    },
+    {
+      path: '/mymessages',
+      name: 'mymessages',
+      component: MessageList
+    },
+    {
+      path: '/message/:username',
+      name: 'message',
+      component: Message
     }
   ]
 })

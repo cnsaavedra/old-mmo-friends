@@ -56,7 +56,10 @@ module.exports = (app) => {
     app.put('/acceptfriend',
         UserController.resFriendReq)      
      
-    app.get('/chat',
-        UserController.getChat)
+    app.get('/message',
+        UserController.getMsg)
+
+    app.get('/message/:username', 
+        UserController.getMsgUserWith)        
 }
 

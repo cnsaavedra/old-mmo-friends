@@ -65,6 +65,14 @@
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
+                @click="navigateTo({name: 'mymessages'})">
+                Messages
+            </v-btn>
+            <v-btn
+                class="text-lowercase"
+                v-if="$store.state.isUserLoggedIn"
+                flat
+                dark
                 @click="navigateTo({name: 'notifs'})">
                 Notifications
             </v-btn>
