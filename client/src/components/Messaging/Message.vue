@@ -38,11 +38,13 @@ export default {
             this.updated = true
             let myname = this.$store.state.user.username
             let othername = this.$store.state.route.params.username
-            await MessagingService.sendMsg({
+            let sendVal = await MessagingService.sendMsg({
                 user1: myname,
                 user2: othername,
                 message: this.currentmessage
             })
+            console.log(sendVal.data)
+            this.totalmessages.push(sendVal.data)
             this.updated = true
         },
         async getAllMsg () {
