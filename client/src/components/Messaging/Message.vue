@@ -2,14 +2,16 @@
     <v-content fluid>
         <h1>{{otherusername}}</h1>
         <v-list
-            v-for="(msg,index) in totalMsg" :key="index"
+            v-for="(msg,index) in totalmessages" :key="index"
         >
         {{msg.from_user}}: {{msg.message}}
         </v-list>
         <v-text-field
                 class="messagebox"
                 outline
+                v-model="currentmessage"
                 placeholder="Enter a message"
+                v-on:keyup.enter="sendMsg"
         >
         </v-text-field>
     </v-content>
@@ -27,32 +29,25 @@ export default {
             currentmessage: '',
             sentmessages: [],
             receivedmessages: [],
-            totalmessages: []
-        }
-    },
-    computed: {
-        totalMsg: function () {
-            return this.totalmessages.sort(function (a, b) {
-                return a.createdAt - b.createdAt
-            })
+            totalmessages: [],
+            updated: false
         }
     },
     methods: {
         async sendMsg () {
-            await MessagingService.sendMsg({
-                from_user: this.myusername,
-                to_user: this.otherusername,
-                message: this.currentmessage
-            })
-        }
-    },
-    async mounted () {
-        // do request for backend for usernames
-        try {
+            this.updated = true
             let myname = this.$store.state.user.username
             let othername = this.$store.state.route.params.username
-            this.myusername = (await UserService.getUserName(myname)).data
-            this.otherusername = (await UserService.getUserName(othername)).data
+            await MessagingService.sendMsg({
+                user1: myname,
+                user2: othername,
+                message: this.currentmessage
+            })
+            this.updated = true
+        },
+        async getAllMsg () {
+            let myname = this.$store.state.user.username
+            let othername = this.$store.state.route.params.username
             let response = await MessagingService.getMsg({
                     user1: myname,
                     user2: othername
@@ -73,6 +68,19 @@ export default {
             for (var msgs2 in this.receivedmessages) {
                 this.totalmessages.push(this.receivedmessages[msgs2])
             }
+            this.totalmessages.sort(function (a, b) {
+                return a.id - b.id
+            })
+        }
+    },
+    async mounted () {
+        // do request for backend for usernames
+        try {
+            let myname = this.$store.state.user.username
+            let othername = this.$store.state.route.params.username
+            this.myusername = (await UserService.getUserName(myname)).data
+            this.otherusername = (await UserService.getUserName(othername)).data
+            this.getAllMsg()
         } catch (err) {
         console.log(err)
         }
