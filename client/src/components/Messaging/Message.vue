@@ -1,10 +1,11 @@
 <template>
-    <v-content fluid>
+    <v-content>
         <h1>{{otherusername}}</h1>
         <v-list
             v-for="(msg,index) in totalmessages" :key="index"
         >
-        {{msg.from_user}}: {{msg.message}}
+        <v-list-tile-title class="title font-weight-bold">{{msg.from_user}}</v-list-tile-title>
+        <v-list-tile-sub-title rounded class="subheading text-sm-left">{{msg.message}}</v-list-tile-sub-title>
         </v-list>
         <v-text-field
                 class="messagebox"
@@ -45,6 +46,7 @@ export default {
             })
             console.log(sendVal.data)
             this.totalmessages.push(sendVal.data)
+            this.currentmessage = ''
             this.updated = true
         },
         async getAllMsg () {
@@ -96,6 +98,17 @@ export default {
     bottom: 0 !important;
     left: 0 !important;
     right: 0 !important;
+}
+
+.subheading.text-sm-left {
+    display:inline-block;
+    clear: both;
+    padding: 10px;
+    border-radius: 30px;
+    margin-bottom: 2px;
+    font-family: Helvetica, Arial, sans-serif;
+    background: #0084ff;
+    color: #fff;
 }
 
 
