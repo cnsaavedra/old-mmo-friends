@@ -1,20 +1,29 @@
 <template>
     <v-content>
-        <h1>{{otherusername}}</h1>
-        <v-list
-            v-for="(msg,index) in totalmessages" :key="index"
-        >
-        <v-list-tile-title class="title font-weight-bold">{{msg.from_user}}</v-list-tile-title>
-        <v-list-tile-sub-title rounded class="subheading text-sm-left">{{msg.message}}</v-list-tile-sub-title>
-        </v-list>
-        <v-text-field
-                class="messagebox"
-                outline
-                v-model="currentmessage"
-                placeholder="Enter a message"
-                v-on:keyup.enter="sendMsg"
-        >
-        </v-text-field>
+        <v-container fluid grid-list-xl class="chatbox">
+            <v-layout column align-start pb-5 ma-2>
+                <v-list
+                    max-height="50"
+                    v-for="(msg,index) in totalmessages" :key="index"
+                >
+                <v-list-tile-title class="title font-weight-bold">{{msg.from_user}}</v-list-tile-title>
+                <v-list-tile-sub-title rounded class="subheading text-sm-left">{{msg.message}}</v-list-tile-sub-title>
+                </v-list>
+            </v-layout>
+        </v-container>
+        <v-container>
+            <v-flex xs2>
+                <v-text-field
+                    single-line
+                    class="messagebox"
+                    outline
+                    v-model="currentmessage"
+                    placeholder="Enter a message"
+                    v-on:keyup.enter="sendMsg"
+                >
+                </v-text-field>
+            </v-flex>
+        </v-container>
     </v-content>
 </template>
 
@@ -111,5 +120,20 @@ export default {
     color: #fff;
 }
 
+.chatbox {
+    height: 800px;
+    overflow-y: auto;
+}
+
+html, body {
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    height: 100%;
+    max-height: 100vh;
+    overflow: hidden;
+    padding-bottom: 1px;
+}
 
 </style>
