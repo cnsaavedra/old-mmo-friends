@@ -10,7 +10,6 @@
 </template>
 
 
-
 <script>
 import PageHeader from '@/components/Header.vue'
 export default {
@@ -24,7 +23,7 @@ export default {
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
 #app {
-    font-family: 'Roboto Condensed', sans-serif;
+  font-family: 'Roboto Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
