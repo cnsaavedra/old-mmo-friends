@@ -7,16 +7,19 @@
                 v-show="emptyBool"
                 aspect-ratio="2.5"
                 contain
-                src="https://i.imgur.com/ABGA8F4.png"
+                src="https://i.imgur.com/ulNHLoo.png"
             >
             </v-img>
-            <v-list
-                dark
-                v-for="(name,index) in reqIdsNow" :key="index"
-            >
-               <v-list-tile hover @click="userprofile(name.to_user)" v-if="currentUser === name.from_user">{{name.to_user}}</v-list-tile>
-               <v-list-tile hover @click="userprofile(name.from_user)" v-else-if="currentUser === name.to_user">{{name.from_user}}</v-list-tile>
-            </v-list>
+            <v-container justify-center align-center>
+                <h1 v-show="!emptyBool" class="display-2 font-weight-thin">Friends</h1>
+                <v-list
+                    dark
+                    v-for="(name,index) in reqIdsNow" :key="index"
+                >
+                    <v-list-tile hover @click="userprofile(name.to_user)" v-if="currentUser === name.from_user"> <h4 class="title font-weight-thin">{{name.to_user}}</h4></v-list-tile>
+                    <v-list-tile hover @click="userprofile(name.from_user)" v-else-if="currentUser === name.to_user"><h4 class="title font-weight-thin">{{name.from_user}}</h4></v-list-tile>
+                </v-list>
+            </v-container>
         </v-flex>
     </v-layout>
 </template>

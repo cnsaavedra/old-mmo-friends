@@ -1,6 +1,13 @@
 <template>
     <v-layout row>
-    <v-flex xs12 sm6 offset-sm3>
+        <v-img
+                v-show="emptyBool"
+                aspect-ratio="2.5"
+                contain
+                src="https://i.imgur.com/ulNHLoo.png"
+        >
+        </v-img>
+    <v-flex xs12 sm6 offset-sm3 v-show="!emptyBool">
       <v-card>
         <v-toolbar dark>
           <v-toolbar-title class="text-xs-center">Chat</v-toolbar-title>
