@@ -78,6 +78,9 @@ export default {
 </script>
 
 <style scoped>
-
+.body {
+    background-image: url('http://genchi.info/images/pixel-wallpaper-40.png') !important;
+    background-size: cover !important;
+}
 </style>
 
