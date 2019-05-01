@@ -1,11 +1,13 @@
 <template>
     <v-toolbar fixed dark>
         <v-toolbar-title class="mr-4">
+            writethistoshowimage
             <span
                 class="home"
                 @click="navigateTo({name: 'root'})">
-                OldMMOFriendFinder
+                <v-img src="https://i.gyazo.com/e2733790126125190fb51c2429a6b929.png" aspect-ratio="4"></v-img>
             </span>
+            <span style="opacity:0;">.</span>
         </v-toolbar-title>
 
         <v-toolbar-items>
