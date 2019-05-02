@@ -46,21 +46,41 @@
                 @click="navigateTo({name: 'register'})">
                 Sign-Up
             </v-btn>
+
+            <v-menu
+                v-if="$store.state.isUserLoggedIn"
+                transition="slide-y-transition"
+                nudge-top
+                >
+                <template v-slot:activator="{ on }">
+                    <v-btn
+                    dark
+                    flat
+                    v-on="on"
+                    >
+                    {{loggedinuser}}
+                    </v-btn>
+                </template>
+                <v-list>
+                    <v-list-tile
+                        @click="myprofile"
+                    >
+                    <v-list-tile-title>Profile</v-list-tile-title>
+                    </v-list-tile>
+                    <v-list-tile
+                        @click="navigateTo({name: 'myfriends'})"
+                    >
+                    <v-list-tile-title>Friends</v-list-tile-title>
+                    </v-list-tile>
+                </v-list>
+            </v-menu>
             <v-btn
                 class="text-lowercase"
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
-                @click="myprofile">
-                My Profile
-            </v-btn>
-            <v-btn
-                class="text-lowercase"
-                v-if="$store.state.isUserLoggedIn"
-                flat
-                dark
-                @click="navigateTo({name: 'myfriends'})">
-                My Friends
+                @click="navigateTo({name: 'notifs'})">
+                Notifications
             </v-btn>
             <v-btn
                 class="text-lowercase"
@@ -69,14 +89,6 @@
                 dark
                 @click="navigateTo({name: 'mymessages'})">
                 Messages
-            </v-btn>
-            <v-btn
-                class="text-lowercase"
-                v-if="$store.state.isUserLoggedIn"
-                flat
-                dark
-                @click="navigateTo({name: 'notifs'})">
-                Notifications
             </v-btn>
             <v-btn
                 class="text-lowercase"
@@ -96,6 +108,7 @@
 export default {
     data () {
         return {
+            loggedinuser: this.$store.state.user.username,
             username: '',
             error: null
         }
