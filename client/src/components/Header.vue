@@ -54,12 +54,14 @@
                 >
                 <template v-slot:activator="{ on }">
                     <v-btn
-                    dark
                     flat
+                    color="normal"
                     v-on="on"
                     v-if="$store.state.isUserLoggedIn"
                     >
-                    {{loggedinuser}}
+                    <h3>{{loggedinuser}}</h3>
+                    <span style="opacity:0;">.</span>
+                     <v-icon>account_circle</v-icon>
                     </v-btn>
                 </template>
                 <v-list>
@@ -81,7 +83,7 @@
                 flat
                 dark
                 @click="navigateTo({name: 'notifs'})">
-                Notifications
+                <v-icon>mdi-bell</v-icon>
             </v-btn>
             <v-btn
                 class="text-lowercase"
@@ -89,7 +91,7 @@
                 flat
                 dark
                 @click="navigateTo({name: 'mymessages'})">
-                Messages
+                 <v-icon>chat</v-icon>
             </v-btn>
             <v-btn
                 class="text-lowercase"
