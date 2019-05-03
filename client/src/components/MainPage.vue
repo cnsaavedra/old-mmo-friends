@@ -32,7 +32,7 @@
                 size="42"
                 class="mr-3"
             >
-                mdi-magnify
+                mdi-account-card-details-outline
             </v-icon>
             <h2 class="display-1 white--text font-weight-light">Step 1</h2>
             </v-card-title>
@@ -58,7 +58,7 @@
             <v-icon
                 dark
                 size="42"
-            >mdi-home-outline</v-icon>
+            >mdi-playlist-edit</v-icon>
             </v-card-title>
             <v-container>
             <v-layout>
@@ -82,7 +82,7 @@
                 dark
                 size="42"
             >
-                mdi-email-outline
+                mdi-account-search-outline
             </v-icon>
             <h2 class="display-1 white--text font-weight-light">Step 3</h2>
             </v-card-title>
@@ -119,7 +119,7 @@
                     dark
                     size="42"
                 >
-                    mdi-account-multiple-outline
+                    mdi-bell-alert-outline
                 </v-icon>
                 </v-card-title>
                 <v-container>
@@ -144,7 +144,7 @@
                     dark
                     size="42"
                 >
-                    mdi-phone-in-talk
+                    mdi-check-decagram
                 </v-icon>
                 <h2 class="display-1 white--text font-weight-light">Step 5</h2>
                 </v-card-title>

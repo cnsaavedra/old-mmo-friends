@@ -83,7 +83,8 @@
                 flat
                 dark
                 @click="navigateTo({name: 'notifs'})">
-                <v-icon>mdi-bell</v-icon>
+                <v-icon v-show="!updateNotif">mdi-bell-alert</v-icon>
+                <v-icon v-show="updateNotif">mdi-bell</v-icon>
             </v-btn>
             <v-btn
                 class="text-lowercase"
@@ -108,12 +109,15 @@
 </template>
 
 <script>
+import FriendService from '@/services/FriendService'
+import {mapState} from 'vuex'
 export default {
     data () {
         return {
             loggedinuser: '',
             username: '',
-            error: null
+            error: null,
+            emptyBool: false
         }
     },
     watch: {
@@ -124,6 +128,25 @@ export default {
                 this.getUser()
             }
         }
+    },
+    computed: {
+        ...mapState([
+        'isUserLoggedIn'
+        ]),
+
+        updateNotif: function () {
+            // watches if something is added
+            if (this.updated === true) {
+                this.getNotifBool()
+            }
+            return this.emptyBool
+        }
+    },
+    async mounted () {
+        // do request for backend for friend requests
+        this.updated = true
+        this.getNotifBool()
+        this.updated = false
     },
     methods: {
         navigateTo (route) {
@@ -142,6 +165,15 @@ export default {
         async getUser () {
             if (this.$store.state.isUserLoggedIn) {
                 this.loggedinuser = this.$store.state.user.username
+            }
+        },
+        async getNotifBool () {
+            let response = await FriendService.getAllFriendReqs({
+                id2: this.loggedinuser
+            })
+            let reqShow = response.data
+            if (reqShow.length === 0) {
+                this.emptyBool = true
             }
         },
         async myprofile () {

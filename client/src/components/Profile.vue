@@ -13,7 +13,7 @@
                 elevation="15"
                 >
                 <div class="User">
-                <h4>---</h4>
+                <span style="opacity:0;">.</span>
                 <h1>User: {{username}}</h1>
                 <v-spacer></v-spacer>
                 <div class="Games">
