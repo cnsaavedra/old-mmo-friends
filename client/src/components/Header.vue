@@ -57,6 +57,7 @@
                     dark
                     flat
                     v-on="on"
+                    v-if="$store.state.isUserLoggedIn"
                     >
                     {{loggedinuser}}
                     </v-btn>
@@ -108,9 +109,18 @@
 export default {
     data () {
         return {
-            loggedinuser: this.$store.state.user.username,
+            loggedinuser: '',
             username: '',
             error: null
+        }
+    },
+    watch: {
+        '$route.params.username': {
+            immediate: true,
+            handler (value) {
+                this.username = value
+                this.getUser()
+            }
         }
     },
     methods: {
@@ -126,6 +136,11 @@ export default {
             this.$router.push({
                 name: 'root'
             })
+        },
+        async getUser () {
+            if (this.$store.state.isUserLoggedIn) {
+                this.loggedinuser = this.$store.state.user.username
+            }
         },
         async myprofile () {
             try {

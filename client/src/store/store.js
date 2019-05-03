@@ -42,6 +42,11 @@ export default new Vuex.Store({
             if (state.isUserLoggedIn) {
                 return state.user.id
             }
+        },
+        getUser (state) {
+            if (state.isUserLoggedIn) {
+                return state.user
+            }
         }
     }
 })
