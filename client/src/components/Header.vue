@@ -128,6 +128,7 @@ export default {
             handler (value) {
                 this.username = value
                 this.getUser()
+                this.getNotifBool()
             }
         }
     },
@@ -145,6 +146,7 @@ export default {
         }
     },
     async mounted () {
+        this.getNotifBool()
     },
     methods: {
         navigateTo (route) {
@@ -175,8 +177,6 @@ export default {
             } else if (reqShow.length !== 0) {
                 this.emptyBool = false
             }
-            console.log(this.emptyBool)
-            console.log(reqShow)
         },
         async myprofile () {
             try {
