@@ -82,9 +82,10 @@
                 v-if="$store.state.isUserLoggedIn"
                 flat
                 dark
-                @click="navigateTo({name: 'notifs'})">
-                <v-icon v-show="!updateNotif">mdi-bell-alert</v-icon>
-                <v-icon v-show="updateNotif">mdi-bell</v-icon>
+                @click="mynotifs"
+            >
+                <v-icon v-show="!emptyBool">mdi-bell-alert</v-icon>
+                <v-icon v-show="emptyBool">mdi-bell</v-icon>
             </v-btn>
             <v-btn
                 class="text-lowercase"
@@ -117,7 +118,8 @@ export default {
             loggedinuser: '',
             username: '',
             error: null,
-            emptyBool: false
+            emptyBool: false,
+            updated: false
         }
     },
     watch: {
@@ -143,10 +145,6 @@ export default {
         }
     },
     async mounted () {
-        // do request for backend for friend requests
-        this.updated = true
-        this.getNotifBool()
-        this.updated = false
     },
     methods: {
         navigateTo (route) {
@@ -174,7 +172,11 @@ export default {
             let reqShow = response.data
             if (reqShow.length === 0) {
                 this.emptyBool = true
+            } else if (reqShow.length !== 0) {
+                this.emptyBool = false
             }
+            console.log(this.emptyBool)
+            console.log(reqShow)
         },
         async myprofile () {
             try {
@@ -186,6 +188,19 @@ export default {
             } catch (error) {
                 this.error = error.response.data.error
             }
+        },
+        async mynotifs () {
+            this.getNotifBool()
+            this.updated = true
+            try {
+                // go to my profile
+                this.$router.push({
+                    name: `notifs`
+                })
+            } catch (error) {
+                this.error = error.response.data.error
+            }
+            this.updated = false
         }
     }
 }

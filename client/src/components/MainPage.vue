@@ -119,7 +119,7 @@
                     dark
                     size="42"
                 >
-                    mdi-bell-alert-outline
+                    mdi-bell-alert
                 </v-icon>
                 </v-card-title>
                 <v-container>
