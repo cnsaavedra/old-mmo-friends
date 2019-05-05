@@ -75,7 +75,7 @@
                         flat="flat"
                         @click="sentBool = false"
                     >
-                        YOU GOT ME!
+                        Sure!
                     </v-btn>
                     </v-card-actions>
                 </v-card>
@@ -125,6 +125,13 @@
                 >
                 You have to be logged in to find friends!
                 </v-alert>
+            </div>
+            <div class="text-xs-center">
+                <v-pagination
+                    v-model="page"
+                    :length="6"
+                >
+                </v-pagination>
             </div>
         </v-flex>
     </v-layout>
