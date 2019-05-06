@@ -4,7 +4,7 @@
             <v-list-tile-content
                 ripple
                 dark
-                v-for="(ign,game) in igns" :key="game"
+                v-for="(ign,index) in igns" :key="index"
             >
                 <v-card
                     tile
@@ -125,13 +125,6 @@
                 >
                 You have to be logged in to find friends!
                 </v-alert>
-            </div>
-            <div class="text-xs-center">
-                <v-pagination
-                    v-model="page"
-                    :length="6"
-                >
-                </v-pagination>
             </div>
         </v-flex>
     </v-layout>
