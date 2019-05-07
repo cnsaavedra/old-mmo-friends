@@ -4,7 +4,7 @@
             <v-list-tile-content
                 ripple
                 dark
-                v-for="(ign,index) in igns" :key="index"
+                v-for="(ign,index) in igns.slice(firstIndex, lastIndex)" :key="index"
             >
                 <v-card
                     tile
@@ -29,6 +29,11 @@
                 </v-btn>
                 </v-card>
             </v-list-tile-content>
+             <v-btn
+                    class = "blue"
+                    @click="showMore">
+                    Show more
+            </v-btn>
 
 
             <v-dialog
@@ -157,7 +162,9 @@ export default {
             selfBool: false,
             reqExist: false,
             sentBool: false,
-            givenUser: ''
+            givenUser: '',
+            firstIndex: 0,
+            lastIndex: 6
         }
     },
     watch: {
@@ -180,6 +187,10 @@ export default {
         // }
     },
     methods: {
+        async showMore () {
+            this.firstIndex = this.firstIndex + 6
+            this.lastIndex = this.lastIndex + 6
+        },
         async notify (ign, UserId) {
             try {
                 this.currentUser = this.$store.state.user.username
