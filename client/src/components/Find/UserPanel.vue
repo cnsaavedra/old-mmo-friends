@@ -29,14 +29,9 @@
                 </v-btn>
                 </v-card>
             </v-list-tile-content>
-            <v-btn
-                    class = "blue"
-                    @click="showMore">
-                    Show more
-            </v-btn>
             <v-pagination
                 v-model="page"
-                :length="this.igns.length/6"
+                :length="sizeOfPage"
                 circle
                 @next="showMore"
                 @previous="showLess"
@@ -171,7 +166,8 @@ export default {
             givenUser: '',
             page: 1,
             firstIndex: 0,
-            lastIndex: 6
+            lastIndex: 6,
+            sizeOfPage: 0
         }
     },
     watch: {
@@ -184,6 +180,7 @@ export default {
     },
     async mounted () {
         this.igns = (await UserService.getIgnAndGame()).data
+        this.sizeOfPage = this.igns.length / 6
         // for (var ign in this.igns) {
         //     if (this.igns.hasOwnProperty(ign)) {
         //         console.log(ign + '->' + JSON.stringify(this.igns[ign].ign))
@@ -195,12 +192,10 @@ export default {
     },
     methods: {
         async showMore () {
-            this.page = this.page + 1
             this.firstIndex = this.firstIndex + 6
             this.lastIndex = this.lastIndex + 6
         },
         async showLess () {
-            this.page = this.page - 1
             this.firstIndex = this.firstIndex - 6
             this.lastIndex = this.lastIndex - 6
         },
