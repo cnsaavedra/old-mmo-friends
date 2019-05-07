@@ -20,7 +20,7 @@
                      <h2>Games: </h2>
                     <v-list
                         dark
-                        v-for="(ign, index) in ignShowNow" :key="index"
+                        v-for="(ign, index) in ignShowNow.slice(firstIndex, lastIndex)" :key="index"
                     >
                         {{ign.ign}}: {{ign.game}}
                         <v-btn
@@ -32,6 +32,13 @@
                     </v-list>
                 </div>
                 </div>
+                <v-pagination
+                    v-model="page"
+                    :length="sizeOfPage"
+                    circle
+                    @next="showMore"
+                    @previous="showLess"
+                ></v-pagination>
             </v-sheet>
             <v-layout>
                 <v-dialog v-model="adder" persistent max-width="290">
@@ -93,10 +100,22 @@ export default {
             // for if the user has pressed accept on adding a game
             adder: false,
             adding: false,
-            updated: false
+            updated: false,
+            page: 1,
+            firstIndex: 0,
+            lastIndex: 5,
+            sizeOfPage: this.ignShow / 6
         }
     },
     methods: {
+        async showMore () {
+            this.firstIndex = this.firstIndex + 6
+            this.lastIndex = this.lastIndex + 6
+        },
+        async showLess () {
+            this.firstIndex = this.firstIndex - 6
+            this.lastIndex = this.lastIndex - 6
+        },
         // adding games for a user
         async add () {
             this.adder = false
