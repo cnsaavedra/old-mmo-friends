@@ -29,12 +29,18 @@
                 </v-btn>
                 </v-card>
             </v-list-tile-content>
-             <v-btn
+            <v-btn
                     class = "blue"
                     @click="showMore">
                     Show more
             </v-btn>
-
+            <v-pagination
+                v-model="page"
+                :length="this.igns.length/6"
+                circle
+                @next="showMore"
+                @previous="showLess"
+            ></v-pagination>
 
             <v-dialog
                 v-model="selfBool"
@@ -163,6 +169,7 @@ export default {
             reqExist: false,
             sentBool: false,
             givenUser: '',
+            page: 1,
             firstIndex: 0,
             lastIndex: 6
         }
@@ -188,8 +195,14 @@ export default {
     },
     methods: {
         async showMore () {
+            this.page = this.page + 1
             this.firstIndex = this.firstIndex + 6
             this.lastIndex = this.lastIndex + 6
+        },
+        async showLess () {
+            this.page = this.page - 1
+            this.firstIndex = this.firstIndex - 6
+            this.lastIndex = this.lastIndex - 6
         },
         async notify (ign, UserId) {
             try {
