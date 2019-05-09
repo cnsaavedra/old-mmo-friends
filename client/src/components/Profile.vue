@@ -36,8 +36,6 @@
                     v-model="page"
                     :length="sizeOfPage"
                     circle
-                    @next="showMore"
-                    @previous="showLess"
                 ></v-pagination>
             </v-sheet>
             <v-layout>
@@ -104,18 +102,10 @@ export default {
             page: 1,
             firstIndex: 0,
             lastIndex: 5,
-            sizeOfPage: this.ignShow / 6
+            sizeOfPage: 0
         }
     },
     methods: {
-        async showMore () {
-            this.firstIndex = this.firstIndex + 6
-            this.lastIndex = this.lastIndex + 6
-        },
-        async showLess () {
-            this.firstIndex = this.firstIndex - 6
-            this.lastIndex = this.lastIndex - 6
-        },
         // adding games for a user
         async add () {
             this.adder = false
@@ -157,6 +147,7 @@ export default {
                 id: this.viewId
             })
             this.ignShow = response.data
+            this.sizeOfPage = this.ignShow.length / 6
         }
     },
     watch: {
@@ -165,6 +156,21 @@ export default {
             handler (value) {
                 this.username = value
                 this.getId()
+            }
+        },
+        page: function (newVal, oldVal) {
+            if (newVal > 1) {
+                this.firstIndex = 0
+                this.lastIndex = 5
+            }
+            if (newVal > oldVal) {
+                this.firstIndex = (this.firstIndex + 5) * (newVal - 1)
+                this.lastIndex = (this.lastIndex + (5 * (newVal - 1)))
+                console.log(this.firstIndex, this.lastIndex)
+            } else if (newVal < oldVal) {
+                this.firstIndex = (this.firstIndex - 5) * (newVal)
+                this.lastIndex = (this.lastIndex - (5 * (newVal)))
+                console.log(this.firstIndex, this.lastIndex)
             }
         }
     },
