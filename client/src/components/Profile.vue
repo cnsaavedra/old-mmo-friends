@@ -31,12 +31,12 @@
                         </v-btn>
                     </v-list>
                 </div>
-                </div>
                 <v-pagination
                     v-model="page"
                     :length="sizeOfPage"
                     circle
                 ></v-pagination>
+                </div>
             </v-sheet>
             <v-layout>
                 <v-dialog v-model="adder" persistent max-width="290">

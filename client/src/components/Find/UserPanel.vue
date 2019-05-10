@@ -33,8 +33,6 @@
                 v-model="page"
                 :length="sizeOfPage"
                 circle
-                @next="showMore"
-                @previous="showLess"
             ></v-pagination>
 
             <v-dialog
@@ -176,6 +174,28 @@ export default {
             async handler (value) {
                 this.igns = (await UserService.getIgnAndGame(value)).data
             }
+        },
+        page: function (newVal, oldVal) {
+            if (newVal > oldVal) {
+                if (newVal > 1) {
+                    this.firstIndex = 0
+                    this.lastIndex = 5
+                }
+                this.firstIndex = (this.firstIndex + 5) * (newVal - 1)
+                this.lastIndex = (this.lastIndex + (5 * (newVal - 1)))
+                console.log(this.firstIndex, this.lastIndex)
+            } else if (newVal < oldVal) {
+                if ((oldVal - newVal) > 1) {
+                    this.firstIndex = 0
+                    this.lastIndex = 5
+                    this.firstIndex = (this.firstIndex + 5) * (newVal - 1)
+                    this.lastIndex = (this.lastIndex + (5 * (newVal - 1)))
+                } else {
+                    this.firstIndex = (this.firstIndex - 5) * (oldVal - newVal)
+                    this.lastIndex = (this.lastIndex - 5) * (oldVal - newVal)
+                }
+                console.log(this.firstIndex, this.lastIndex)
+            }
         }
     },
     async mounted () {
@@ -191,14 +211,6 @@ export default {
         // }
     },
     methods: {
-        async showMore () {
-            this.firstIndex = this.firstIndex + 6
-            this.lastIndex = this.lastIndex + 6
-        },
-        async showLess () {
-            this.firstIndex = this.firstIndex - 6
-            this.lastIndex = this.lastIndex - 6
-        },
         async notify (ign, UserId) {
             try {
                 this.currentUser = this.$store.state.user.username
