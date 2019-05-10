@@ -159,17 +159,24 @@ export default {
             }
         },
         page: function (newVal, oldVal) {
-            if (newVal > 1) {
-                this.firstIndex = 0
-                this.lastIndex = 5
-            }
             if (newVal > oldVal) {
+                if (newVal > 1) {
+                    this.firstIndex = 0
+                    this.lastIndex = 5
+                }
                 this.firstIndex = (this.firstIndex + 5) * (newVal - 1)
                 this.lastIndex = (this.lastIndex + (5 * (newVal - 1)))
                 console.log(this.firstIndex, this.lastIndex)
             } else if (newVal < oldVal) {
-                this.firstIndex = (this.firstIndex - 5) * (newVal)
-                this.lastIndex = (this.lastIndex - (5 * (newVal)))
+                if ((oldVal - newVal) > 1) {
+                    this.firstIndex = 0
+                    this.lastIndex = 5
+                    this.firstIndex = (this.firstIndex + 5) * (newVal - 1)
+                    this.lastIndex = (this.lastIndex + (5 * (newVal - 1)))
+                } else {
+                    this.firstIndex = (this.firstIndex - 5) * (oldVal - newVal)
+                    this.lastIndex = (this.lastIndex - 5) * (oldVal - newVal)
+                }
                 console.log(this.firstIndex, this.lastIndex)
             }
         }
