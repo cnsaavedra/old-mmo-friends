@@ -1,17 +1,21 @@
 <template fluid>
-    <v-container>
-        <v-layout column>
+    <v-container align-center>
+        <h1>User List</h1>
+        <v-layout row justify-center>
             <v-flex xs6>
                 <v-list
+                    dense
                     dark
                     v-for="(name,index) in names" :key="index"
                 >
-                <v-btn
-                    flat
-                    dark
-                    @click="userprofile(name)">
-                    {{name}}
-                </v-btn>
+                <v-card>
+                    <v-btn
+                        flat
+                        dark
+                        @click="userprofile(name)">
+                        {{name}}
+                    </v-btn>
+                </v-card>
                 </v-list>
             </v-flex>
         </v-layout>
