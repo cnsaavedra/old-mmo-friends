@@ -27,6 +27,7 @@
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
+                <h4>Account: {{getUserName(ign.UserId)}}</h4>
                 </v-card>
             </v-list-tile-content>
             <v-pagination
@@ -251,10 +252,11 @@ export default {
                     id: id
             })
             let returnUserVal = await getUser.data.user.username
-            this.$router.push({
-                    name: `profile`,
-                    params: {username: returnUserVal}
-            })
+            // this.$router.push({
+            //         name: `profile`,
+            //         params: {username: returnUserVal}
+            // })
+            return returnUserVal
         }
     }
 }
