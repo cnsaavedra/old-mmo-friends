@@ -256,6 +256,7 @@ export default {
             //         name: `profile`,
             //         params: {username: returnUserVal}
             // })
+            console.log(returnUserVal)
             return returnUserVal
         }
     }
