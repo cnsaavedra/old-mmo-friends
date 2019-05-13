@@ -91,7 +91,8 @@ export default {
             gamenames: {
                 ign: '',
                 game: '',
-                UserId: this.userID
+                UserId: this.userID,
+                UserName: this.username
             },
             ignShow: '',
             viewId: '',
@@ -115,7 +116,8 @@ export default {
             await GameService.post({
                 ign: this.gamenames.ign,
                 game: this.gamenames.game,
-                UserId: this.userID
+                UserId: this.userID,
+                UserName: this.username
             })
             console.log('Added game.')
             //stops updating

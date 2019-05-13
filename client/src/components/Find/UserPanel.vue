@@ -27,7 +27,7 @@
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
-                <h4>Account: {{getUserName(ign.UserId)}}</h4>
+                <h4>Account: {{ign.UserName}}</h4>
                 </v-card>
             </v-list-tile-content>
             <v-pagination
@@ -202,6 +202,7 @@ export default {
     async mounted () {
         this.igns = (await UserService.getIgnAndGame()).data
         this.sizeOfPage = this.igns.length / 6
+        console.log(this.igns)
         // for (var ign in this.igns) {
         //     if (this.igns.hasOwnProperty(ign)) {
         //         console.log(ign + '->' + JSON.stringify(this.igns[ign].ign))
@@ -252,10 +253,10 @@ export default {
                     id: id
             })
             let returnUserVal = await getUser.data.user.username
-            // this.$router.push({
-            //         name: `profile`,
-            //         params: {username: returnUserVal}
-            // })
+            this.$router.push({
+                     name: `profile`,
+                     params: {username: returnUserVal}
+            })
             console.log(returnUserVal)
             return returnUserVal
         }

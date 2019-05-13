@@ -139,7 +139,7 @@ module.exports = {
                 })
             } else {
                 ign = await Game.findAll({
-                    attributes: ['ign', 'game', 'UserId']
+                    attributes: ['ign', 'game', 'UserId', 'UserName']
                 })
             }
             res.send(ign)
