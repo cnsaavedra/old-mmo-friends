@@ -16,7 +16,7 @@ const socket = require('socket.io')
 require('./routes')(app)
 
 // add in {force: true} to clean databse inside sync
-sequelize.sync({force: true})
+sequelize.sync({force: false})
     .then(() => {
         var server = app.listen(config.port)
         console.log(`Server started on Port ${config.port}`)
