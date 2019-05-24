@@ -184,7 +184,6 @@ export default {
                 }
                 this.firstIndex = (this.firstIndex + 5) * (newVal - 1)
                 this.lastIndex = (this.lastIndex + (5 * (newVal - 1)))
-                console.log(this.firstIndex, this.lastIndex)
             } else if (newVal < oldVal) {
                 if ((oldVal - newVal) > 1) {
                     this.firstIndex = 0
@@ -195,14 +194,12 @@ export default {
                     this.firstIndex = (this.firstIndex - 5) * (oldVal - newVal)
                     this.lastIndex = (this.lastIndex - 5) * (oldVal - newVal)
                 }
-                console.log(this.firstIndex, this.lastIndex)
             }
         }
     },
     async mounted () {
         this.igns = (await UserService.getIgnAndGame()).data
         this.sizeOfPage = this.igns.length / 6
-        console.log(this.igns)
         // for (var ign in this.igns) {
         //     if (this.igns.hasOwnProperty(ign)) {
         //         console.log(ign + '->' + JSON.stringify(this.igns[ign].ign))
@@ -222,7 +219,6 @@ export default {
                     id: UserId
                 })
                 this.notifiedUser = response.data.user.username
-                console.log(this.notifiedUser)
 
                 // disable spam friend requests
                 const findFriends = await FriendService.getFriends({
