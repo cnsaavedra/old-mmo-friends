@@ -3,6 +3,7 @@
         <v-container fluid grid-list-xl class="chatbox">
             <v-layout column align-start pb-5 ma-2>
                 <v-list
+                    class="message"
                     max-height="50"
                     v-for="(msg,index) in totalmessages" :key="index"
                 >
@@ -134,6 +135,10 @@ html, body {
     max-height: 100vh;
     overflow: hidden;
     padding-bottom: 1px;
+}
+
+.message{
+    background-color: #fafafa
 }
 
 </style>

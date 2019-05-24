@@ -11,6 +11,7 @@ import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
 
 Vue.config.productionTip = false
+// temporary fix below for silence warning
 Vue.config.silent = true
 
 Vue.use(Vuetify)
