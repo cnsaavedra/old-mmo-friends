@@ -27,7 +27,7 @@
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
-                <h4>Account: {{ign.UserName}}</h4>
+                <h4><span style="opacity:0;">.</span> Account: {{ign.UserName}}</h4>
                 </v-card>
             </v-list-tile-content>
             <v-pagination
