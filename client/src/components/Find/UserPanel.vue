@@ -1,6 +1,6 @@
 <template>
     <v-layout align-center justify-center>
-        <v-flex xs12 sm8 md4>
+        <v-flex xs10 md3 justify-center>
             <v-list-tile-content
                 ripple
                 dark
@@ -31,6 +31,7 @@
                 </v-card>
             </v-list-tile-content>
             <v-pagination
+                class="justify-center"
                 v-model="page"
                 :length="sizeOfPage"
                 circle
