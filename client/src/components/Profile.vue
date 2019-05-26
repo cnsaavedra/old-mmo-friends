@@ -1,8 +1,6 @@
 <template>
-    <v-layout column>
+    <v-layout class="layout-body">
         <v-flex
-            xs12
-            md4
             d-flex
         >
             <v-sheet
@@ -10,7 +8,7 @@
                 dark
                 height="100vh"
                 max-width="450"
-                elevation="15"
+                elevation="0"
                 >
                 <div class="User">
                 <span style="opacity:0;">.</span>
