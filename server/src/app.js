@@ -11,6 +11,11 @@ app.use(bodyParser.json())
 app.use(cors())
 
 const socket = require('socket.io')
+const multer = require('multer');
+
+var storage = multer.memoryStorage()
+var upload = multer({storage: storage})
+module.exports = upload;
 
 //routes file returns a function for us, where we pass in app, and detach all end points into that express application variable
 require('./routes')(app)
