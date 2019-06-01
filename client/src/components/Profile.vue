@@ -105,7 +105,7 @@
                                 color="green darken-1"
                                 flat
                                 xs6 offset-xs3
-                                @click="profileModal = false"
+                                @click="upload"
                             >
                                 Upload
                             </v-btn>
@@ -151,7 +151,16 @@ export default {
             this.selectedFile = event.target.files[0]
         },
         async upload () {
-            
+            this.profileModal = false
+            try {
+                const response = await UserService.uploadPfp({
+                    id: this.userID,
+                    pfp: this.selectedFile
+                })
+                console.log(response)
+            } catch (error) {
+                console.log(error)
+            }
         },
         // adding games for a user
         async add () {

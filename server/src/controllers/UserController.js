@@ -409,8 +409,7 @@ module.exports = {
             const pfp = req.body.pfp
             const user = await User.update({pfp: pfp}, {
                 where: {
-                    id: id,
-                    pfp: pfp
+                    id: id
                 }
             })
             res.send({

@@ -23,5 +23,8 @@ export default {
     },
     getUserName (username) {
         return Api().get(`profile/${username}`)
+    },
+    uploadPfp (id, pfp) {
+        return Api().post('uploadpfp', id, pfp)
     }
 }
