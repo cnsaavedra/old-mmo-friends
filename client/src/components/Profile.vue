@@ -143,7 +143,8 @@ export default {
             lastIndex: 5,
             sizeOfPage: 0,
             profileModal: false,
-            selectedFile: null
+            selectedFile: null,
+            userPfp: ''
         }
     },
     methods: {
@@ -152,10 +153,13 @@ export default {
         },
         async upload () {
             this.profileModal = false
+            const fd = new FormData()
+            fd.append('image', this.selectedFile, this.selectedFile.name)
+            console.log(fd)
             try {
                 const response = await UserService.uploadPfp({
                     id: this.userID,
-                    pfp: this.selectedFile
+                    pfp: fd
                 })
                 console.log(response)
             } catch (error) {
