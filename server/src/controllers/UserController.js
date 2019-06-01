@@ -405,11 +405,16 @@ module.exports = {
     //------------- THIS IS FOR UPLOADING A FILE ------------------
     async uploadPfp(req, res) {
         try{
-            const user = await User.create(req.body)
-            const userJSON = user.toJSON()
+            const id = req.body.id
+            const pfp = req.body.pfp
+            const user = await User.update({pfp: pfp}, {
+                where: {
+                    id: id,
+                    pfp: pfp
+                }
+            })
             res.send({
-                user: userJSON,
-                token: jwtSignUser(userJSON)
+                user
             })
         } catch (err) {
             // Since we have unique as True in our User model 
