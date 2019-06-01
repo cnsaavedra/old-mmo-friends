@@ -73,6 +73,46 @@
                 </v-dialog>
             </v-layout>
         </v-flex>
+            <v-layout>
+                <v-dialog v-model="profileModal" persistent max-width="290">
+                    <template v-slot:activator="{ on }">
+                        <v-btn
+                            v-show= "isUserProfile"
+                            outline
+                            fab
+                            v-on="on"
+                            @click.stop="profileModal = true"
+                            color="indigo"
+                        >
+                            <v-icon>add</v-icon>
+                        </v-btn>
+                    </template>
+                    <v-card>
+                        <v-card-title class="headline">Add a profile picture!</v-card-title>
+                            <v-flex>
+                                <input type="file" @change="onFileSelected">
+                            </v-flex>
+                            <v-card-actions>
+                            <v-btn
+                                color="green darken-1"
+                                flat
+                                xs6 offset-xs3
+                                @click="profileModal = false"
+                            >
+                                Cancel
+                            </v-btn>
+                            <v-btn
+                                color="green darken-1"
+                                flat
+                                xs6 offset-xs3
+                                @click="profileModal = false"
+                            >
+                                Upload
+                            </v-btn>
+                            </v-card-actions>
+                    </v-card>
+                </v-dialog>
+            </v-layout>
     </v-layout>
 </template>
 
@@ -101,10 +141,18 @@ export default {
             page: 1,
             firstIndex: 0,
             lastIndex: 5,
-            sizeOfPage: 0
+            sizeOfPage: 0,
+            profileModal: false,
+            selectedFile: null
         }
     },
     methods: {
+        onFileSelected (event) {
+            this.selectedFile = event.target.files[0]
+        },
+        async upload () {
+            
+        },
         // adding games for a user
         async add () {
             this.adder = false
