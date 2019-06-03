@@ -85,7 +85,7 @@
                 </v-dialog>
             </v-layout>
         </v-flex>
-            <v-layout>
+            <v-layout align-start justify-start row>
                 <v-dialog v-model="profileModal" persistent max-width="290">
                     <template v-slot:activator="{ on }">
                         <v-btn
