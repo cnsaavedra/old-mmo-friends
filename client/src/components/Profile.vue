@@ -200,11 +200,11 @@ export default {
                     id: this.userID,
                     pfp: this.userPfp
                 })
+                this.updated = false
                 console.log(response)
             } catch (error) {
                 console.log(error)
             }
-            this.updated = false
         },
         async getPfp () {
             let pfp = await UserService.getUserIdFromUser({
