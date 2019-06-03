@@ -33,7 +33,7 @@ module.exports = (sequelize, DataTypes) =>{
         },
         password: DataTypes.STRING,
         pfp: {
-            type: DataTypes.BLOB,
+            type: DataTypes.STRING,
             unique: true
         }
     }, {

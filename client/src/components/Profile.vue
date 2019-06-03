@@ -12,6 +12,18 @@
                 >
                 <div class="User">
                 <span style="opacity:0;">.</span>
+                <v-flex>
+                    <img
+                        v-if="emptyPfp"
+                        class="pfp-image"
+                        :src="'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyCLA6j52sEg3zuQDN9pBS4iTPrCt9ghz6EVmx6hn8ldUqGl-GQ'"
+                    />
+                    <img
+                        v-if="!emptyPfp"
+                        class="pfp-image"
+                        :src="pfpShowNow"
+                    />
+                </v-flex>
                 <h1>User: {{username}}</h1>
                 <v-spacer></v-spacer>
                 <div class="Games">
@@ -91,6 +103,10 @@
                         <v-card-title class="headline">Add a profile picture!</v-card-title>
                             <v-flex>
                                 <input type="file" @change="onFileSelected">
+                                <v-text-field
+                                    label="Or you can add an image url"
+                                    v-model="userPfp"
+                                ></v-text-field>
                             </v-flex>
                             <v-card-actions>
                             <v-btn
@@ -107,7 +123,15 @@
                                 xs6 offset-xs3
                                 @click="upload"
                             >
-                                Upload
+                                Image
+                            </v-btn>
+                            <v-btn
+                                color="green darken-1"
+                                flat
+                                xs6 offset-xs3
+                                @click="uploadURL"
+                            >
+                                URL Image
                             </v-btn>
                             </v-card-actions>
                     </v-card>
@@ -144,7 +168,9 @@ export default {
             sizeOfPage: 0,
             profileModal: false,
             selectedFile: null,
-            userPfp: ''
+            userPfp: '',
+            viewPfp: '',
+            emptyPfp: false
         }
     },
     methods: {
@@ -164,6 +190,31 @@ export default {
                 console.log(response)
             } catch (error) {
                 console.log(error)
+            }
+        },
+        async uploadURL () {
+            this.profileModal = false
+            this.updated = true
+            try {
+                const response = await UserService.uploadPfp({
+                    id: this.userID,
+                    pfp: this.userPfp
+                })
+                console.log(response)
+            } catch (error) {
+                console.log(error)
+            }
+            this.updated = false
+        },
+        async getPfp () {
+            let pfp = await UserService.getUserIdFromUser({
+                    username: this.username
+            })
+            this.viewPfp = pfp.data.user.pfp
+            if (this.viewPfp == null) {
+                this.emptyPfp = true
+            } else {
+                this.emptyPfp = false
             }
         },
         // adding games for a user
@@ -217,6 +268,7 @@ export default {
             handler (value) {
                 this.username = value
                 this.getId()
+                this.getPfp()
             }
         },
         page: function (newVal, oldVal) {
@@ -252,6 +304,13 @@ export default {
                 this.getId()
             }
             return this.ignShow
+        },
+        pfpShowNow: function () {
+            // watches if something is added
+            if (this.updated === true) {
+                this.getPfp()
+            }
+            return this.viewPfp
         }
     },
     async mounted () {
@@ -293,5 +352,11 @@ export default {
 </script>
 
 <style scoped>
-
+.pfp-image {
+    width: 100px;
+    height: 100px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+}
 </style>
