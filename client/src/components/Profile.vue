@@ -25,12 +25,13 @@
                             :src="pfpShowNow"
                         />
                         <div v-show= "isUserProfile" class="overlay">
-                            <v-layout align-center justify-center row>
+                            <v-layout align-center justify-center fill-height row>
                                 <v-dialog v-model="profileModal" persistent max-width="290">
                                     <template v-slot:activator="{ on }">
                                         <v-btn
                                             v-show= "isUserProfile"
                                             fab
+                                            small
                                             v-on="on"
                                             @click.stop="profileModal = true"
                                             color="indigo"
@@ -75,8 +76,8 @@
                                             </v-card-actions>
                                     </v-card>
                                 </v-dialog>
+                                <div class="text-no-wrap-center">Update Picture</div>
                             </v-layout>
-                            <div class="text">Update Picture</div>
                         </div>
                     </div>
                 </v-flex>
