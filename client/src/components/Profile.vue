@@ -13,16 +13,21 @@
                 <div class="User">
                 <span style="opacity:0;">.</span>
                 <v-flex>
-                    <img
-                        v-if="emptyPfp"
-                        class="pfp-image"
-                        :src="'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyCLA6j52sEg3zuQDN9pBS4iTPrCt9ghz6EVmx6hn8ldUqGl-GQ'"
-                    />
-                    <img
-                        v-if="!emptyPfp"
-                        class="pfp-image"
-                        :src="pfpShowNow"
-                    />
+                    <div class="container">
+                        <img
+                            v-if="emptyPfp"
+                            class="pfp-image"
+                            :src="'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSbyCLA6j52sEg3zuQDN9pBS4iTPrCt9ghz6EVmx6hn8ldUqGl-GQ'"
+                        />
+                        <img
+                            v-if="!emptyPfp"
+                            class="pfp-image"
+                            :src="pfpShowNow"
+                        />
+                        <div v-show= "isUserProfile" class="overlay">
+                            <div class="text">Update Picture</div>
+                        </div>
+                    </div>
                 </v-flex>
                 <h1>User: {{username}}</h1>
                 <v-spacer></v-spacer>
@@ -353,10 +358,48 @@ export default {
 
 <style scoped>
 .pfp-image {
-    width: 100px;
-    height: 100px;
+    width: 100%;
+    height: auto;
     position: relative;
     overflow: hidden;
     border-radius: 50%;
 }
+
+/* Container needed to position the overlay. Adjust the width as needed */
+.container {
+  position: relative;
+  width: 50%;
+}
+
+
+/* The overlay effect (full height and width) - lays on top of the container and over the image */
+.overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: #424242;
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  transform: scale(0);
+  transition: .3s ease;
+}
+
+/* When you mouse over the container, the overlay text will "zoom" in display */
+.container:hover .overlay {
+  transform: scale(1);
+}
+
+/* Some text inside the overlay, which is positioned in the middle vertically and horizontally */
+.text {
+  color: white;
+  font-size: 20px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
 </style>
