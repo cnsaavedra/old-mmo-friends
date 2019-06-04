@@ -25,6 +25,58 @@
                             :src="pfpShowNow"
                         />
                         <div v-show= "isUserProfile" class="overlay">
+                            <v-layout>
+                                <v-dialog v-model="profileModal" persistent max-width="290">
+                                    <template v-slot:activator="{ on }">
+                                        <v-btn
+                                            v-show= "isUserProfile"
+                                            outline
+                                            fab
+                                            v-on="on"
+                                            @click.stop="profileModal = true"
+                                            color="indigo"
+                                        >
+                                            <v-icon>add</v-icon>
+                                        </v-btn>
+                                    </template>
+                                    <v-card>
+                                        <v-card-title class="headline">Add a profile picture!</v-card-title>
+                                            <v-flex>
+                                                <input type="file" @change="onFileSelected">
+                                                <v-text-field
+                                                    label="Or you can add an image url"
+                                                    v-model="userPfp"
+                                                ></v-text-field>
+                                            </v-flex>
+                                            <v-card-actions>
+                                            <v-btn
+                                                color="green darken-1"
+                                                flat
+                                                xs6 offset-xs3
+                                                @click="profileModal = false"
+                                            >
+                                                Cancel
+                                            </v-btn>
+                                            <v-btn
+                                                color="green darken-1"
+                                                flat
+                                                xs6 offset-xs3
+                                                @click="upload"
+                                            >
+                                                Image
+                                            </v-btn>
+                                            <v-btn
+                                                color="green darken-1"
+                                                flat
+                                                xs6 offset-xs3
+                                                @click="uploadURL"
+                                            >
+                                                URL Image
+                                            </v-btn>
+                                            </v-card-actions>
+                                    </v-card>
+                                </v-dialog>
+                            </v-layout>
                             <div class="text">Update Picture</div>
                         </div>
                     </div>
@@ -90,58 +142,7 @@
                 </v-dialog>
             </v-layout>
         </v-flex>
-            <v-layout align-start justify-start row>
-                <v-dialog v-model="profileModal" persistent max-width="290">
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-show= "isUserProfile"
-                            outline
-                            fab
-                            v-on="on"
-                            @click.stop="profileModal = true"
-                            color="indigo"
-                        >
-                            <v-icon>add</v-icon>
-                        </v-btn>
-                    </template>
-                    <v-card>
-                        <v-card-title class="headline">Add a profile picture!</v-card-title>
-                            <v-flex>
-                                <input type="file" @change="onFileSelected">
-                                <v-text-field
-                                    label="Or you can add an image url"
-                                    v-model="userPfp"
-                                ></v-text-field>
-                            </v-flex>
-                            <v-card-actions>
-                            <v-btn
-                                color="green darken-1"
-                                flat
-                                xs6 offset-xs3
-                                @click="profileModal = false"
-                            >
-                                Cancel
-                            </v-btn>
-                            <v-btn
-                                color="green darken-1"
-                                flat
-                                xs6 offset-xs3
-                                @click="upload"
-                            >
-                                Image
-                            </v-btn>
-                            <v-btn
-                                color="green darken-1"
-                                flat
-                                xs6 offset-xs3
-                                @click="uploadURL"
-                            >
-                                URL Image
-                            </v-btn>
-                            </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-layout>
+
     </v-layout>
 </template>
 
