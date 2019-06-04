@@ -83,6 +83,40 @@
                 <h1>User: {{username}}</h1>
                 <v-spacer></v-spacer>
                 <div class="Games">
+                    <v-dialog v-model="adder" persistent max-width="290">
+                            <template v-slot:activator="{ on }">
+                                <v-btn
+                                    v-show= "isUserProfile"
+                                    fab
+                                    small
+                                    v-on="on"
+                                    color="indigo">
+                                <v-icon>settings</v-icon>
+                                </v-btn>
+                            </template>
+                            <v-card>
+                                <v-card-title class="headline">Add an IGN!</v-card-title>
+                                    <v-flex xs6 offset-xs3>
+                                        <v-text-field
+                                            name="ign"
+                                            v-model="gamenames.ign"
+                                            placeholder="IGN"
+                                        ></v-text-field>
+                                    </v-flex>
+                                    <v-flex xs6 offset-xs3>
+                                        <v-text-field
+                                            name="gamename"
+                                            v-model="gamenames.game"
+                                            placeholder="Game"
+                                        ></v-text-field>
+                                    </v-flex>
+                                <v-card-text>Please type in as accurate as possible your IGN along with the game played with it.</v-card-text>
+                                <v-card-actions>
+                                    <v-btn color="green darken-1" flat @click="adder = false">Cancel</v-btn>
+                                    <v-btn color="green darken-1" flat @click="add">Add</v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
                      <h2>Games: </h2>
                     <v-list
                         dark
@@ -104,44 +138,7 @@
                 ></v-pagination>
                 </div>
             </v-sheet>
-            <v-layout>
-                <v-dialog v-model="adder" persistent max-width="290">
-                    <template v-slot:activator="{ on }">
-                        <v-btn
-                            v-show= "isUserProfile"
-                            outline
-                            fab
-                            v-on="on"
-                            color="indigo">
-                        <v-icon>settings</v-icon>
-                        </v-btn>
-                    </template>
-                    <v-card>
-                        <v-card-title class="headline">Add an IGN!</v-card-title>
-                            <v-flex xs6 offset-xs3>
-                                <v-text-field
-                                    name="ign"
-                                    v-model="gamenames.ign"
-                                    placeholder="IGN"
-                                ></v-text-field>
-                            </v-flex>
-                            <v-flex xs6 offset-xs3>
-                                <v-text-field
-                                    name="gamename"
-                                    v-model="gamenames.game"
-                                    placeholder="Game"
-                                ></v-text-field>
-                            </v-flex>
-                        <v-card-text>Please type in as accurate as possible your IGN along with the game played with it.</v-card-text>
-                        <v-card-actions>
-                            <v-btn color="green darken-1" flat @click="adder = false">Cancel</v-btn>
-                            <v-btn color="green darken-1" flat @click="add">Add</v-btn>
-                        </v-card-actions>
-                    </v-card>
-                </v-dialog>
-            </v-layout>
         </v-flex>
-
     </v-layout>
 </template>
 
