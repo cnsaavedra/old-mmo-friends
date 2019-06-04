@@ -107,7 +107,7 @@
                         flat="flat"
                         @click="reqExist = false"
                     >
-                        YOU GOT ME!
+                        I won't spam.
                     </v-btn>
                     </v-card-actions>
                 </v-card>
