@@ -25,12 +25,11 @@
                             :src="pfpShowNow"
                         />
                         <div v-show= "isUserProfile" class="overlay">
-                            <v-layout>
+                            <v-layout align-center justify-center row>
                                 <v-dialog v-model="profileModal" persistent max-width="290">
                                     <template v-slot:activator="{ on }">
                                         <v-btn
                                             v-show= "isUserProfile"
-                                            outline
                                             fab
                                             v-on="on"
                                             @click.stop="profileModal = true"
