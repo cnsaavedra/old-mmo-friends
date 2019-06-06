@@ -3,6 +3,7 @@
         <v-img
                 v-show="emptyBool"
                 aspect-ratio="2.5"
+                height=735
                 contain
                 src="https://i.imgur.com/ulNHLoo.png"
         >
