@@ -1,14 +1,10 @@
 <template>
-    <v-layout>
-        <v-container fluid fill-height>
-            <v-layout align-center justify-center>
-                <v-flex xs12 sm8 md4>
-                <div class ="white elevation-2">
-                    <v-toolbar flat dense class dark>
-                        <v-toolbar-title>Login</v-toolbar-title>
-                    </v-toolbar>
-                    <div class = 'pl-4 pr-4 pt-2 pb-2'>
-                        <v-flex>
+    <v-container align-center justify-center fill-height>
+        <v-layout align-center justify-center fill-height>
+            <v-flex md3 pb-5 mb-5>
+                <v-img src="https://i.imgur.com/r8xoU9k.png" aspect-ratio="2"></v-img>
+                <v-sheet elevation="5">
+                        <v-flex pr-5 pl-5>
                             <v-text-field
                                 prepend-icon="person"
                                 type="username"
@@ -17,7 +13,7 @@
                                 v-model="username"
                             ></v-text-field>
                         </v-flex>
-                        <v-flex>
+                        <v-flex pr-5 pl-5>
                             <v-text-field
                                 prepend-icon="lock"
                                 type="password"
@@ -28,19 +24,15 @@
                         </v-flex>
                         <div class="error" v-html="error" >
                         </div>
-                        <!-- <div class="error" v-html="error" /> -->
-                        <br>
                         <v-btn color="info"
                             class = "blue"
                             @click="login">
                             LOGIN
                         </v-btn>
-                    </div>
-                </div>
-                </v-flex>
-            </v-layout>
-        </v-container>
-    </v-layout>
+                </v-sheet>
+            </v-flex>
+        </v-layout>
+    </v-container>
 </template>
 
 <script>
@@ -78,9 +70,6 @@ export default {
 </script>
 
 <style scoped>
-.body {
-    background-image: url('http://genchi.info/images/pixel-wallpaper-40.png') !important;
-    background-size: cover !important;
-}
+
 </style>
 

@@ -1,12 +1,10 @@
 <template>
-  <div id="app">
-    <v-app>
-      <page-header />
-      <main>
-          <router-view></router-view>
-      </main>
-    </v-app>
-  </div>
+    <!-- removed <div id="app"></div> wrap -->
+  <v-app class="app">
+    <page-header />
+    <!-- removed <main></main> wrap -->
+      <router-view></router-view>
+  </v-app>
 </template>
 
 
@@ -22,7 +20,7 @@ export default {
 
 <style>
 @import url('https://fonts.googleapis.com/css?family=Roboto+Condensed');
-#app {
+.app {
   font-family: 'Roboto Condensed', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
