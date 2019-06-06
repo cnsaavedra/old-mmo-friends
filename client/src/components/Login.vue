@@ -24,12 +24,14 @@
                         </v-flex>
                         <div class="error" v-html="error" >
                         </div>
-                        <v-btn color="info"
-                            class = "blue"
-                            @click="login">
-                            LOGIN
-                        </v-btn>
                 </v-sheet>
+                <v-flex pt-5>
+                    <v-btn color="info"
+                        class = "blue"
+                        @click="login">
+                        LOGIN
+                    </v-btn>
+                </v-flex>
             </v-flex>
         </v-layout>
     </v-container>
