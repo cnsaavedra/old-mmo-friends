@@ -22,7 +22,7 @@
                 </v-btn>
                 <v-btn
                     @click.stop="reqExist; selfBool; sentBool"
-                    class = "blue"
+                    class = "blue hvr-bob"
                     v-if="$store.state.isUserLoggedIn"
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!

@@ -118,6 +118,7 @@
                                 <v-dialog v-model="profileModal" persistent max-width="290">
                                     <template v-slot:activator="{ on }">
                                         <v-btn
+                                            class="hvr-bob"
                                             v-show= "isUserProfile"
                                             fab
                                             small
@@ -170,6 +171,8 @@
                         </div>
                     </div>
                 </v-flex>
+
+                <!--User Games -->
                 <h1>User: {{username}}</h1>
                 <v-spacer></v-spacer>
                 <div class="Games">
@@ -214,7 +217,7 @@
                     >
                         {{ign.ign}}: {{ign.game}}
                         <v-btn
-                            class = "blue"
+                            class = "blue hvr-buzz"
                             v-show= "isUserProfile"
                             @click="deleteGame(ign.id)">
                             delete

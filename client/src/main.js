@@ -9,6 +9,7 @@ import 'vuetify/dist/vuetify.min.css'
 import store from '@/store/store'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 import '@mdi/font/css/materialdesignicons.css'
+import 'hover.css/css/hover-min.css'
 
 Vue.config.productionTip = false
 // temporary fix below for silence warning

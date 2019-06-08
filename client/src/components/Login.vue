@@ -27,7 +27,7 @@
                 </v-sheet>
                 <v-flex pt-5>
                     <v-btn color="info"
-                        class = "blue"
+                        class = "blue hvr-bounce-in"
                         @click="login">
                         LOGIN
                     </v-btn>
