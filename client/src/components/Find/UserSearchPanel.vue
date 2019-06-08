@@ -1,11 +1,11 @@
 <template>
-  <v-container fluid>
-    <div title="Search">
+  <v-container>
+    <v-layout justify-center align-center column title="Search">
       <v-text-field
-        label="Search the IGN you remember from your friend list!"
+        label="Search an IGN!"
         v-model="search"
       ></v-text-field>
-    </div>
+    </v-layout>
   </v-container>
 </template>
 
