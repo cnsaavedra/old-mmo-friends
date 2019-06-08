@@ -24,6 +24,95 @@
                             class="pfp-image"
                             :src="pfpShowNow"
                         />
+
+                        <!-- NOTIFICATION -->
+
+                        <v-btn
+                            v-show= "!isUserProfile"
+                            @click.stop="reqExist; selfBool; sentBool"
+                            class = "blue"
+                            v-if="$store.state.isUserLoggedIn"
+                            @click="notify(otherProfile)">
+                            Notify!
+                        </v-btn>
+
+
+                        <v-dialog
+                            v-model="selfBool"
+                            max-width="290"
+                        >
+                            <v-card>
+                                <v-card-title class="headline">You can't notify yourself dummy!</v-card-title>
+
+                                <v-card-text>
+                                :)
+                                </v-card-text>
+
+                                <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn
+                                    color="green darken-1"
+                                    flat="flat"
+                                    @click="selfBool = false"
+                                >
+                                    YOU GOT ME!
+                                </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+
+                        <v-dialog
+                            v-model="sentBool"
+                            max-width="290"
+                        >
+                            <v-card>
+                                <v-card-title class="headline">Success!</v-card-title>
+
+                                <v-card-text>
+                                You just need to now wait for a respond back :)
+                                </v-card-text>
+
+                                <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn
+                                    color="green darken-1"
+                                    flat="flat"
+                                    @click="sentBool = false"
+                                >
+                                    Sure!
+                                </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+
+
+                        <v-dialog
+                            v-model="reqExist"
+                            max-width="290"
+                        >
+                            <v-card>
+                                <v-card-title class="headline">You have already request a friend request to this person</v-card-title>
+
+                                <v-card-text>
+                                Nice try spamming.
+                                </v-card-text>
+
+                                <v-card-actions>
+                                <v-spacer></v-spacer>
+
+                                <v-btn
+                                    color="green darken-1"
+                                    flat="flat"
+                                    @click="reqExist = false"
+                                >
+                                    I won't spam.
+                                </v-btn>
+                                </v-card-actions>
+                            </v-card>
+                        </v-dialog>
+
                         <div v-show= "isUserProfile" class="overlay">
                             <v-layout align-center justify-center fill-height row>
                                 <v-dialog v-model="profileModal" persistent max-width="290">
@@ -147,10 +236,17 @@
 import GamePanel from '@/components/GamePanel'
 import UserService from '@/services/UserService'
 import GameService from '@/services/GameService'
-
+import FriendService from '@/services/FriendService'
 export default {
     data () {
         return {
+            currentUser: '',
+            selfBool: false,
+            reqExist: false,
+            sentBool: false,
+            notifiedIgn: '',
+            notifiedUserId: '',
+            notifiedUser: '',
             username: '',
             userID: '',
             gamenames: {
@@ -173,10 +269,43 @@ export default {
             selectedFile: null,
             userPfp: '',
             viewPfp: '',
+            otherProfile: '',
             emptyPfp: false
         }
     },
     methods: {
+        async notify (UserId) {
+            try {
+                this.currentUser = this.$store.state.user.username
+                this.notifiedUserId = UserId
+                const response = await UserService.getUserFromUserId({
+                    id: UserId
+                })
+                this.notifiedUser = response.data.user.username
+
+                // disable spam friend requests
+                const findFriends = await FriendService.getFriends({
+                    id1: this.currentUser,
+                    id2: this.notifiedUser
+                })
+                if (findFriends.data.friends === null && this.currentUser !== this.notifiedUser) {
+                    this.sentBool = true
+                    await FriendService.sendFriendReq({
+                        id1: this.currentUser,
+                        id2: this.notifiedUser
+                    })
+                } else if (findFriends.data.friends !== null) {
+                    this.reqExist = true
+                  //temporary else if
+                } else if (this.currentUser === this.notifiedUser) {
+                    this.selfBool = true
+                }
+                //console.log(this.currentUser + ' is the current user')
+                //console.log(this.notifiedIgn + ' is the notified ign for user: ' + this.notifiedUserId + ': ' + this.notifedUser.username)
+            } catch (error) {
+                console.log(error)
+            }
+        },
         onFileSelected (event) {
             this.selectedFile = event.target.files[0]
         },
@@ -214,6 +343,7 @@ export default {
                     username: this.username
             })
             this.viewPfp = pfp.data.user.pfp
+            this.otherProfile = pfp.data.user.id
             if (this.viewPfp == null) {
                 this.emptyPfp = true
             } else {
