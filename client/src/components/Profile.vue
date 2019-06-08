@@ -297,14 +297,16 @@ export default {
                     id1: this.currentUser,
                     id2: this.notifiedUser
                 })
-                let currentMe = (findFriends.data.friends.from_user)
-                let currentOther = (findFriends.data.friends.to_user)
-                let statusFriendship = (findFriends.data.friends.status)
+                if (findFriends.data.friends !== null) {
+                    let currentMe = (findFriends.data.friends.from_user)
+                    let currentOther = (findFriends.data.friends.to_user)
+                    let statusFriendship = (findFriends.data.friends.status)
 
-                if (currentMe === this.$store.state.user.username && currentOther === this.notifiedUser && statusFriendship === 1) {
-                    this.currentlyFriends = true
-                } else {
-                    this.currentlyFriends = false
+                    if (currentMe === this.$store.state.user.username && currentOther === this.notifiedUser && statusFriendship === 1) {
+                        this.currentlyFriends = true
+                    } else {
+                        this.currentlyFriends = false
+                    }
                 }
             } catch (error) {
                 console.log(error)
