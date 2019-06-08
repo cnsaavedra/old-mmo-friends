@@ -31,7 +31,7 @@
                             v-show= "!isUserProfile"
                             @click.stop="reqExist; selfBool; sentBool"
                             class = "blue"
-                            v-if="$store.state.isUserLoggedIn"
+                            v-if="$store.state.isUserLoggedIn && !currentlyFriends"
                             @click="notify(otherProfile)">
                             Notify!
                         </v-btn>
@@ -273,10 +273,43 @@ export default {
             userPfp: '',
             viewPfp: '',
             otherProfile: '',
-            emptyPfp: false
+            emptyPfp: false,
+            currentlyFriends: false
         }
     },
     methods: {
+        async areFriends () {
+            try {
+                let pfp = await UserService.getUserIdFromUser({
+                    username: this.username
+                })
+                this.otherProfile = pfp.data.user.id
+
+                this.currentUser = this.$store.state.user.username
+                this.notifiedUserId = this.otherProfile
+                const response = await UserService.getUserFromUserId({
+                    id: this.otherProfile
+                })
+                this.notifiedUser = response.data.user.username
+
+                // disable spam friend requests
+                const findFriends = await FriendService.getFriends({
+                    id1: this.currentUser,
+                    id2: this.notifiedUser
+                })
+                let currentMe = (findFriends.data.friends.from_user)
+                let currentOther = (findFriends.data.friends.to_user)
+                let statusFriendship = (findFriends.data.friends.status)
+
+                if (currentMe === this.$store.state.user.username && currentOther === this.notifiedUser && statusFriendship === 1) {
+                    this.currentlyFriends = true
+                } else {
+                    this.currentlyFriends = false
+                }
+            } catch (error) {
+                console.log(error)
+            }
+        },
         async notify (UserId) {
             try {
                 this.currentUser = this.$store.state.user.username
@@ -447,11 +480,18 @@ export default {
                 this.getPfp()
             }
             return this.viewPfp
+        },
+        areFriendsNow: function () {
+            if (this.updated === true) {
+                this.areFriends()
+            }
+            return this.currentlyFriends
         }
     },
     async mounted () {
         // do request for backend for username and gamenames from user
         try {
+            this.areFriends()
             let name = this.$store.state.route.params.username
             this.username = (await UserService.getUserName(name)).data
 
