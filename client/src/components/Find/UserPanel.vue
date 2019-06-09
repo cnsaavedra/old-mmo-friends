@@ -23,7 +23,7 @@
                 <v-btn
                     @click.stop="reqExist; selfBool; sentBool"
                     class = "blue hvr-bob"
-                    v-if="$store.state.isUserLoggedIn"
+                    v-if="$store.state.isUserLoggedIn && !areFriendsNow"
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
@@ -150,7 +150,10 @@ export default {
     computed: {
         ...mapState([
         'isUserLoggedIn'
-        ])
+        ]),
+        areFriendsNow () {
+            return this.areFriends()
+        }
     },
     data () {
         return {
@@ -211,6 +214,38 @@ export default {
         // }
     },
     methods: {
+        async areFriends (ign, UserId) {
+            try {
+                let pfp = await UserService.getUserIdFromUser({
+                    username: this.username
+                })
+                this.otherProfile = pfp.data.user.id
+
+                const response = await UserService.getUserFromUserId({
+                    id: UserId
+                })
+                console.log(UserId)
+                // disable spam friend requests
+                const findFriends = await FriendService.getFriends({
+                    id1: this.$store.state.user.username,
+                    id2: response.data.user.username
+                })
+                if (findFriends.data.friends !== null) {
+                    let currentMe = (findFriends.data.friends.from_user)
+                    let currentOther = (findFriends.data.friends.to_user)
+                    let statusFriendship = (findFriends.data.friends.status)
+
+                    if (currentMe === this.$store.state.user.username && currentOther === response.data.user.username && statusFriendship === 1) {
+                        this.currentlyFriends = true
+                    } else {
+                        this.currentlyFriends = false
+                    }
+                }
+                return this.currentlyFriends
+            } catch (error) {
+                console.log(error)
+            }
+        },
         async notify (ign, UserId) {
             try {
                 this.currentUser = this.$store.state.user.username
