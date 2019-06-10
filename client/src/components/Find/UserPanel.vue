@@ -23,7 +23,7 @@
                 <v-btn
                     @click.stop="reqExist; selfBool; sentBool"
                     class = "blue hvr-bob"
-                    v-if="$store.state.isUserLoggedIn && !areFriendsNow"
+                    v-if="$store.state.isUserLoggedIn && boolArr[index] !== true"
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
@@ -150,13 +150,11 @@ export default {
     computed: {
         ...mapState([
         'isUserLoggedIn'
-        ]),
-        areFriendsNow () {
-            return this.areFriends()
-        }
+        ])
     },
     data () {
         return {
+            boolArr: [],
             igns: null,
             currentUser: '',
             notifiedIgn: '',
@@ -204,6 +202,9 @@ export default {
     async mounted () {
         this.igns = (await UserService.getIgnAndGame()).data
         this.sizeOfPage = this.igns.length / 6
+        for (var ign in this.igns) {
+            this.boolArr.push(await this.areFriends(this.igns[ign].UserId))
+        }
         // for (var ign in this.igns) {
         //     if (this.igns.hasOwnProperty(ign)) {
         //         console.log(ign + '->' + JSON.stringify(this.igns[ign].ign))
@@ -214,17 +215,14 @@ export default {
         // }
     },
     methods: {
-        async areFriends (ign, UserId) {
+        async areFriends (UserId) {
             try {
-                let pfp = await UserService.getUserIdFromUser({
-                    username: this.username
-                })
-                this.otherProfile = pfp.data.user.id
+                this.currentUser = this.$store.state.user.username
+                this.notifiedUserId = UserId
 
                 const response = await UserService.getUserFromUserId({
                     id: UserId
                 })
-                console.log(UserId)
                 // disable spam friend requests
                 const findFriends = await FriendService.getFriends({
                     id1: this.$store.state.user.username,
@@ -241,6 +239,7 @@ export default {
                         this.currentlyFriends = false
                     }
                 }
+                console.log(this.currentlyFriends)
                 return this.currentlyFriends
             } catch (error) {
                 console.log(error)
