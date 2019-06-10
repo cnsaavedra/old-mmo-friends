@@ -23,7 +23,7 @@
                 <v-btn
                     @click.stop="reqExist; selfBool; sentBool"
                     class = "blue hvr-bob"
-                    v-if="$store.state.isUserLoggedIn && boolArr[index] !== undefined"
+                    v-if="$store.state.isUserLoggedIn && boolArr[index] === undefined"
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
