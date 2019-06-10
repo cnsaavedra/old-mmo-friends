@@ -235,7 +235,7 @@ export default {
                     let currentOther = (findFriends.data.friends.to_user)
                     let statusFriendship = (findFriends.data.friends.status)
 
-                    if ((currentMe === this.$store.state.user.username && currentOther === response.data.user.username && statusFriendship === 1)  || 
+                    if ((currentMe === this.$store.state.user.username && currentOther === response.data.user.username && statusFriendship === 1) ||
                     (currentOther === this.$store.state.user.username && currentMe === response.data.user.username && statusFriendship === 1)) {
                         this.currentlyFriends = true
                     } else {
