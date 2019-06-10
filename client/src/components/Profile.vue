@@ -286,7 +286,6 @@ export default {
                 this.otherProfile = pfp.data.user.id
 
                 this.currentUser = this.$store.state.user.username
-                this.notifiedUserId = this.otherProfile
                 const response = await UserService.getUserFromUserId({
                     id: this.otherProfile
                 })
@@ -294,13 +293,31 @@ export default {
 
                 // disable spam friend requests
                 const findFriends = await FriendService.getFriends({
-                    id1: this.currentUser,
-                    id2: this.notifiedUser
+                    id1: this.$store.state.user.username,
+                    id2: response.data.user.username
+                })
+
+                // disable spam friend requests
+                const findFriends2 = await FriendService.getFriends({
+                    id1: response.data.user.username,
+                    id2: this.$store.state.user.username
                 })
                 if (findFriends.data.friends !== null) {
                     let currentMe = (findFriends.data.friends.from_user)
                     let currentOther = (findFriends.data.friends.to_user)
                     let statusFriendship = (findFriends.data.friends.status)
+
+                    if ((currentMe === this.$store.state.user.username && currentOther === this.notifiedUser && statusFriendship === 1) ||
+                    (currentOther === this.$store.state.user.username && currentMe === this.notifiedUser && statusFriendship === 1)) {
+                        this.currentlyFriends = true
+                    } else {
+                        this.currentlyFriends = false
+                    }
+                }
+                if (findFriends2.data.friends !== null) {
+                    let currentMe = (findFriends2.data.friends.from_user)
+                    let currentOther = (findFriends2.data.friends.to_user)
+                    let statusFriendship = (findFriends2.data.friends.status)
 
                     if ((currentMe === this.$store.state.user.username && currentOther === this.notifiedUser && statusFriendship === 1) ||
                     (currentOther === this.$store.state.user.username && currentMe === this.notifiedUser && statusFriendship === 1)) {
