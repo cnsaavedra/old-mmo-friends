@@ -23,7 +23,7 @@
                 <v-btn
                     @click.stop="reqExist; selfBool; sentBool"
                     class = "blue hvr-bob"
-                    v-if="$store.state.isUserLoggedIn && boolArr[index] !== true"
+                    v-if="$store.state.isUserLoggedIn && boolArr[index] !== undefined"
                     @click="notify(ign.ign, ign.UserId)">
                     Notify!
                 </v-btn>
@@ -200,11 +200,13 @@ export default {
         }
     },
     async mounted () {
+        this.boolArr.length = 0
         this.igns = (await UserService.getIgnAndGame()).data
         this.sizeOfPage = this.igns.length / 6
         for (var ign in this.igns) {
             this.boolArr.push(await this.areFriends(this.igns[ign].UserId))
         }
+        console.log(this.boolArr)
         // for (var ign in this.igns) {
         //     if (this.igns.hasOwnProperty(ign)) {
         //         console.log(ign + '->' + JSON.stringify(this.igns[ign].ign))
@@ -233,13 +235,13 @@ export default {
                     let currentOther = (findFriends.data.friends.to_user)
                     let statusFriendship = (findFriends.data.friends.status)
 
-                    if (currentMe === this.$store.state.user.username && currentOther === response.data.user.username && statusFriendship === 1) {
+                    if ((currentMe === this.$store.state.user.username && currentOther === response.data.user.username && statusFriendship === 1)  || 
+                    (currentOther === this.$store.state.user.username && currentMe === response.data.user.username && statusFriendship === 1)) {
                         this.currentlyFriends = true
                     } else {
                         this.currentlyFriends = false
                     }
                 }
-                console.log(this.currentlyFriends)
                 return this.currentlyFriends
             } catch (error) {
                 console.log(error)
