@@ -168,7 +168,8 @@ export default {
             page: 1,
             firstIndex: 0,
             lastIndex: 6,
-            sizeOfPage: 0
+            sizeOfPage: 0,
+            currentlyFriends: false
         }
     },
     watch: {
@@ -260,6 +261,14 @@ export default {
                         this.currentlyFriends = false
                     }
                 }
+
+                if (findFriends.data.friends === null && findFriends2.data.friends === null) {
+                    this.currentlyFriends = undefined
+                }
+                if ((this.$store.state.user.username === response.data.user.username)) {
+                    this.currentlyFriends = false
+                }
+
                 return this.currentlyFriends
             } catch (error) {
                 console.log(error)
